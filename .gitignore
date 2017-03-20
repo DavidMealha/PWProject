@@ -1,1 +1,5 @@
 /bin/
+docs/Answers.csv
+docs/Questions.csv
+docs/Tags.csv
+docs/database.sqlite
