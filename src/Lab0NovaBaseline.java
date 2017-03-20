@@ -305,11 +305,11 @@ public class Lab0NovaBaseline {
 		//Lab1NovaAnalyser analyzer = new Lab1NovaAnalyser();
 		
 		Lab0NovaBaseline baseline = new Lab0NovaBaseline();
-//		baseline.openIndex(analyzer);
-//		baseline.indexDocuments();
-//		baseline.close();
+		baseline.openIndex(analyzer);
+		baseline.indexDocuments();
+		baseline.close();
 
-//		baseline.indexSearch(analyzer);
+		baseline.indexSearch(analyzer);
 		HashMap a = baseline.readFile();
 		Iterator ai = a.keySet().iterator();
 		while(ai.hasNext()){
