@@ -9,9 +9,6 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.StringTokenizer;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -40,7 +37,6 @@ public class Lab0NovaBaseline {
 
 	String indexPath = "docs/index";
 	String docPath = "docs/Answers.csv";
-	String queriesPath = "docs/queries.txt";
 
 	boolean create = true;
 
@@ -267,33 +263,6 @@ public class Lab0NovaBaseline {
 			System.out.println("Error closing the index.");
 		}
 	}
-	
-	public HashMap readFile(){
-		// format of each line
-		// id:query
-		
-		HashMap queries = new HashMap();
-		
-		try (BufferedReader br = new BufferedReader(new FileReader(queriesPath))) {
-			String line = br.readLine(); 
-			line = br.readLine();
-			
-			while (line != null) {
-				
-				StringTokenizer lineTokens = new StringTokenizer(line, ":");
-				queries.put(lineTokens.nextToken(), lineTokens.nextToken(""));
-				//need to remove the :, but the analyzer already does that 
-			
-				
-				line = br.readLine();
-			}
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return queries;
-	}
 
 	public static void main(String[] args) {
 
@@ -305,17 +274,11 @@ public class Lab0NovaBaseline {
 		//Lab1NovaAnalyser analyzer = new Lab1NovaAnalyser();
 		
 		Lab0NovaBaseline baseline = new Lab0NovaBaseline();
-//		baseline.openIndex(analyzer);
-//		baseline.indexDocuments();
-//		baseline.close();
+		baseline.openIndex(analyzer);
+		baseline.indexDocuments();
+		baseline.close();
 
-//		baseline.indexSearch(analyzer);
-		HashMap a = baseline.readFile();
-		Iterator ai = a.keySet().iterator();
-		while(ai.hasNext()){
-			String key = ai.next().toString();
-			System.out.println("Key: " + key + " | Value: " + a.get(key));
-		}
+		baseline.indexSearch(analyzer);
 		
 		// escrever no results.txt os melhores resultados
 	}
