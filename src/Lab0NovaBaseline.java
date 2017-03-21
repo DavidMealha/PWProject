@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -195,7 +196,7 @@ public class Lab0NovaBaseline {
 
 	// ====================================================
 	// ANNOTATE THIS METHOD YOURSELF
-	void indexSearch(Analyzer analyzer) {
+	void indexSearch(Analyzer analyzer, String queryString) {
 
 		IndexReader reader = null;
 		try {
@@ -206,49 +207,45 @@ public class Lab0NovaBaseline {
 			in = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
 
 			QueryParser parser = new QueryParser("Body", analyzer);
-			while (true) {
-				System.out.println("Enter query: ");
+//			while (true) {
+//				System.out.println("Enter query: ");
 
-				String line = in.readLine();
+//				String line = in.readLine();
 
-				if (line == null || line.length() == -1) {
-					break;
-				}
+//				if (line == null || line.length() == -1) {
+//					break;
+//				}
+//
+//				line = line.trim();
+//				if (line.length() == 0) {
+//					break;
+//				}
 
-				line = line.trim();
-				if (line.length() == 0) {
-					break;
-				}
-
-				Query query;
-				try {
-					query = parser.parse(line);
-				} catch (org.apache.lucene.queryparser.classic.ParseException e) {
-					System.out.println("Error parsing query string.");
-					continue;
-				}
-
-				TopDocs results = searcher.search(query, 5);
-				ScoreDoc[] hits = results.scoreDocs;
-
-				int numTotalHits = results.totalHits;
-				System.out.println(numTotalHits + " total matching documents");
-
-				for (int j = 0; j < hits.length; j++) {
-					Document doc = searcher.doc(hits[j].doc);
-					String answer = doc.get("Body");
-					String Id = doc.get("Id");
-					String score = doc.get("Score");
-					System.out.println("DocId: " + Id);
-					System.out.println("DocAnswer: " + answer);
-					System.out.println("DocScore: " + hits[j].score);
-					System.out.println();
-				}
-
-				if (line.equals("")) {
-					break;
-				}
+			Query query = null;
+			try {
+				query = parser.parse(queryString);
+			} catch (org.apache.lucene.queryparser.classic.ParseException e) {
+				System.out.println("Error parsing query string.");
 			}
+
+			TopDocs results = searcher.search(query, 10);
+			ScoreDoc[] hits = results.scoreDocs;
+
+			int numTotalHits = results.totalHits;
+//			System.out.println(numTotalHits + " total matching documents");
+
+			for (int j = 0; j < hits.length; j++) {
+				Document doc = searcher.doc(hits[j].doc);
+				String answer = doc.get("Body");
+				String Id = doc.get("Id");
+				System.out.println("DocId: " + Id + " | DocScore: " + hits[j].score);
+			}
+
+//				if (line.equals("")) {
+//					break;
+//				}
+//			}
+				
 			reader.close();
 		} catch (IOException e) {
 			try {
@@ -268,26 +265,21 @@ public class Lab0NovaBaseline {
 		}
 	}
 
-	public HashMap readFile(){
-		// format of each line
-		// id:query
-		
-		HashMap queries = new HashMap();
+	public HashMap<String, String> readFile(){
+		// format of each line (id:query)
+		HashMap<String, String> queries = new HashMap<String, String>();
+		//instead have something like this, and add new QueryString(...)
+		//ArrayList<QueryString> listQueries = new ArrayList<QueryString>();
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(queriesPath))) {
 			String line = br.readLine(); 
-			line = br.readLine();
 			
 			while (line != null) {
-				
 				StringTokenizer lineTokens = new StringTokenizer(line, ":");
-				queries.put(lineTokens.nextToken(), lineTokens.nextToken(""));
-				//need to remove the :, but the analyzer already does that 
-			
-				
+				//need to remove the : because some queries have : in the text, which leads to wrong tokenization
+				queries.put(lineTokens.nextToken(), lineTokens.nextToken("").replace(":", ""));		
 				line = br.readLine();
 			}
-			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -297,25 +289,33 @@ public class Lab0NovaBaseline {
 
 	public static void main(String[] args) {
 
-		// percorrer cada linha do queries.txt
-		// por cada query fazer o index search, para procurar os 10/20 melhores resultados
-		// a indexação basta fazer uma vez
-	
+		// 1st step - index all the answers, just has to be done once
 		Analyzer analyzer = new StandardAnalyzer();
 		//Lab1NovaAnalyser analyzer = new Lab1NovaAnalyser();
 		
 		Lab0NovaBaseline baseline = new Lab0NovaBaseline();
-		baseline.openIndex(analyzer);
-		baseline.indexDocuments();
-		baseline.close();
-
-		baseline.indexSearch(analyzer);
-		HashMap a = baseline.readFile();
+//		baseline.openIndex(analyzer);
+//		baseline.indexDocuments();
+//		baseline.close();
+		
+		// 2nd step - loop over all the queries
+		// guardar assim ou criar um objecto QueryString ou wtv com 2 atributos(id e text)? e criar uma lista desse objecto
+		HashMap<String, String> a = baseline.readFile();
 		Iterator ai = a.keySet().iterator();
 		while(ai.hasNext()){
 			String key = ai.next().toString();
 			System.out.println("Key: " + key + " | Value: " + a.get(key));
+			baseline.indexSearch(analyzer, a.get(key));
 		}
+		
+		// percorrer cada linha do queries.txt
+		// por cada query fazer o index search, para procurar os 10/20 melhores resultados
+		// a indexação basta fazer uma vez
+	
+		
+//
+//		baseline.indexSearch(analyzer);
+		
 		
 		// escrever no results.txt os melhores resultados
 	}
