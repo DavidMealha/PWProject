@@ -1,7 +1,9 @@
 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -43,6 +45,7 @@ public class Lab0NovaBaseline {
 	String indexPath = "docs/index";
 	String docPath = "docs/Answers.csv";
 	String queriesPath = "docs/queries.txt";
+	String resultsPath = "docs/results.txt";
 
 	boolean create = true;
 
@@ -275,7 +278,25 @@ public class Lab0NovaBaseline {
 		return listQueries;
 	}
 	
+	void writeFile(List<Result> results){
 	
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(resultsPath))) {
+
+			for (Result result : results) {
+				bw.write(result.toString());
+			}
+			
+			// no need to close it.
+			//bw.close();
+
+			System.out.println("Done");
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
+		}
+	}
 
 	public static void main(String[] args) {
 
@@ -289,17 +310,18 @@ public class Lab0NovaBaseline {
 //		baseline.close();
 		
 		// 2nd step - loop over all the queries
-		// guardar assim ou criar um objecto QueryString ou wtv com 2 atributos(id e text)? e criar uma lista desse objecto
 		List<QueryString> queries = baseline.readFile();
+		List<Result> results = new ArrayList<Result>();
 		for (QueryString queryString : queries) {
-//			System.out.println("QueryId: " + queryString.getId() + " | Value: " + queryString.getText());
-			List<Result> results = baseline.indexSearch(analyzer, queryString);
-			
-			for (Result result : results) {
-				System.out.println(result.toString());
-			}
-			System.out.println("=============================================");
+			results.addAll(baseline.indexSearch(analyzer, queryString));
 		}
+		
+		for (Result result : results) {
+			System.out.println(result.toString());
+		}
+		System.out.println("=============================================");
+		
+		baseline.writeFile(results);
 		
 		// percorrer cada linha do queries.txt
 		// por cada query fazer o index search, para procurar os 10/20 melhores resultados

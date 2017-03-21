@@ -59,7 +59,7 @@ public class Result {
 	@Override
 	public String toString() {
 		return "Result [queryId=" + queryId + ", answerId=" + answerId + ", rank=" + rank + ", score=" + score
-				+ ", runId=" + runId + "]";
+				+ ", runId=" + runId + "]\n";
 	}
 	
 	
