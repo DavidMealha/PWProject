@@ -197,7 +197,7 @@ public class Lab0NovaBaseline {
 
 	// ====================================================
 	// ANNOTATE THIS METHOD YOURSELF
-	void indexSearch(Analyzer analyzer, String queryString) {
+	List<Result> indexSearch(Analyzer analyzer, QueryString queryString) {
 
 		IndexReader reader = null;
 		try {
@@ -208,23 +208,10 @@ public class Lab0NovaBaseline {
 			in = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
 
 			QueryParser parser = new QueryParser("Body", analyzer);
-//			while (true) {
-//				System.out.println("Enter query: ");
-
-//				String line = in.readLine();
-
-//				if (line == null || line.length() == -1) {
-//					break;
-//				}
-//
-//				line = line.trim();
-//				if (line.length() == 0) {
-//					break;
-//				}
-
+			
 			Query query = null;
 			try {
-				query = parser.parse(queryString);
+				query = parser.parse(queryString.getText());
 			} catch (org.apache.lucene.queryparser.classic.ParseException e) {
 				System.out.println("Error parsing query string.");
 			}
@@ -232,22 +219,20 @@ public class Lab0NovaBaseline {
 			TopDocs results = searcher.search(query, 10);
 			ScoreDoc[] hits = results.scoreDocs;
 
-			int numTotalHits = results.totalHits;
-//			System.out.println(numTotalHits + " total matching documents");
+//			int numTotalHits = results.totalHits;
 
+			List<Result> queryResults = new ArrayList<Result>();
 			for (int j = 0; j < hits.length; j++) {
 				Document doc = searcher.doc(hits[j].doc);
-				String answer = doc.get("Body");
-				String Id = doc.get("Id");
-				System.out.println("DocId: " + Id + " | DocScore: " + hits[j].score);
-			}
-
-//				if (line.equals("")) {
-//					break;
-//				}
-//			}
+//				String answer = doc.get("Body");
+				String answerId = doc.get("Id");
 				
+				queryResults.add(new Result(queryString.getId(), answerId, j+1, hits[j].score, "Lab-0"));
+//				System.out.println("DocId: " + answerId + " | DocScore: " + hits[j].score);
+			}
 			reader.close();
+			
+			return queryResults;
 		} catch (IOException e) {
 			try {
 				reader.close();
@@ -256,6 +241,8 @@ public class Lab0NovaBaseline {
 			}
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
 
 	public void close() {
@@ -305,8 +292,13 @@ public class Lab0NovaBaseline {
 		// guardar assim ou criar um objecto QueryString ou wtv com 2 atributos(id e text)? e criar uma lista desse objecto
 		List<QueryString> queries = baseline.readFile();
 		for (QueryString queryString : queries) {
-			System.out.println("QueryId: " + queryString.getId() + " | Value: " + queryString.getText());
-			baseline.indexSearch(analyzer, queryString.getText());
+//			System.out.println("QueryId: " + queryString.getId() + " | Value: " + queryString.getText());
+			List<Result> results = baseline.indexSearch(analyzer, queryString);
+			
+			for (Result result : results) {
+				System.out.println(result.toString());
+			}
+			System.out.println("=============================================");
 		}
 		
 		// percorrer cada linha do queries.txt
