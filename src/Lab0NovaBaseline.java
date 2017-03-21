@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import org.apache.lucene.analysis.Analyzer;
@@ -265,11 +266,11 @@ public class Lab0NovaBaseline {
 		}
 	}
 
-	public HashMap<String, String> readFile(){
+	public List<QueryString> readFile(){
 		// format of each line (id:query)
-		HashMap<String, String> queries = new HashMap<String, String>();
+//		HashMap<String, String> queries = new HashMap<String, String>();
 		//instead have something like this, and add new QueryString(...)
-		//ArrayList<QueryString> listQueries = new ArrayList<QueryString>();
+		List<QueryString> listQueries = new ArrayList<QueryString>();
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(queriesPath))) {
 			String line = br.readLine(); 
@@ -277,15 +278,17 @@ public class Lab0NovaBaseline {
 			while (line != null) {
 				StringTokenizer lineTokens = new StringTokenizer(line, ":");
 				//need to remove the : because some queries have : in the text, which leads to wrong tokenization
-				queries.put(lineTokens.nextToken(), lineTokens.nextToken("").replace(":", ""));		
+				listQueries.add(new QueryString(lineTokens.nextToken(), lineTokens.nextToken("").replace(":", "")));		
 				line = br.readLine();
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return queries;
+		return listQueries;
 	}
+	
+	
 
 	public static void main(String[] args) {
 
@@ -300,24 +303,18 @@ public class Lab0NovaBaseline {
 		
 		// 2nd step - loop over all the queries
 		// guardar assim ou criar um objecto QueryString ou wtv com 2 atributos(id e text)? e criar uma lista desse objecto
-		HashMap<String, String> a = baseline.readFile();
-		Iterator ai = a.keySet().iterator();
-		while(ai.hasNext()){
-			String key = ai.next().toString();
-			System.out.println("Key: " + key + " | Value: " + a.get(key));
-			baseline.indexSearch(analyzer, a.get(key));
+		List<QueryString> queries = baseline.readFile();
+		for (QueryString queryString : queries) {
+			System.out.println("QueryId: " + queryString.getId() + " | Value: " + queryString.getText());
+			baseline.indexSearch(analyzer, queryString.getText());
 		}
 		
 		// percorrer cada linha do queries.txt
 		// por cada query fazer o index search, para procurar os 10/20 melhores resultados
 		// a indexação basta fazer uma vez
-	
-		
-//
-//		baseline.indexSearch(analyzer);
-		
 		
 		// escrever no results.txt os melhores resultados
+		// queryID | docId | rank | score | runId
 	}
 
 }
