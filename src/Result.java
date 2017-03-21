@@ -58,8 +58,9 @@ public class Result {
 
 	@Override
 	public String toString() {
-		return "Result [queryId=" + queryId + ", answerId=" + answerId + ", rank=" + rank + ", score=" + score
-				+ ", runId=" + runId + "]\n";
+		return String.format("%-10s %-10s %-10s %-10s %-10s %-10s \n", queryId, 0, answerId, rank, score, runId);
+//		return "Result [queryId=" + queryId + ", answerId=" + answerId + ", rank=" + rank + ", score=" + score
+//				+ ", runId=" + runId + "]\n";
 	}
 	
 	

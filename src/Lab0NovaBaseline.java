@@ -282,6 +282,7 @@ public class Lab0NovaBaseline {
 	
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(resultsPath))) {
 
+			bw.write(String.format("%-10s %-10s %-10s %-10s %-10s %-10s \n", "QueryID", "Q0", "DocID", "Rank", "Score", "RunID"));
 			for (Result result : results) {
 				bw.write(result.toString());
 			}
@@ -308,7 +309,7 @@ public class Lab0NovaBaseline {
 //		baseline.openIndex(analyzer);
 //		baseline.indexDocuments();
 //		baseline.close();
-		
+//		
 		// 2nd step - loop over all the queries
 		List<QueryString> queries = baseline.readFile();
 		List<Result> results = new ArrayList<Result>();
@@ -328,7 +329,7 @@ public class Lab0NovaBaseline {
 		// a indexação basta fazer uma vez
 		
 		// escrever no results.txt os melhores resultados
-		// queryID | docId | rank | score | runId
+		// queryID | Q0 | docId | rank | score | runId
 	}
 
 }
