@@ -37,6 +37,7 @@ import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.search.similarities.Similarity;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
@@ -51,7 +52,7 @@ public class Lab0NovaBaseline {
 
 	private IndexWriter idx;
 
-	void openIndex(Analyzer analyzer) {
+	void openIndex(Analyzer analyzer, Similarity similarity) {
 		try {
 			// ====================================================
 			// Select the data analyser to tokenise document data
@@ -219,7 +220,7 @@ public class Lab0NovaBaseline {
 				System.out.println("Error parsing query string.");
 			}
 
-			TopDocs results = searcher.search(query, 10);
+			TopDocs results = searcher.search(query, 20);
 			ScoreDoc[] hits = results.scoreDocs;
 
 //			int numTotalHits = results.totalHits;
@@ -227,6 +228,7 @@ public class Lab0NovaBaseline {
 			List<Result> queryResults = new ArrayList<Result>();
 			for (int j = 0; j < hits.length; j++) {
 				Document doc = searcher.doc(hits[j].doc);
+				System.out.println(searcher.explain(query, hits[j].doc));
 //				String answer = doc.get("Body");
 				String answerId = doc.get("Id");
 				
