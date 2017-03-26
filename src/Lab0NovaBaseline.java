@@ -52,7 +52,7 @@ public class Lab0NovaBaseline {
 
 	private IndexWriter idx;
 
-	void openIndex(Analyzer analyzer, Similarity similarity) {
+	void openIndex(Analyzer analyzer) {
 		try {
 			// ====================================================
 			// Select the data analyser to tokenise document data
@@ -228,7 +228,7 @@ public class Lab0NovaBaseline {
 			List<Result> queryResults = new ArrayList<Result>();
 			for (int j = 0; j < hits.length; j++) {
 				Document doc = searcher.doc(hits[j].doc);
-				System.out.println(searcher.explain(query, hits[j].doc));
+//				System.out.println(searcher.explain(query, hits[j].doc));
 //				String answer = doc.get("Body");
 				String answerId = doc.get("Id");
 				
@@ -304,14 +304,14 @@ public class Lab0NovaBaseline {
 	public static void main(String[] args) {
 
 		// 1st step - index all the answers, just has to be done once
-		Analyzer analyzer = new StandardAnalyzer();
-		//Lab1NovaAnalyser analyzer = new Lab1NovaAnalyser();
+//		Analyzer analyzer = new StandardAnalyzer();
+		Lab1NovaAnalyser analyzer = new Lab1NovaAnalyser();
 		
 		Lab0NovaBaseline baseline = new Lab0NovaBaseline();
-//		baseline.openIndex(analyzer);
-//		baseline.indexDocuments();
-//		baseline.close();
-//		
+		baseline.openIndex(analyzer);
+		baseline.indexDocuments();
+		baseline.close();
+		
 		// 2nd step - loop over all the queries
 		List<QueryString> queries = baseline.readFile();
 		List<Result> results = new ArrayList<Result>();
