@@ -37,7 +37,11 @@ import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.search.similarities.BM25Similarity;
+import org.apache.lucene.search.similarities.ClassicSimilarity;
+import org.apache.lucene.search.similarities.LMDirichletSimilarity;
 import org.apache.lucene.search.similarities.Similarity;
+import org.apache.lucene.search.similarities.TFIDFSimilarity;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
@@ -52,7 +56,7 @@ public class Lab0NovaBaseline {
 
 	private IndexWriter idx;
 
-	void openIndex(Analyzer analyzer) {
+	void openIndex(Analyzer analyzer, Similarity similarity) {
 		try {
 			// ====================================================
 			// Select the data analyser to tokenise document data
@@ -72,6 +76,8 @@ public class Lab0NovaBaseline {
 			
 			// here invokes all the methods of the analyzer
 			IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
+			// setting the similarity algorithm for the indexing
+			iwc.setSimilarity(similarity);
 			if (create) {
 				// Create a new index, removing any
 				// previously indexed documents:
@@ -187,7 +193,7 @@ public class Lab0NovaBaseline {
 		// ====================================================
 		// Add the document to the index
 			if (idx.getConfig().getOpenMode() == OpenMode.CREATE) {
-				System.out.println("adding " + Id);
+//				System.out.println("adding " + Id);
 				idx.addDocument(doc);
 			} else {
 				idx.updateDocument(new Term("Id", Id.toString()), doc);
@@ -201,7 +207,7 @@ public class Lab0NovaBaseline {
 
 	// ====================================================
 	// ANNOTATE THIS METHOD YOURSELF
-	List<Result> indexSearch(Analyzer analyzer, QueryString queryString) {
+	List<Result> indexSearch(Analyzer analyzer, Similarity similarity, QueryString queryString) {
 
 		IndexReader reader = null;
 		try {
@@ -219,8 +225,9 @@ public class Lab0NovaBaseline {
 			} catch (org.apache.lucene.queryparser.classic.ParseException e) {
 				System.out.println("Error parsing query string.");
 			}
-
-			TopDocs results = searcher.search(query, 20);
+			
+			searcher.setSimilarity(similarity);
+			TopDocs results = searcher.search(query, 10);
 			ScoreDoc[] hits = results.scoreDocs;
 
 //			int numTotalHits = results.totalHits;
@@ -307,8 +314,13 @@ public class Lab0NovaBaseline {
 //		Analyzer analyzer = new StandardAnalyzer();
 		Lab1NovaAnalyser analyzer = new Lab1NovaAnalyser();
 		
+		// Similarity similarity = new ClassicSimilarity();
+		Similarity similarity = new BM25Similarity();
+		// Similarity similarity = new LMDirichletSimilarity();
+		// Similarity similarity = new TFIDFSimilarity();
+		
 		Lab0NovaBaseline baseline = new Lab0NovaBaseline();
-		baseline.openIndex(analyzer);
+		baseline.openIndex(analyzer, similarity);
 		baseline.indexDocuments();
 		baseline.close();
 		
@@ -316,7 +328,7 @@ public class Lab0NovaBaseline {
 		List<QueryString> queries = baseline.readFile();
 		List<Result> results = new ArrayList<Result>();
 		for (QueryString queryString : queries) {
-			results.addAll(baseline.indexSearch(analyzer, queryString));
+			results.addAll(baseline.indexSearch(analyzer, similarity, queryString));
 		}
 		
 		for (Result result : results) {

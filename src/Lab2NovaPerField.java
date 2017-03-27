@@ -42,7 +42,7 @@ public class Lab2NovaPerField extends Lab0NovaBaseline {
 		// ===================================
 		// The indexing process will use the provided analyzer and ranking function
 		Lab0NovaBaseline baseline = new Lab0NovaBaseline();
-		baseline.openIndex(analyzer, similarity);
+//		baseline.openIndex(analyzer, similarity);
 		baseline.indexDocuments();
 		baseline.close();
 
