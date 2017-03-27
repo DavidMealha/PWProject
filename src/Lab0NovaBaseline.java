@@ -156,8 +156,13 @@ public class Lab0NovaBaseline {
 			start = end + 1;
 			end = rawDocument.indexOf(',', start);
 			aux = rawDocument.substring(start, end);
-			Integer OwnerUserId = Integer.decode(aux);
-			doc.add(new IntPoint("OwnerUserId", OwnerUserId));
+//			sometimes there is not OwnerId, so it throws an exception
+//			System.out.println(aux);
+			if(!aux.equals("NA")){
+//				System.out.println("This entered because it's not NA, it's:" + aux);
+				Integer OwnerUserId = Integer.decode(aux);
+				doc.add(new IntPoint("OwnerUserId", OwnerUserId));
+			}
 
 			// Extract field CreationDate
 			try {
@@ -193,7 +198,7 @@ public class Lab0NovaBaseline {
 		// ====================================================
 		// Add the document to the index
 			if (idx.getConfig().getOpenMode() == OpenMode.CREATE) {
-//				System.out.println("adding " + Id);
+				System.out.println("adding " + Id);
 				idx.addDocument(doc);
 			} else {
 				idx.updateDocument(new Term("Id", Id.toString()), doc);
@@ -236,11 +241,11 @@ public class Lab0NovaBaseline {
 			for (int j = 0; j < hits.length; j++) {
 				Document doc = searcher.doc(hits[j].doc);
 //				System.out.println(searcher.explain(query, hits[j].doc));
-//				String answer = doc.get("Body");
+				String answer = doc.get("Body");
 				String answerId = doc.get("Id");
 				
 				queryResults.add(new Result(queryString.getId(), answerId, j+1, hits[j].score, "Lab-0"));
-//				System.out.println("DocId: " + answerId + " | DocScore: " + hits[j].score);
+				System.out.println("DocId: " + answerId + " | DocScore: " + hits[j].score + " | Body: " + answer);
 			}
 			reader.close();
 			
