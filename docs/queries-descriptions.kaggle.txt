@@ -1,0 +1,698 @@
+1815:"<p>What are the panel's recommendations for books on design of experiments?</p>
+
+<p>Ideally, books should be still in print or available electronically, although that may not always be feasible. If you feel moved to add a few words on what's so good about the book that would be great too.</p>
+
+<p>Also, aim for one book per answer so that voting can help sort the suggestions.</p>
+
+<p>(Community Wiki, please edit the question if you can make it better!)</p>
+"
+
+1904:"<p>What are the most significant annual Statistics conferences?</p>
+
+<p>Rules:</p>
+
+<ol>
+<li>One conference per answer</li>
+<li>Include a link to the conference </li>
+</ol>
+"
+
+1980:"<p><strong>The Question:</strong> Are there any good examples of <a href=""http://reproducibleresearch.net/index.php/Main_Page"">reproducible research</a> using R that are freely available online?</p>
+
+<p><strong>Ideal Example:</strong> 
+Specifically, ideal examples would provide:</p>
+
+<ul>
+<li>The raw data (and ideally meta data explaining the data),</li>
+<li>All R code including data import, processing, analyses, and output generation,</li>
+<li>Sweave or some other approach for linking the final output to the final document,</li>
+<li>All in a format that is easily downloadable and compilable on a reader's computer.</li>
+</ul>
+
+<p>Ideally, the example would be a journal article or a thesis where the emphasis is on an actual applied topic as opposed to a statistical teaching example.</p>
+
+<p><strong>Reasons for interest:</strong>
+I'm particularly interested in applied topics in journal articles and theses, because in these situations, several additional issues arise:</p>
+
+<ul>
+<li>Issues arise related to data cleaning and processing,</li>
+<li>Issues arise related to managing metadata,</li>
+<li>Journals and theses often have style guide expectations regarding the appearance and formatting of tables and figures,</li>
+<li>Many journals and theses often have a wide range of analyses which raise issues regarding workflow (i.e., how to sequence analyses) and processing time (e.g., issues of caching analyses, etc.).</li>
+</ul>
+
+<p>Seeing complete working examples could provide good instructional material for researchers starting out with reproducible research.</p>
+"
+
+2181:"<p>I'm interested in getting some books about multivariate analysis, and need your recommendations. Free books are always welcome, but if you know about some great non-free MVA book, please, state it.</p>
+"
+
+2492:"<p>A former colleague once argued to me as follows: </p>
+
+<blockquote>
+  <p>We usually apply normality tests to the results of processes that,
+  under the null, generate random variables that are only
+  <em>asymptotically</em> or <em>nearly</em> normal (with the 'asymptotically' part dependent on some quantity which we cannot make large); In the era of
+  cheap memory, big data, and fast processors, normality tests should
+  <em>always</em> reject the null of normal distribution for large (though not insanely large) samples. And so, perversely, normality tests should
+  only be used for small samples, when they presumably have lower power
+  and less control over type I rate.</p>
+</blockquote>
+
+<p>Is this a valid argument? Is this a well-known argument? Are there well known tests for a 'fuzzier' null hypothesis than normality?</p>
+"
+
+2516:"<p>In a <a href=""http://magazine.amstat.org/blog/2010/09/01/statrevolution/"">recent article</a> of <em>Amstat News</em>, the authors (Mark van der Laan and Sherri Rose) stated that ""We know that for large enough sample sizes, every study—including ones in which the null hypothesis of no effect is true — will declare a statistically significant effect."".</p>
+
+<p>Well, I for one didn't know that. Is this true? Does it mean that hypothesis testing is worthless for large data sets?</p>
+"
+
+2547:"<ul>
+<li>If you look at <a href=""http://www.wolframalpha.com/input/?i=world+population"">Wolfram Alpha</a></li>
+</ul>
+
+<p><img src=""http://i.stack.imgur.com/x0ILQ.png"" alt=""alt text""></p>
+
+<ul>
+<li>Or this Wikipedia page <a href=""http://en.wikipedia.org/wiki/List_of_countries_by_median_age"">List of countries by median age</a></li>
+</ul>
+
+<p><img src=""http://i.stack.imgur.com/QBtjT.png"" alt=""alt text""></p>
+
+<p>Clearly <a href=""http://en.wikipedia.org/wiki/Median""><strong>median</strong></a> seems to be the statistic of choice when it comes to ages.</p>
+
+<p>I am not able to explain to myself why <a href=""http://en.wikipedia.org/wiki/Arithmetic_mean""><strong>arithmetic mean</strong></a> would be a worse statistic. Why is it so?</p>
+
+<p><sub>Originally posted <a href=""http://math.stackexchange.com/questions/4380/why-is-median-age-a-better-statistic-than-mean-age"">here</a> because I did not know this site existed.</sub></p>
+"
+
+2691: eigenvectors & eigenvalues","<p>In today's pattern recognition class my professor talked about PCA, eigenvectors &amp; eigenvalues. </p>
+
+<p>I got the mathematics of it. If I'm asked to find eigenvalues etc. I'll do it correctly like a machine. But I didn't <strong>understand</strong> it. I didn't get the purpose of it. I didn't get the feel of it.  I strongly believe in </p>
+
+<blockquote>
+  <p>you do not really understand something unless you can explain it to your grandmother -- Albert Einstein</p>
+</blockquote>
+
+<p>Well, I can't explain these concepts to a layman or grandma.</p>
+
+<ol>
+<li>Why PCA, eigenvectors &amp; eigenvalues? What was the <em>need</em> for these concepts?</li>
+<li>How would you explain these to a layman?</li>
+</ol>
+"
+
+2715:"<p>I like G van Belle's book on <a href=""http://vanbelle.org/"" rel=""nofollow"">Statistical Rules of Thumb</a>, and to a lesser extent <a href=""http://eu.wiley.com/WileyCDA/WileyTitle/productCd-0470457988.html"" rel=""nofollow"">Common Errors in Statistics (and How to Avoid Them)</a> from Phillip I Good and James W. Hardin. They address common pitfalls when interpreting results from experimental and observational studies and provide practical recommendations for statistical inference, or exploratory data analysis. But I feel that ""modern"" guidelines are somewhat lacking, especially with the ever growing use of computational and robust statistics in various fields, or the introduction of techniques from the machine learning community in, e.g. clinical biostatistics or genetic epidemiology.</p>
+
+<p>Apart from computational tricks or common pitfalls in data visualization which could be addressed elsewhere, I would like to ask: <strong>What are the top rules of thumb you would recommend for efficient data analysis?</strong> (<em>one rule per answer, please</em>).</p>
+
+<p>I am thinking of guidelines that you might provide to a colleague, a researcher without strong background in statistical modeling, or a student in intermediate to advanced course. This might pertain to various stages of data analysis, e.g. sampling strategies, feature selection or model building, model comparison, post-estimation, etc.</p>
+"
+
+3814:"<p>I recently asked a question regarding general principles around <a href=""http://stats.stackexchange.com/questions/3460/reviewing-statistics-in-papers"">reviewing statistics in papers</a>. What I would now like to ask, is what particularly irritates you when reviewing a paper, i.e. what's the best way to really annoy a statistical referee!</p>
+
+<p>One example per answer, please.</p>
+"
+
+3931:"<p>I was asked today in class why you divide the sum of square error by $n-1$ instead of with $n$, when calculating the standard deviation.</p>
+
+<p>I said I am not going to answer it in class (since I didn't wanna go into unbiased estimators), but later I wondered - <strong>is there</strong> an intuitive explanation for this?!</p>
+"
+
+4551:"<p>I'm a grad student in psychology, and as I pursue more and more independent studies in statistics, I am increasingly amazed by the inadequacy of my formal training. Both personal and second hand experience suggests that the paucity of statistical rigor in undergraduate and graduate training is rather ubiquitous within psychology. As such, I thought it would be useful for independent learners like myself to create a list of ""Statistical Sins"", tabulating statistical practices taught to grad students as standard practice that are in fact either superseded by superior (more powerful, or flexible, or robust, etc.) modern methods or shown to be frankly invalid. Anticipating that other fields might also experience a similar state of affairs, I propose a community wiki where we can collect a list of statistical sins across disciplines. Please, submit one ""sin"" per answer.</p>
+"
+
+4612:"<p>Which good econometrics textbooks would you recommend?</p>
+
+<p>Edit: there are quite a few books out there, with varying levels of mathematical sophistication. It would be good to get some idea of how technical the book you're recommending is.</p>
+"
+
+5026: statistics, machine learning and AI?","<p>What is the difference between data mining, statistics, machine learning and AI?</p>
+
+<p>Would it be accurate to say that they are 4 fields attempting to solve very similar problems but with different approaches? What exactly do they have in common and where do they differ? If there is some kind of hierarchy between them, what would it be?</p>
+
+<p>Similar questions have been asked previously but I still don't get it:</p>
+
+<ul>
+<li><a href=""http://stats.stackexchange.com/questions/1521/data-mining-and-statistical-analysis"">Data Mining and Statistical Analysis</a></li>
+<li><a href=""http://stats.stackexchange.com/questions/6/the-two-cultures-statistics-vs-machine-learning"">The Two Cultures: statistics vs. machine learning?</a></li>
+</ul>
+"
+
+5115:"<p>What are the most important statisticians, and what is it that made them famous?<br>
+(Reply just one scientist per answer please.)</p>
+"
+
+5292:"<p>Is there any GUI for R that makes it easier for a beginner to start learning and programming in that language?</p>
+"
+
+5465:"<p>I am looking for some statistics (and probability, I guess) interview questions, from the most basic through the more advanced. Answers are not necessary (although links to specific questions on this site would do well).</p>
+"
+
+6421:"<p>I still remember the Annals of Statistics paper on Boosting by Friedman-Hastie-Tibshirani, and the comments on that same issues by other authors (including Freund and Schapire). At that time, clearly Boosting was viewed as a breakthrough in many respects: computationally feasible, an ensemble method, with excellent yet mysterious performance. Around the same time, SVM came of age, offering a <em>framework</em> underpinned by solid theory and with plenty of variants and applications. </p>
+
+<p>That was in the marvelous 90s. In the past 15 years, it seems to me that a lot of Statistics has been a cleaning and detailing operation, but with few truly new views.</p>
+
+<p>So I'll ask two questions:</p>
+
+<ol>
+<li>Have I missed some revolutionary/seminal paper?</li>
+<li>If not, are there new approaches
+that you think have the potential to
+change the viewpoint of statistical
+inference?</li>
+</ol>
+
+<p>Rules: </p>
+
+<ol>
+<li>One answer per post; </li>
+<li>References or links welcome.</li>
+</ol>
+
+<p>P.S.: I have a couple of candidates for promising breakthroughs. I will post them later.</p>
+"
+
+6601:"<p>This is a similar question to the one <a href=""http://stats.stackexchange.com/questions/155/what-is-your-favorite-laymans-explanation-for-a-difficult-statistical-concept"">here</a>, but different enough I think to be worthwhile asking.</p>
+
+<p>I thought I'd put as a starter, what I think one of the hardest to grasp is.  </p>
+
+<p>Mine is the difference between <em>probability</em> and <em>frequency</em>.  One is at the level of ""knowledge of reality"" (probability), while the other is at the level ""reality itself"" (frequency).  This almost always makes me confused if I think about it too much.</p>
+
+<p>Edwin Jaynes Coined a term called the ""mind projection fallacy"" to describe getting these things mixed up.</p>
+
+<p>Any thoughts on any other tough concepts to grasp?</p>
+"
+
+9085:"<p>In my attempts to fight spreadsheet mayhem, I am often evangelical in pushing for more robust tools such as true statistics software (R, Stata, and the like).  Recently, I was challenged on this view by someone who stated flat out that they simply will not learn to program.  I would like to provide them with data analysis tools that require no programming (but ideally which would extend to programming if they decide to dip a toe into the water later).  What packages are out there for data exploration that I can recommend with a straight face?</p>
+"
+
+10459:"<p>Can you suggest some good movies which involve math, probabilities etc? One example is <a href=""http://en.wikipedia.org/wiki/21_%282008_film%29"">21</a>. I would also be interested in movies that involve algorithms (e.g. text decryption). In general ""geeky"" movies with famous scientific theories but no science fiction or documentaries. Thanks in advance!</p>
+"
+
+11009:"<p>Is it ever valid to include a two-way interaction in a model without including the main effects?  What if your hypothesis is only about the interaction, do you still need to include the main effects?</p>
+"
+
+12128:"<p>In other contexts, orthogonal means ""at right angles"" or ""perpendicular"".</p>
+
+<p>What does orthogonal mean in a statistical context?</p>
+
+<p>Thanks for any clarifications.</p>
+"
+
+12386:"<p>I find resources like the <a href=""http://matthias.vallentin.net/probability-and-statistics-cookbook/"">Probability and Statistics Cookbook</a> and <a href=""http://www.google.com/url?sa=t&amp;source=web&amp;cd=2&amp;ved=0CC4QFjAB&amp;url=http://cran.r-project.org/doc/contrib/YanchangZhao-refcard-data-mining.pdf&amp;rct=j&amp;q=%22r%20reference%20card%20for%20data%20mining%22&amp;ei=XfcHTtzxI8jKiAKxksSxDQ&amp;usg=AFQjCNEHAMYdpy7bna4XA29FtmWOQqboUw&amp;sig2=cMZww4Cm9E50tJoewbi3Rg&amp;cad=rja"">The R Reference Card for Data Mining</a> incredibly useful. They obviously serve well as references but also help me to organize my thoughts on a subject and get the lay of the land. </p>
+
+<p>Q: Does anything like these resources exist for machine learning methods?</p>
+
+<p>I'm imagining a reference card which for each ML method would include:</p>
+
+<ul>
+<li>General properties</li>
+<li>When the method works well</li>
+<li>When the method does poorly</li>
+<li>From which or to which other methods the method generalizes. Has it been mostly superseded?</li>
+<li>Seminal papers on the method</li>
+<li>Open problems associated with the method</li>
+<li>Computational intensity</li>
+</ul>
+
+<p>All these things can be found with some minimal digging through textbooks I'm sure. It would just be really convenient to have them on a few pages. </p>
+"
+
+15670:"<p>I have tried several times to ""go it on my own"" - but with limited success.  I am a casual SPSS user and some SAS experience.</p>
+
+<p>Would appreciate a pointer or two from someone who has similar background and now uses R.</p>
+"
+
+16750:"<p>I am searching for [free] software that can produce nice looking graphical models, e.g. </p>
+
+<p><img src=""http://i.stack.imgur.com/QXAmU.png"" alt=""enter image description here""></p>
+
+<p>Any suggestions would be appreciated.</p>
+"
+
+20514:"<p>I started by Time Series Analysis by Hamilton, but I am lost hopelessly. This book is really too theoretical for me to learn by myself. </p>
+
+<p>Does anybody have a recommendation for a textbook on time series analysis that's suitable for self-study? </p>
+
+<p>Thank you so much! </p>
+"
+
+20977:"<p>We statisticians use many words in ways that are slightly different from the way everyone else uses them. This cause lots of problems when we teach or explain what we are doing.  I'll start a list (and now I'll add some definitions, per comments):</p>
+
+<ul>
+<li>Power is the ability to correctly reject a false null hypothesis. Usually, this means correctly saying ""something is happening"".</li>
+<li>Bias - a statistic is biased if it is systematically different from the population parameter associated with it.</li>
+<li>Significance - results are statistically significant at some percent (often 5%) in the following situation: If the population which the sample comes from has a true effect of 0, a statistic at least as extreme as the one gotten from the sample would only occur 5% of the time.</li>
+<li>Interaction - Two independent variables interact if the relationship between the dependent variable and one independent variable is different at different levels of the other independent variable</li>
+</ul>
+
+<p>But there have to be many others! </p>
+"
+
+23779:"<p>Because I find them fascinating, I'd like to hear what folks in this community find as the most interesting statistical paradox and why.</p>
+"
+
+25672:"<p>I recently read a post from R-Bloggers, that linked to <a href=""http://www.johnmyleswhite.com/notebook/2012/03/31/julia-i-love-you/"">this blog post</a> from John Myles White about a new language called <a href=""http://julialang.org/"">Julia</a>. Julia takes advantage of a just-in-time compiler that gives it wicked fast run times and puts it on the same order of magnitude of speed as C/C++ (the same <em>order</em>, not equally fast). Furthermore, it uses the orthodox looping mechanisms that those of us who started programming on traditional languages are familiar with, instead of R's apply statements and vector operations.  </p>
+
+<p>R is not going away by any means, even with such awesome timings from Julia. It has extensive support in industry, and numerous wonderful packages to do just about anything.    </p>
+
+<p>My interests are Bayesian in nature, where vectorizing is often not possible. Certainly serial tasks must be done using loops and involve heavy computation at each iteration. R can be very slow at these serial looping tasks, and C/++ is not a walk in the park to write. Julia seems like a great alternative to writing in C/++, but it's in its infancy, and lacks a lot of the functionality I love about R. It would only make sense to learn Julia as a computational statistics workbench if it garners enough support from the statistics community and people start writing useful packages for it. </p>
+
+<p>My questions follow:  </p>
+
+<ol>
+<li><p>What features does Julia need to have in order to have the allure that made R the de facto language of statistics?</p></li>
+<li><p>What are the advantages and disadvantages of learning Julia to do computationally-heavy tasks, versus learning a low-level language like C/++?</p></li>
+</ol>
+"
+
+27495:"<p>I've been very interested in <em>data-mining</em> and <em>machine-learning</em> for a while, partly because I majored in that area at school, but also because I am truly much more excited trying to solve problems that require a bit more thought than just programming knowledge and whose solution can have multiple forms. I don't have a researcher/scientist background, I come from a computer science background with an emphasis on data analysis, I have a Master's degree and not a PhD. I currently have a position related to data analysis, even if that is not the primary focus of what I'm doing, but I have at least some good exposure to it.</p>
+
+<p>As I was interviewing some time ago for a job with several companies, and got to talk with a few recruiters, I found a common pattern that people seem to think that <em>you need to have a PhD to do machine learning</em>, even if I may be generalizing a bit too much (some companies were not really looking especially for PhDs).</p>
+
+<p>While I think it's good to have a PhD in that area, I don't think this is absolutely <em>necessary</em>. I have some pretty decent knowledge of most real-world machine learning algorithms, have implemented most of them myself (either at school or on personal projects), and feel pretty confident when approaching problems involving machine-learning / data-mining and statistics in general. And I have some friends with a similar profile who seem very knowledgeable about this also, but also feel that in general companies are pretty shy about hiring in data-mining if you're not a PhD.</p>
+
+<p>I'd like to get some feedback, do you think a PhD is absolutely necessary to have a job very focused in that area?</p>
+
+<p>(I hesitated a bit before posting this question here, but since it seems <a href=""http://meta.stats.stackexchange.com/questions/854/add-career-hire-prohibition-to-faq"">to be an acceptable topic on meta</a>, I've decided to post this question on which I've been thinking for a while.)</p>
+"
+
+33780: why is SAS preferred by private companies?","<p>I learned R but it seems that companies are much more interested in SAS experience. What are the advantages of SAS over R? </p>
+"
+
+41208:"<h3>The situation</h3>
+
+<p>Some researchers would like to put you to sleep.  Depending on the secret toss of a fair coin, they will briefly awaken you either once (Heads) or twice (Tails).  After each waking, they will put you back to sleep with a drug that makes you forget that awakening.  When you are awakened, to what degree should <em>you</em> believe that the outcome of the coin toss was Heads?</p>
+
+<p><em>(OK, maybe you don’t want to be the subject of this experiment!  Suppose instead that Sleeping Beauty (SB) agrees to it (with the full approval of the Magic Kingdom’s Institutional Review Board, of course).  She’s about to go to sleep for one hundred years, so what are one or two more days, anyway?)</em></p>
+
+<p><img src=""http://i.stack.imgur.com/zLmrR.png"" alt=""Maxfield Parrish illustration""></p>
+
+<p><em>[Detail of a <a href=""http://en.wikipedia.org/wiki/Maxfield_Parrish"">Maxfield Parrish</a> illustration.]</em></p>
+
+<h3>Are you a Halfer or a Thirder?</h3>
+
+<p><strong>The Halfer position.</strong>  Simple! The coin is fair--and SB knows it--so she should believe there's a one-half chance of heads.</p>
+
+<p><strong>The Thirder position.</strong> Were this experiment to be repeated many times, then the coin will be heads only one third of the time SB is awakened.  Her probability for heads will be one third.</p>
+
+<h3>Thirders have a problem</h3>
+
+<p>Most, but not all, people who have written about this are thirders.  But:</p>
+
+<ul>
+<li><p>On Sunday evening, just before SB falls asleep, she must believe the chance of heads is one-half: that’s what it means to be a fair coin.</p></li>
+<li><p>Whenever SB awakens, <em>she has learned absolutely nothing she did not know Sunday night.</em>  What rational argument can she give, then, for stating that her belief in heads is now one-third and not one-half?</p></li>
+</ul>
+
+<h3>Some attempted explanations</h3>
+
+<ul>
+<li><p>SB would necessarily lose money if she were to bet on heads with any odds other than 1/3.  (Vineberg, <em>inter alios</em>)</p></li>
+<li><p>One-half really is correct: just use the Everettian “many-worlds” interpretation of Quantum Mechanics!  (Lewis).</p></li>
+<li><p>SB updates her belief based on self-perception of her “temporal location” in the world.  (Elga, <em>i.a.</em>)</p></li>
+<li><p>SB is confused: “[It] seems more plausible to say that her epistemic state upon waking up should not include a definite degree of belief in heads. … The real issue is how one deals with known, unavoidable, cognitive malfunction.”  [Arntzenius]</p></li>
+</ul>
+
+<hr>
+
+<h3>The question</h3>
+
+<p>Accounting for what has already been written on this subject (see the references as well as a <a href=""http://stats.stackexchange.com/a/23812"">previous post</a>), how can this paradox be resolved in a statistically rigorous way?  Is this even possible?</p>
+
+<hr>
+
+<h3>References</h3>
+
+<p>Arntzenius, Frank (2002).  <a href=""http://www.joelvelasco.net/teaching/3865/arntzenius%20-%20reflections%20on%20sleeping%20beauty.pdf""><em>Reflections on Sleeping Beauty</em></a> Analysis 62.1 pp 53-62.</p>
+
+<p>Bradley, DJ (2010).  <a href=""http://philpapers.org/archive/BRACIB.1.pdf""><em>Confirmation in a Branching World: The Everett Interpretation and Sleeping Beauty</em></a>.  Brit. J. Phil. Sci. 0 (2010), 1–21.</p>
+
+<p>Elga, Adam (2000).  Self-locating belief and the Sleeping Beauty Problem.  Analysis 60 pp 143-7.</p>
+
+<p>Franceschi, Paul (2005).  <a href=""http://philsci-archive.pitt.edu/2175/1/sb-en.pdf""><em>Sleeping Beauty and the Problem of World Reduction</em></a>.  Preprint.</p>
+
+<p>Groisman, Berry (2007).  <a href=""http://philsci-archive.pitt.edu/3624/1/SB_b.groisman_last.pdf""><em>The end of Sleeping Beauty’s nightmare</em></a>.  Preprint.</p>
+
+<p>Lewis, D (2001).  <em>Sleeping Beauty: reply to Elga</em>.  Analysis 61.3 pp 171-6.</p>
+
+<p>Papineau, David and Victor Dura-Vila (2008).  <em>A Thirder and an Everettian: a reply to Lewis’s ‘Quantum Sleeping Beauty’</em>.</p>
+
+<p>Pust, Joel (2008).  <em>Horgan on Sleeping Beauty</em>.  Synthese 160 pp 97-101.</p>
+
+<p>Vineberg, Susan (undated, perhaps 2003).  <em>Beauty’s Cautionary Tale</em>.</p>
+"
+
+43339:"<p><img src=""http://i.stack.imgur.com/tStr4.png"" alt=""xkcd comic number 1132""></p>
+
+<p><a href=""http://xkcd.com/1132"">This xkcd comic (Frequentists vs. Bayesians)</a> makes fun of a frequentist statistician who derives an obviously wrong result.</p>
+
+<p>However it seems to me that his reasoning is actually correct in the sense that it follows  the standard frequentist methodology. </p>
+
+<p>So my question is ""does he correctly apply the frequentist methodology?"" </p>
+
+<ul>
+<li>If no: what would be a correct frequentist inference in this scenario? How to integrate ""prior knowledge"" about the sun stability in the frequentist methodology?</li>
+<li>If yes: wtf? ;-)</li>
+</ul>
+"
+
+57407: but some are useful""","<blockquote>
+  <p>""Essentially, all models are wrong, but some are useful.""</p>
+  
+  <p>--- Box, George E. P.; Norman R. Draper (1987). Empirical Model-Building and Response Surfaces, p. 424, Wiley. ISBN 0471810339.</p>
+</blockquote>
+
+<p>What exactly is the meaning of the above phrase?  </p>
+"
+
+86015:"<p>I got this question during an interview with Amazon:</p>
+
+<ul>
+<li>50% of all people who receive a first interview receive a second interview</li>
+<li>95% of your friends that got a second interview felt they had a good first interview</li>
+<li>75% of your friends that DID NOT get a second interview felt they had a good first interview</li>
+</ul>
+
+<p>If you feel that you had a good first interview, what is the probability you will receive a second interview?</p>
+
+<p>Can someone please explain how to solve this? I'm having trouble breaking down the word problem into math (the interview is long over now). I understand there may not be an actual numerical solution, but an explanation of how you would walk through this problem would help.</p>
+
+<p>edit: Well I did get a second interview. If anyone is curious I had gone with an explanation that was a combination of a bunch of the responses below: not enough info, friends not representative sample, etc and just talked through some probabilities. The question left me puzzled at the end though, thanks for all of the responses.</p>
+"
+
+93830:"<p>I have came across a question in job interview aptitude test for critical thinking. It is goes something like this:</p>
+
+<blockquote>
+  <p>The Zorganian Republic has some very strange customs. Couples only
+  wish to have female children as only females can inherit the family's
+  wealth, so if they have a male child they keep having more children
+  until they have a girl. If they have a girl, they stop having
+  children. What is the ratio of girls to boys in Zorgania?</p>
+</blockquote>
+
+<p>I don't agree with the model answer given by the question writer, which is about 1:1. The justification was any birth will always have a 50% chance of being male or female.</p>
+
+<p>Can you convince me with a more mathematical vigorous answer of $\text{E}[G]:\text{E}[B]$ if $G$ is the number of girls and B is the number of boys in the country?</p>
+"
+
+112451:"<p>Could anyone explain to me in detail about maximum likelihood estimation (MLE) in layman's terms? I would like to know the underlying concept before going into mathematical derivation or equation.</p>
+"
+
+126419:"<blockquote>
+  <p>Note: 50 points of raw data are attached now.</p>
+</blockquote>
+
+<p>I want to display how much study I have done, and how many pages I have completed throughout the week, broken up by day, and I have done so as shown below:<img src=""http://i.stack.imgur.com/BQYwP.png"" alt=""enter image description here""></p>
+
+<p>I have had people tell me that they can't understand the graphs, but I have no idea how else I can display them. Since I would essentially need three dimensions without make a cumulative depiction. I want to avoid using numerous line graphs, since after a few weeks the graphs will become illegible. Is there nothing I can do?</p>
+
+<p>How can I display these more clearly?</p>
+
+<pre><code>Date        Total   Total pages
+21/11/2014  2.4166   0
+22/11/2014  0        0
+23/11/2014  1.5833   4
+24/11/2014  3.0166  13
+25/11/2014  2.4999   6
+26/11/2014  1.4833   3
+27/11/2014  3.0499   6
+28/11/2014  0        0
+29/11/2014  2.4499   5
+30/11/2014  2.8833   2
+ 1/12/2014  0        0
+ 2/12/2014  4.1166   8
+ 3/12/2014  1.3333   5
+ 4/12/2014  1.2499   3
+ 5/12/2014  1.6666   8
+ 6/12/2014  0        0
+ 7/12/2014  2.4833   9
+29/12/2014  0        0
+30/12/2014  1.2332   1
+31/12/2014  0.3333   0
+ 1/01/2015  3.5666   2
+ 2/01/2015  0.8166   0
+ 3/01/2015  2.75    28
+ 4/01/2015  0.4166   0
+ 5/01/2015  1.2833   0
+ 6/01/2015  0.3333   3
+ 7/01/2015  0        0
+ 8/01/2015  0        0
+ 9/01/2015  2.35     2
+10/01/2015  0.5666   0
+11/01/2015  0        0
+12/01/2015  1.6666   0
+13/01/2015  2.2666   5
+14/01/2015  2.5165   6
+15/01/2015  2.0166   0
+16/01/2015  2.9666   1
+17/01/2015  0.8333   0
+18/01/2015  0.6666   1
+19/01/2015  1.45     0
+20/01/2015  0.3166   0
+21/01/2015  0        0
+22/01/2015  0.2333   0
+23/01/2015  0.85     2
+24/01/2015  0        0
+25/01/2015  0        0
+26/01/2015  0.6666   4
+27/01/2015  0.8333   1
+28/01/2015  1.5498   5
+29/01/2015  6.4159   9
+30/01/2015  2.9166   0
+</code></pre>
+"
+
+128616:"<p>I kind of understand what ""overfitting"" means, but I need help as to how to come up with a real-world example that applies to overfitting. </p>
+"
+
+136870:"<p>I assume the following is true: <em>assuming a fair coin, getting 10 heads in a row whilst tossing a coin does not increase the chance of the next coin toss being a tail</em>, no matter what amount of probability and/or statistical jargon is tossed around (excuse the puns). </p>
+
+<p>Assuming that is the case, my question is this: how the hell do I convince someone that is the case? </p>
+
+<p>They are smart and educated but seem determined not to consider that I might be in the right on this (argument).</p>
+"
+
+140547:"<p>When I first started learning statistics, procedures like the t-test, ANOVA, chi-squared and linear regression each appeared to be very different creatures. But now I realise these procedures each do more or less the same thing. And likewise, values such as the variance, residuals, standard error and mean also measure more or less the same thing.</p>
+
+<p>So I reckon all of these procedures and values, and indeed all of statistics, can be described in just one simple sentence:</p>
+
+<blockquote>
+  <p>What is the expected value and what is the variation around this value?</p>
+</blockquote>
+
+<p>The word expected could be replaced by any of these words: hypothesised, predicted, or central.</p>
+
+<p>How would other people describe statistics in one sentence? </p>
+"
+
+158631:"<p>If I understood correctly, in a machine learning algorithm, the model has to learn from its experience, i.e when the model gives the wrong prediction for the new cases, it must adapt to the new observations, and in time, the model becomes increasingly better. 
+I don't see that the logistic regression has this characteristic. So why is it still regarded as a machine learning algorithm? What is the difference between logistic regression with the normal regression in term of ""learning""?</p>
+
+<p>I have the same question for random forests!</p>
+
+<p>And what is the definition of ""machine learning""?</p>
+"
+
+163915:"<p>This may be a stupid question but it's been bugging me for years. Can someone explain to me why would anyone choose a parametric over a nonparametric statistical method for hypothesis testing or regression analysis any day of the week? In my mind it's like going for rafting and choosing a non-water resistant watch because you <em>may</em> not get it wet. Why not use the tool that works on every occasion? </p>
+"
+
+167051:"<p>As one becomes interested in statistics, the <a href=""https://youtu.be/BOWNHl3qOVA"">dichotomy ""Frequentist"" vs. ""Bayesian""</a> soon becomes commonplace (and who hasn't read <a href=""https://en.wikipedia.org/wiki/The_Signal_and_the_Noise"">Nate Silver's <em>The Signal and the Noise</em></a>, anyway?). In talks and introductory courses, the point of view is overwhelmingly frequentist (<a href=""https://en.wikipedia.org/wiki/Maximum_likelihood"">MLE</a>, $p$ values), but there tends to be a tiny fraction of time dedicated to admire Bayes formula and touch upon the idea of a <em>prior distribution</em>, usually tangentially. </p>
+
+<p>The tone employed to discuss Bayesian statistics oscillates between respect for its conceptual underpinnings, and a hint of skepticism regarding the chasm between lofty objectives, and arbitrariness in the selection of the prior distribution, or eventual use of frequentist maths after all.</p>
+
+<p>Sentences such as ""if you are a hard-core Bayesian..."" abound.</p>
+
+<p>The question is, Who are the Bayesians today? Are they some select academic institutions where you know that if you go there you will become a Bayesian? If so, are they specially sought after? Are we referring to just a few respected statisticians and mathematicians, and if so who are they?</p>
+
+<p>Do they even exist as such, these pure ""Bayesians""? Would they happily accept the label? Is it always a flattering distinction? Are they mathematicians with peculiar slides in meetings, deprived of any $p$ values and confidence intervals, easily spotted on the brochure?</p>
+
+<p>How much of a <a href=""https://normaldeviate.wordpress.com/2013/09/01/is-bayesian-inference-a-religion/"">niche</a> is being a ""Bayesian""? Are we referring to a minority of statisticians?</p>
+
+<p>Or is current Bayesian-ism equated with machine learning applications?</p>
+
+<p>... Or even more likely, is Bayesian statistics not so much a branch of statistics, but rather an <a href=""http://plato.stanford.edu/entries/epistemology-bayesian/"">epistemological</a> movement that transcends the ambit of probability calculations into a philosophy of science? In this regard, all scientists would be Bayesian at heart... but there would be no such thing as a pure Bayesian statistician impermeable to frequentist techniques (or contradictions).</p>
+"
+
+169156:"<p>I heard many times about curse of dimensionality, but somehow I'm still unable to grasp the idea, it's all foggy.</p>
+
+<p>Can anyone explain this in the most intuitive way, as you would explain it to a child, so that I (and the others confused as I am) could understand this ones for good?</p>
+
+<hr>
+
+<p>EDIT:</p>
+
+<p>Now, let's say that the child somehow heard about clustering (for example, they know how to cluster their toys :) ). How would the increase of dimensionality make the job of clustering their toys harder?</p>
+
+<p>For example, they used to consider only the shape of the toy and the color of the toy (one-color toys), but now need to consider the size and the weight of toys also. 
+Why is it more difficult for the child to find similar toys?</p>
+
+<hr>
+
+<p>EDIT 2</p>
+
+<p>For the sake of discussion I need to clarify that by - ""Why is it more difficult for the child to find similar toys"" - I also mean why is the notion of distance lost in high-dimensional spaces?</p>
+"
+
+185507:"<p>Suppose we have data set $(X_i,Y_i$) with $n$ points. We want to perform a linear regression, but first we sort the $X_i$ values and the $Y_i$ values independently of each other, forming data set $(X_i,Y_j)$. Is there any meaningful interpretation of the regression on the new data set? Does this have a name?</p>
+
+<p>I imagine this is a silly question so I apologize, I'm not formally trained in stats. In my mind this completely destroys our data and the regression is meaningless. But my manager says he gets ""better regressions most of the time"" when he does this (here ""better"" means more predictive). I have a feeling he is deceiving himself.</p>
+
+<p>EDIT: Thank you for all of your nice and patient examples. I showed him the examples by @RUser4512 and @gung and he remains staunch. He's becoming irritated and I'm becoming exhausted. I feel crestfallen. I will probably begin looking for other jobs soon.</p>
+"
+
+194035:"<p><strong>Background</strong>: I do not have an formal training in Bayesian statistics (though I am very interested in learning more), but I know enough--I think--to get the gist of why many feel as though they are preferable to Frequentist statistics. Even the undergraduates in the introductory statistics (in social sciences) class I am teaching find the Bayesian approach appealing--""Why are we interested in calculating the probability of the data, given the null? Why can't we just quantify the probability of the null hypothesis? Or the alternative hypothesis? And I've also read <a href=""http://stats.stackexchange.com/questions/103625/when-are-bayesian-methods-preferable-to-frequentist"">threads</a> like <a href=""http://stats.stackexchange.com/questions/41394/list-of-situations-where-a-bayesian-approach-is-simpler-more-practical-or-more?rq=1"">these</a>, which attest to the empirical benefits of Bayesian statistics as well. But then I came across this quote by Blasco (2001; emphasis added):</p>
+
+<blockquote>
+  <p>If the animal breeder is not interested in the philosophical problems associated with induction, but in tools to solve problems, both Bayesian and frequentist schools of inference are well established and it is not necessary to justify why one or the other school is preferred. Neither of them now has operational difficulties, with the exception of some complex cases...<strong>To choose one school or the other should be related to whether there are solutions in one school that the other does not offer</strong>, to how easily the problems are solved, and to how comfortable the scientist feels with the particular way of expression results. </p>
+</blockquote>
+
+<p><strong>The Question</strong>: The Blasco quote seems to suggest that there might be times when a Frequentist approach is actually preferable to a Bayesian one. And so I am curious: <strong>when would a frequentist approach be preferable over a Bayesian approach?</strong> I'm interested in answers that tackle the question both <strong>conceptually</strong> (i.e., when is knowing the probability of the data conditioned on the null hypothesis especially useful?) and <strong>empirically</strong> (i.e., under what conditions do Frequentist methods excel vs. Bayesian?). </p>
+
+<p>It would also be preferable if answers were conveyed as accessibly as possible--it would be nice to take some responses back to my class to share with my students (though I understand some level of technicality is required). </p>
+
+<p>Finally, despite being a regular user of Frequentist statistics, I am actually open to the possibility that Bayesian just wins across the board.  </p>
+"
+
+195034:"<p>Having recently graduated from my PhD program in statistics, I had for the last couple of months began searching for work in the field of statistics. Almost every company I considered had a job posting with a job title of ""<strong>Data Scientist</strong>"". In fact, it felt like long gone were the days of seeing job titles of <strong>Statistical Scientist</strong> or <strong>Statistician</strong>. Had being a data scientist really replaced what being a statistician was or were the titles synonymous I wondered?</p>
+
+<p>Well, most of the qualifications for the jobs felt like things that would qualify under the title of statistician.  Most jobs wanted a PhD in statistics ($\checkmark$), most required understanding experimental design ($\checkmark$), linear regression and anova ($\checkmark$), generalized linear models ($\checkmark$), and other multivariate methods such as PCA ($\checkmark$), as well as knowledge in a  statistical computing environment such as R or SAS ($\checkmark$). Sounds like a data scientist is really just a code name for statistician. </p>
+
+<p>However, every interview I went to started with the question: ""So are you familiar with machine learning algorithms?""  More often than not, I found myself having to try and answer questions about big data, high performance computing, and topics on  neural networks, CART, support vector machines, boosting trees, unsupervised models, etc. Sure I convinced myself that these were all statistical questions at heart, but at the end of every interview I couldn't help but leave feeling like I knew less and less about what a data scientist is. </p>
+
+<p>I am a statistician, but am I a data scientist? I work on scientific problems so I must be a scientist! And also I work with data, so I must be a data scientist! And according to Wikipedia, most academics would agree with me (<a href=""https://en.wikipedia.org/wiki/Data_science"">https://en.wikipedia.org/wiki/Data_science</a>, etc. )</p>
+
+<blockquote>
+  <p>Although use of the term ""data science"" has exploded in business
+  environments, many academics and journalists see no distinction
+  between data science and statistics.</p>
+</blockquote>
+
+<p>But if I am going on all these job interviews for a data scientist position, why does it feel like they are never asking me statistical questions?  </p>
+
+<p>Well after my last interview I did want any good scientist would do and I sought out data to solve this problem (hey, I am a data scientist after all). However, after many countless Google searches later, I ended up right where I started feeling as if I was once again grappling with the definition of what a data scientist was. I didn't know what a data scientist was exactly since there was so many definitions of it, (<a href=""http://blog.udacity.com/2014/11/data-science-job-skills.html"">http://blog.udacity.com/2014/11/data-science-job-skills.html</a>, <a href=""http://www-01.ibm.com/software/data/infosphere/data-scientist/"">http://www-01.ibm.com/software/data/infosphere/data-scientist/</a>) but it seemed like everyone was telling me I wanted to be one: </p>
+
+<ul>
+<li><a href=""https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century/"">https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century/</a></li>
+<li><a href=""http://mashable.com/2014/12/25/data-scientist/#jjgsyhcERZqL"">http://mashable.com/2014/12/25/data-scientist/#jjgsyhcERZqL</a></li>
+<li>etc....the list goes on.</li>
+</ul>
+
+<p>Well at the end of the day, what I figured out was ""what is a data scientist"" is a very hard question to answer. Heck, there were two entire months in Amstat where they devoted time to trying to answer this question: </p>
+
+<ul>
+<li><a href=""http://magazine.amstat.org/blog/2015/10/01/asa-statement-on-the-role-of-statistics-in-data-science/"">http://magazine.amstat.org/blog/2015/10/01/asa-statement-on-the-role-of-statistics-in-data-science/</a></li>
+<li><a href=""http://magazine.amstat.org/blog/2015/11/01/statnews2015/"">http://magazine.amstat.org/blog/2015/11/01/statnews2015/</a></li>
+</ul>
+
+<p>Well for now, I have to be a sexy statistician to be a data scientist but hopefully the cross validated community might be able to shed some light and help me understand what it means to be a data scientist.  Aren't all statisticians data scientists?</p>
+
+<hr>
+
+<p><strong>(Edit/Update)</strong></p>
+
+<p>I thought this might spice up the conversation. I just received an email from the American Statistical Association about a job positing with Microsoft looking for a Data Scientist. Here is the link: <a href=""https://careers.microsoft.com/jobdetails.aspx?ss=&amp;pg=0&amp;so=&amp;rw=1&amp;jid=215337&amp;jlang=EN&amp;pp=SS"">Data Scientist Position</a>. I think this is interesting because the role of the position hits on a lot of specific traits we have been talking about, but I think lots of them require a very rigorous background in statistics, as well as contradicting many of the answers posted below.  In case the link goes dead, here are the qualities Microsoft seeks in a data scientist:</p>
+
+<blockquote>
+  <p><strong>Core Job Requirements and Skills:</strong></p>
+  
+  <p><strong>Business Domain Experience using Analytics</strong></p>
+  
+  <ul>
+  <li>Must have experience across several relevant business domains in the utilization of critical thinking skills to conceptualize complex business problems and their solutions using advanced analytics in large scale real-world business data sets</li>
+  <li>The candidate must be able to independently run analytic projects and help our internal clients understand the findings and translate them into action to benefit their business.</li>
+  </ul>
+  
+  <p><strong>Predictive Modeling</strong></p>
+  
+  <ul>
+  <li>Experience across industries in predictive modeling</li>
+  <li>Business problem definition and conceptual modeling with the client to elicit important relationships and to define the system scope</li>
+  </ul>
+  
+  <p><strong>Statistics/Econometrics</strong></p>
+  
+  <ul>
+  <li>Exploratory data analytics for continuous and categorical data</li>
+  <li>Specification and estimation of structural model equations for enterprise and consumer behavior, production cost, factor demand, discrete choice, and other technology relationships as needed</li>
+  <li>Advanced statistical techniques to analyze continuous and categorical data</li>
+  <li>Time series analysis and implementation of forecasting models</li>
+  <li>Knowledge and experience in working with multiple variables problems</li>
+  <li>Ability to assess model correctness and conduct diagnostic tests</li>
+  <li>Capability to interpret statistics or economic models</li>
+  <li>Knowledge and experience in building discrete event simulation, and dynamic simulation models</li>
+  </ul>
+  
+  <p><strong>Data Management</strong></p>
+  
+  <ul>
+  <li>Familiarity with use of T-SQL and analytics for data transformation and the application of exploratory data analysis techniques for very large real-world data sets</li>
+  <li>Attention to data integrity including data redundancy, data accuracy, abnormal or extreme values, data interactions and missing values.</li>
+  </ul>
+  
+  <p><strong>Communication and Collaboration Skills</strong></p>
+  
+  <ul>
+  <li>Work independently and able to work with a virtual project team that will research innovative solutions to challenging business problems</li>
+  <li>Collaborate with partners, apply critical thinking skills, and drive analytic projects end-to-end</li>
+  <li>Superior communication skills, both verbal and written</li>
+  <li>Visualization of analytic results in a form that is consumable by a diverse set of stakeholders</li>
+  </ul>
+  
+  <p><strong>Software Packages</strong></p>
+  
+  <ul>
+  <li>Advanced Statistical/Econometric software packages: Python, R, JMP, SAS, Eviews, SAS Enterprise Miner</li>
+  <li>Data exploration, visualization, and management: T-SQL, Excel, PowerBI, and equivalent tools</li>
+  </ul>
+  
+  <p><strong>Qualifications:</strong></p>
+  
+  <ul>
+  <li>Minimum 5+   years of related experience required</li>
+  <li>Post graduate degree in quantitative field is desirable.</li>
+  </ul>
+</blockquote>
+"
+
+202879:"<p>Statistics is everywhere; common usage of statistical terms is, however, often unclear.</p>
+
+<p>The terms <strong><em>probability</em></strong> and <strong><em>odds</em></strong> are used interchangeable in lay English away from casinos and horse races, and despite their well-defined and different mathematical expressions.</p>
+
+<p>Not separating the term <a href=""http://stats.stackexchange.com/q/2641/67822""><strong><em>likelihood</em></strong></a> from probability has led seasoned doctors to perplexity when asked to quantify the probability of breast cancer given a positive mammography, <a href=""http://opinionator.blogs.nytimes.com/2010/04/25/chances-are/?_r=0"">“Oh, what nonsense. I can’t do this. You should test my daughter; she is studying medicine.”</a> </p>
+
+<p>Speaking of which, what about the word <strong><em>chance</em></strong>? And <a href=""http://stats.stackexchange.com/a/49277/67822""><strong><em>correlation</em></strong> versus <strong><em>association</em></strong></a>? </p>
+
+<p>Or correlation implying <strong><em>causation</em></strong>? I remember feeling uncertain after seeing for the first time what may be one of the most influential <a href=""https://en.wikipedia.org/wiki/An_Inconvenient_Truth#/media/File:Co2-temperature-records.svg"">powerpoint slides</a> ever on a very famous documentary, illustrating the <em>correlation</em> of ice core $\small \text{CO}_2$ and temperatures because, although I knew enough to remember that correlation is not causation, I had not read yet about things like Granger series or vector autoregression.</p>
+
+<p><img src=""http://i.stack.imgur.com/ybN2a.png"" width=""400"" height=""300""></p>
+
+<p><strong>QUESTION:</strong> Is there a point to even attempt to improve the use of these terms outside the technical fields? And which words deserve most attention, or are to blame for more problems when misused outside the statistical world, if any?</p>
+"
+
+204930:"<p>I'm completely blind and come from a programming background.</p>
+
+<p>What I'm trying to do is to learn machine learning, and to do this, I first need to learn about linear regression. All the explanations on the Internet I am finding about this subject plot the data first. I'm looking for a practical explanation of linear regression that is not dependent on graphs and plots.</p>
+
+<p>Here is my understanding of the aim of simple linear regression:</p>
+
+<p>Simple linear regression is trying to find the formula that once you give <code>X</code> to it, would provide you with the closest estimation of <code>Y</code>.</p>
+
+<p>So, as I understand it, what needs to be done is to compare the predictor (for example the area of a house in square feet) with the independent variable (the price). In my example, you probably can create a non-visual way of getting the best formula to calculate the price of a house from its area. For example, maybe you would get the area and price of 1000 houses in a neighborhood, and divide the price to the area? The result (at least in Iran which is where I live) would have a very negligible variance. So you'd probably get something like this:</p>
+
+<p><code>
+Price = 2333 Rials * Area of the house
+</code></p>
+
+<p>Of course, you would then need to go through all the 1000 houses in your data set, put the area in the formula above, compare the estimate with the real price, square the results (I guess to prevent variances from canceling each other out) and then get a number, then keep playing around with the <code>2333</code> to decrease the errors.</p>
+
+<p>Of course, this is the brute force option where it will probably take ages to compute the errors and arrive at the best option, but you see what I'm saying? I didn't say anything about a graph, or a line, or points on a plot, or the best way of fitting a line to your existing data.</p>
+
+<p>So, why would you need a scatter plot and linear algebra for this? Isn't there a non-visual way?</p>
+
+<p>First, am I right in my assumptions? If not, I'd love to be corrected. Whether or not I am, though, is there a way to come up with the formula without playing around with linear algebra?</p>
+
+<p>I would really appreciate it if I could get an example with the explanation, so that I can do it along with the text to test my understanding.</p>
+"
+

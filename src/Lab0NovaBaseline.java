@@ -50,7 +50,9 @@ public class Lab0NovaBaseline {
 	String indexPath = "docs/index";
 	String docPath = "docs/Answers.csv";
 	String queriesPath = "docs/queries.txt";
+	String queriesKagglePath = "docs/queries.kaggle.txt";
 	String resultsPath = "docs/results.txt";
+	String resultsKagglePath = "docs/resultsKaggle.txt";
 
 	boolean create = true;
 
@@ -76,6 +78,7 @@ public class Lab0NovaBaseline {
 			
 			// here invokes all the methods of the analyzer
 			IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
+			
 			// setting the similarity algorithm for the indexing
 			iwc.setSimilarity(similarity);
 			if (create) {
@@ -214,7 +217,7 @@ public class Lab0NovaBaseline {
 	// ANNOTATE THIS METHOD YOURSELF
 	List<Result> indexSearch(Analyzer analyzer, Similarity similarity, QueryString queryString) {
 
-		IndexReader reader = null;
+		IndexReader reader = null;	
 		try {
 			reader = DirectoryReader.open(FSDirectory.open(Paths.get(indexPath)));
 			IndexSearcher searcher = new IndexSearcher(reader);
@@ -241,11 +244,11 @@ public class Lab0NovaBaseline {
 			for (int j = 0; j < hits.length; j++) {
 				Document doc = searcher.doc(hits[j].doc);
 //				System.out.println(searcher.explain(query, hits[j].doc));
-				String answer = doc.get("Body");
+//				String answer = doc.get("Body");
 				String answerId = doc.get("Id");
 				
 				queryResults.add(new Result(queryString.getId(), answerId, j+1, hits[j].score, "Lab-0"));
-				System.out.println("DocId: " + answerId + " | DocScore: " + hits[j].score + " | Body: " + answer);
+//				System.out.println("DocId: " + answerId + " | DocScore: " + hits[j].score + " | Body: " + answer);
 			}
 			reader.close();
 			
@@ -276,14 +279,16 @@ public class Lab0NovaBaseline {
 		//instead have something like this, and add new QueryString(...)
 		List<QueryString> listQueries = new ArrayList<QueryString>();
 		
-		try (BufferedReader br = new BufferedReader(new FileReader(queriesPath))) {
+		try (BufferedReader br = new BufferedReader(new FileReader(queriesKagglePath))) {
 			String line = br.readLine(); 
-			
+//			System.out.println("Line read from queries: " + line);
 			while (line != null) {
 				StringTokenizer lineTokens = new StringTokenizer(line, ":");
 				//need to remove the : because some queries have : in the text, which leads to wrong tokenization
-				listQueries.add(new QueryString(lineTokens.nextToken(), lineTokens.nextToken("").replace(":", "")));		
+				//those replaces are due to a strange bug in the first query parse...
+				listQueries.add(new QueryString(lineTokens.nextToken().replace("ï", "").replace("»", "").replace("¿", ""), lineTokens.nextToken("").replace(":", "").replace("\"", "")));		
 				line = br.readLine();
+//				System.out.println("Line read	 from queries: " + line);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -294,12 +299,26 @@ public class Lab0NovaBaseline {
 	
 	void writeFile(List<Result> results){
 	
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(resultsPath))) {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(resultsKagglePath))) {
 
-			bw.write(String.format("%-10s %-10s %-10s %-10s %-10s %-10s \n", "QueryID", "Q0", "DocID", "Rank", "Score", "RunID"));
+//			bw.write(String.format("%-10s %-10s %-10s %-10s %-10s %-10s \n", "QueryID", "Q0", "DocID", "Rank", "Score", "RunID"));
+			bw.write("ID,AnswerId");
+			
+			//all tuples save the query id, so get from the first
+			String queryIdValue = "";
 			for (Result result : results) {
-				bw.write(result.toString());
+//				System.out.println("Reading: " + result.toString()); 
+				if(queryIdValue == result.getQueryId()){
+					bw.write(result.getAnswerId() + " ");
+				}else{
+					bw.write("\n" + result.getQueryId() + "," + result.getAnswerId() + " ");
+					queryIdValue = result.getQueryId();
+				}
+				
+				//bw.write(result.toString());
+				
 			}
+			bw.write("\n");
 			
 			// no need to close it.
 			//bw.close();

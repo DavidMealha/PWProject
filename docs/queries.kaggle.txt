@@ -1,0 +1,50 @@
+﻿1815:Recommended books on experiment design?
+1904:Statistics conferences?
+1980:Complete substantive examples of reproducible research using R
+2181:Book recommendations for multivariate analysis
+2492:Is normality testing 'essentially useless'?
+2516:Are large data sets inappropriate for hypothesis testing?
+2547:Why is median age a better statistic than mean age?
+2691:"Making sense of principal component analysis"
+2715:"Rules of thumb for ""modern"" statistics"
+3814:How to annoy a statistical referee?
+3931:Intuitive explanation for dividing by $n-1$ when calculating standard deviation?
+4551:What are common statistical sins?
+4612:Econometrics textbooks?
+5026:"What is the difference between data mining"
+5115:Most famous statisticians
+5292:Good GUI for R suitable for a beginner wanting to learn  programming in R?
+5465:Statistics interview questions
+6421:What are the breakthroughs in Statistics of the past 15 years?
+6601:What is the hardest statistical concept to grasp?
+9085:Software for easy-yet-robust data exploration
+10459:Are there any good movies involving mathematics or probability?
+11009:Including the interaction but not the main effects in a model
+12128:What does orthogonal mean in the context of statistics?
+12386:Machine learning cookbook / reference card / cheatsheet?
+15670:Best way to get started with and learn R
+16750:Software for drawing bayesian networks (graphical models)
+20514:Books for self-studying time series analysis?
+20977:Most confusing statistical terms
+23779:Most interesting statistical paradoxes
+25672:Does Julia have any hope of sticking in the statistical community?
+27495:Having a job in data-mining without a PhD
+33780:"R vs SAS"
+41208:The Sleeping Beauty Paradox
+43339:What's wrong with XKCD's Frequentists vs. Bayesians comic?
+86015:Amazon interview question—probability of 2nd interview
+93830:Expected number of ratio of girls vs boys birth
+112451:Maximum Likelihood Estimation (MLE) in layman terms
+126419:Displaying three pieces of information on a graph
+128616:"What's a real-world example of ""overfitting""?"
+136870:Does 10 heads in a row increase the chance of the next toss being a tail?
+140547:How to describe statistics in one sentence?
+158631:Why is logistic regression called a machine learning algorithm?
+163915:Why would parametric statistics ever be preferred over nonparametric?
+167051:Who Are The Bayesians?
+169156:"Explain ""Curse of dimensionality"" to a child"
+185507:What happens if the explanatory and response variables are sorted independently before regression?
+194035:When (if ever) is a frequentist approach substantively better than a Bayesian?
+195034:What is a data scientist?
+202879:What are the most misused statistics terms that we should care to correct?
+204930:Can simple linear regression be done without using plots and linear algebra?
