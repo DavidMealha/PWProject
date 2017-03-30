@@ -244,11 +244,11 @@ public class Lab0NovaBaseline {
 			for (int j = 0; j < hits.length; j++) {
 				Document doc = searcher.doc(hits[j].doc);
 //				System.out.println(searcher.explain(query, hits[j].doc));
-//				String answer = doc.get("Body");
+				String answer = doc.get("Body");
 				String answerId = doc.get("Id");
 				
 				queryResults.add(new Result(queryString.getId(), answerId, j+1, hits[j].score, "Lab-0"));
-//				System.out.println("DocId: " + answerId + " | DocScore: " + hits[j].score + " | Body: " + answer);
+				System.out.println("DocId: " + answerId + " | DocScore: " + hits[j].score + " | Body: " + answer);
 			}
 			reader.close();
 			
@@ -337,6 +337,7 @@ public class Lab0NovaBaseline {
 		// 1st step - index all the answers, just has to be done once
 //		Analyzer analyzer = new StandardAnalyzer();
 		Lab1NovaAnalyser analyzer = new Lab1NovaAnalyser();
+		QueryAnalyzer queryAnalyzer = new QueryAnalyzer();
 		
 		// Similarity similarity = new ClassicSimilarity();
 		Similarity similarity = new BM25Similarity();

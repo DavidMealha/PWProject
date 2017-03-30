@@ -1,3 +1,4 @@
+
 /**
  * 
  */
@@ -26,11 +27,8 @@ import org.apache.lucene.analysis.ngram.EdgeNGramTokenFilter;
 import org.apache.lucene.analysis.ngram.NGramTokenFilter;
 import org.apache.lucene.analysis.shingle.ShingleFilter;
 
-/**
- * @author jmag
- *
- */
-public class Lab1NovaAnalyser extends StopwordAnalyzerBase {
+
+public class QueryAnalyzer extends StopwordAnalyzerBase {
 
 	/**
 	 * An unmodifiable set containing some common English words that are not
@@ -38,8 +36,8 @@ public class Lab1NovaAnalyser extends StopwordAnalyzerBase {
 	 */
 	static List<String> stopWords = Arrays.asList("a", "an", "and", "are", "as", "at", "be", "but", "by", "for", "if",
 			"in", "into", "is", "it", "no", "not", "of", "on", "or", "such", "that", "the", "their", "then", "there",
-			"these", "they", "this", "to", "was", "will", "with", "<p>", "</p>", "<li>", "</li>", "<em", "</em", "<ul>", "</ul>", "<ol>", "</ol>", "href", "<blockquote>", "</blockquote>", "<strong>");
-	static CharArraySet stopSet = new CharArraySet(stopWords, true);
+			"these", "they", "this", "to", "was", "will", "with", "<p>", "</p>", "<ul>", "</ul>", "<li>", "</li>", "<blockquote>", "</blockquote>");
+	static CharArraySet stopSet = new CharArraySet(stopWords, false);
 
 	/** Default maximum allowed token length */
 	private int maxTokenLength = 25;
@@ -47,7 +45,7 @@ public class Lab1NovaAnalyser extends StopwordAnalyzerBase {
 	/**
 	 * Builds an analyzer with the default stop words ({@link #STOP_WORDS_SET}).
 	 */
-	public Lab1NovaAnalyser() {
+	public QueryAnalyzer() {
 		super(stopSet);
 	}
 
@@ -72,13 +70,12 @@ public class Lab1NovaAnalyser extends StopwordAnalyzerBase {
 //		tok = new NGramTokenFilter(tok,2,3);			// creates unbounded n-grams 
 //		tok = new EdgeNGramTokenFilter(tok,2,3);		// creates word-bounded n-grams
 //		
-		tok = new SnowballFilter(tok, "English");	// stems workds according to the specified language
-		
+//		tok = new SnowballFilter(tok, "English");		// stems workds according to the specified language
 		
 		return new TokenStreamComponents(src, tok) {
 			@Override
 			protected void setReader(final Reader reader) {	
-				src.setMaxTokenLength(Lab1NovaAnalyser.this.maxTokenLength);
+				src.setMaxTokenLength(QueryAnalyzer.this.maxTokenLength);
 				super.setReader(reader);
 			}
 		};
