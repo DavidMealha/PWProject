@@ -85,29 +85,42 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 	//TODO TODO No fim de cada iteração, normalizar os pageRanks (garantir que a soma dos pageRank = 1)
 
 	public void addLinkToGraph(QA question, QA answer) {
-
+		
+		User src = null;
+		Integer srcUserId = question.ownerUserId;
+		
+		if(!socialGraph.containsKey(srcUserId)){
+			src = new User(srcUserId);
+			socialGraph.put(src.Id, src);
+		}else{
+			src = socialGraph.get(srcUserId);
+		}
+		
+		User dst = null;
+		Integer dstUserId = answer.ownerUserId;
+		
+		if(!socialGraph.containsKey(dstUserId)){
+			dst = new User(dstUserId);
+			socialGraph.put(dst.Id, dst);
+		}else{
+			dst = socialGraph.get(dstUserId);
+		}
+		
+		
 		// TODO: complete the InLinks and the OutLinks
-
-		//Step 1: Parse the Answers and Questions files and identify the set of users providing Questions and Answers.
 		Link l = new Link();
 		l.question = question;
 		l.answer = answer;
 		
-		//􏰀Step 2a: Parse the Answers and Questions files a second time and for each Q&A create a link between the Q-user and the A-user.
-		
-		
 		//Step 2b: Decide which should be the direction of the link (Q->A or A->Q).
 		//We are assuming Q->A, the source user is the question user.
-		User src = socialGraph.get(question.ownerUserId);
 		l.srcUser = src;
 		l.srcUser.outLinks.add(l);
 
-		User dst = socialGraph.get(answer.ownerUserId);
 		l.dstUser = dst;
 		l.dstUser.inLinks.add(l);
 		
 		//Step 2c: Store the weight of the link according to the answer/question score.
-		
 		
 		//Step 2d: You should use a variable for storing the full set of links sorted by user.
 		
