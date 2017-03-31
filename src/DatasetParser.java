@@ -11,14 +11,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.TreeMap;
 
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-import org.apache.lucene.document.IntPoint;
-import org.apache.lucene.document.LongPoint;
-import org.apache.lucene.document.TextField;
-import org.apache.lucene.index.Term;
-import org.apache.lucene.index.IndexWriterConfig.OpenMode;
-
 public abstract class DatasetParser {
 
 	public class QA {

@@ -11,8 +11,8 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 	public class User {
 		public Integer Id;
 		public double userRank;
-		public List<User> inLinks;
-		public List<User> outLinks;
+		public List<Link> inLinks;
+		public List<Link> outLinks;
 
 		public User(Integer id) {
 			Id = id;
@@ -81,15 +81,56 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 		}
 	}
 
+
+	//TODO TODO No fim de cada iteração, normalizar os pageRanks (garantir que a soma dos pageRank = 1)
+
 	public void addLinkToGraph(QA question, QA answer) {
 
 		// TODO: complete the InLinks and the OutLinks
 
+		//Step 1: Parse the Answers and Questions files and identify the set of users providing Questions and Answers.
+		Link l = new Link();
+		l.question = question;
+		l.answer = answer;
+		
+		//􏰀Step 2a: Parse the Answers and Questions files a second time and for each Q&A create a link between the Q-user and the A-user.
+		
+		
+		//Step 2b: Decide which should be the direction of the link (Q->A or A->Q).
+		//We are assuming Q->A, the source user is the question user.
+		User src = socialGraph.get(question.ownerUserId);
+		l.srcUser = src;
+		l.srcUser.outLinks.add(l);
+
+		User dst = socialGraph.get(answer.ownerUserId);
+		l.dstUser = dst;
+		l.dstUser.inLinks.add(l);
+		
+		//Step 2c: Store the weight of the link according to the answer/question score.
+		
+		
+		//Step 2d: You should use a variable for storing the full set of links sorted by user.
+		
+		
 	}
 
+	/**
+	 * 
+	 * @param iter - number of iterations to update the PageRank(i)
+	 */
 	public void computePageRank(Integer iter) {
 
 		// TODO: compute the PageRank of the social-graph
+
+		//Step 1 - initialize the PR of each user with a seed value of 1/#numUsers
+		for(int j = 0; j < socialGraph.size(); j++) {
+			socialGraph.get(j).userRank = (1/socialGraph.size());
+		}
+
+		//TODO: step 2 - iterate over the full set of links
+		//TODO: step 3 - update the PR of each user using the formula
+		// PRi = ((1-d)/N + d.sum jEinLinks(i)(PRj / #outlinks(j))
+		//Initialize d=0.08 or d=0.15
 
 	}
 
@@ -104,8 +145,8 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 
 		Lab3NovaSocialGraph temp = new Lab3NovaSocialGraph();
 
-		String answersPath = "/home/jmag/classes/courses/2016-2017/WMS/labs/crossvalidatedquestions/Answers.csv";
-		String questionsPath = "/home/jmag/classes/courses/2016-2017/WMS/labs/crossvalidatedquestions/Questions.csv";
+		String answersPath = "/Users/apple/PWProject/docs/Answers.csv";
+		String questionsPath = "/Users/apple/PWProject/docs/Questions.csv";
 
 		temp.loadSocialGraph(answersPath, questionsPath, 0.1);
 
