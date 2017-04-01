@@ -248,7 +248,7 @@ public class Lab0NovaBaseline {
 				String answerId = doc.get("Id");
 				
 				queryResults.add(new Result(queryString.getId(), answerId, j+1, hits[j].score, "Lab-0"));
-				System.out.println("DocId: " + answerId + " | DocScore: " + hits[j].score + " | Body: " + answer);
+//				System.out.println("DocId: " + answerId + " | DocScore: " + hits[j].score + " | Body: " + answer);
 			}
 			reader.close();
 			
@@ -279,7 +279,7 @@ public class Lab0NovaBaseline {
 		//instead have something like this, and add new QueryString(...)
 		List<QueryString> listQueries = new ArrayList<QueryString>();
 		
-		try (BufferedReader br = new BufferedReader(new FileReader(queriesKagglePath))) {
+		try (BufferedReader br = new BufferedReader(new FileReader(queriesPath))) {
 			String line = br.readLine(); 
 //			System.out.println("Line read from queries: " + line);
 			while (line != null) {
@@ -299,23 +299,22 @@ public class Lab0NovaBaseline {
 	
 	void writeFile(List<Result> results){
 	
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(resultsKagglePath))) {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(resultsPath))) {
 
-//			bw.write(String.format("%-10s %-10s %-10s %-10s %-10s %-10s \n", "QueryID", "Q0", "DocID", "Rank", "Score", "RunID"));
-			bw.write("ID,AnswerId");
+			bw.write(String.format("%-10s %-10s %-10s %-10s %-10s %-10s \n", "QueryID", "Q0", "DocID", "Rank", "Score", "RunID"));
+//			bw.write("ID,AnswerId");
 			
 			//all tuples save the query id, so get from the first
 			String queryIdValue = "";
-			for (Result result : results) {
-//				System.out.println("Reading: " + result.toString()); 
-				if(queryIdValue == result.getQueryId()){
-					bw.write(result.getAnswerId() + " ");
-				}else{
-					bw.write("\n" + result.getQueryId() + "," + result.getAnswerId() + " ");
-					queryIdValue = result.getQueryId();
-				}
-				
-				//bw.write(result.toString());
+			for (Result result : results) { 
+//				if(queryIdValue == result.getQueryId()){
+//					bw.write(result.getAnswerId() + " ");
+//				}else{
+//					bw.write("\n" + result.getQueryId() + "," + result.getAnswerId() + " ");
+//					queryIdValue = result.getQueryId();
+//				}
+//				
+				bw.write(result.toString());
 				
 			}
 			bw.write("\n");
@@ -345,7 +344,7 @@ public class Lab0NovaBaseline {
 		// Similarity similarity = new TFIDFSimilarity();
 		
 		Lab0NovaBaseline baseline = new Lab0NovaBaseline();
-		baseline.openIndex(analyzer, similarity);
+ 		baseline.openIndex(analyzer, similarity);
 		baseline.indexDocuments();
 		baseline.close();
 		

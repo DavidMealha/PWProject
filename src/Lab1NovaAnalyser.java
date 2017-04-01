@@ -38,7 +38,8 @@ public class Lab1NovaAnalyser extends StopwordAnalyzerBase {
 	 */
 	static List<String> stopWords = Arrays.asList("a", "an", "and", "are", "as", "at", "be", "but", "by", "for", "if",
 			"in", "into", "is", "it", "no", "not", "of", "on", "or", "such", "that", "the", "their", "then", "there",
-			"these", "they", "this", "to", "was", "will", "with", "<p>", "</p>", "<li>", "</li>", "<em", "</em", "<ul>", "</ul>", "<ol>", "</ol>", "href", "<blockquote>", "</blockquote>", "<strong>");
+			"these", "they", "this", "to", "was", "will", "with", "you", "use", "can", "i", "have", "your", "from", 
+			"more", "some", "other", "than", "also", "about");
 	static CharArraySet stopSet = new CharArraySet(stopWords, true);
 
 	/** Default maximum allowed token length */
@@ -67,7 +68,7 @@ public class Lab1NovaAnalyser extends StopwordAnalyzerBase {
 		tok = new StopFilter(tok, stopwords);			// removes stop words
 
 //		tok = new ShingleFilter(tok, 2, 3);				// creates word-grams with neighboring works
-//		tok = new CommonGramsFilter(tok, stopwords);	// creates word-grams with stopwords
+		tok = new CommonGramsFilter(tok, stopwords);	// creates word-grams with stopwords
 //		
 //		tok = new NGramTokenFilter(tok,2,3);			// creates unbounded n-grams 
 //		tok = new EdgeNGramTokenFilter(tok,2,3);		// creates word-bounded n-grams
@@ -79,7 +80,7 @@ public class Lab1NovaAnalyser extends StopwordAnalyzerBase {
 			@Override
 			protected void setReader(final Reader reader) {	
 				src.setMaxTokenLength(Lab1NovaAnalyser.this.maxTokenLength);
-				super.setReader(reader);
+				super.setReader(new HTMLStripCharFilter(reader));
 			}
 		};
 	}

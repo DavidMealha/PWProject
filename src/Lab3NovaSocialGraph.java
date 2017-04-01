@@ -27,6 +27,7 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 		public User dstUser;
 		public QA question;
 		public QA answer;
+		
 	};
 
 	// <QuestionId, Question>
@@ -34,12 +35,16 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 
 	// <QuestionId, <ScoreId, Answer >>
 	protected Map<Integer, TreeMap<Integer, QA>> answersMap;
+	
+	// List<Link>
+	private List<Link> links; 
 
 	public Lab3NovaSocialGraph() {
 		socialGraph = new HashMap<Integer, User>();
 
 		questionsMap = new HashMap<Integer, QA>();
 		answersMap = new HashMap<Integer, TreeMap<Integer, QA>>();
+		links = new ArrayList<Link>();
 	}
 
 	@Override
@@ -106,7 +111,6 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 			dst = socialGraph.get(dstUserId);
 		}
 		
-		
 		// TODO: complete the InLinks and the OutLinks
 		Link l = new Link();
 		l.question = question;
@@ -119,6 +123,8 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 
 		l.dstUser = dst;
 		l.dstUser.inLinks.add(l);
+		
+		links.add(l);
 		
 		//Step 2c: Store the weight of the link according to the answer/question score.
 		
