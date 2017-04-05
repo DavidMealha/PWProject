@@ -70,7 +70,7 @@ public class QueryAnalyzer extends StopwordAnalyzerBase {
 //		tok = new NGramTokenFilter(tok,3,4);			// creates unbounded n-grams 
 //		tok = new EdgeNGramTokenFilter(tok,2,3);		// creates word-bounded n-grams
 //		
-//		tok = new SnowballFilter(tok, "English");		// stems workds according to the specified language
+		tok = new SnowballFilter(tok, "English");		// stems workds according to the specified language
 		
 		return new TokenStreamComponents(src, tok) {
 			@Override

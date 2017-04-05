@@ -4,6 +4,8 @@ public class QueryString {
 	private String Id;
 	private String text;
 	
+	public QueryString() {}
+	
 	public QueryString(String id, String text) {
 		this.Id = id;
 		this.text = text;

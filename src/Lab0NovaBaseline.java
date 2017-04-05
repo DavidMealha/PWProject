@@ -50,7 +50,7 @@ public class Lab0NovaBaseline {
 	String indexPath = "docs/index";
 	String docPath = "docs/Answers.csv";
 	String queriesPath = "docs/queries.txt";
-	String queriesKagglePath = "docs/queries.kaggle.txt";
+	String queriesKagglePath = "docs/queries-descriptions.kaggle.txt";
 	String resultsPath = "docs/results.txt";
 	String resultsKagglePath = "docs/resultsKaggle.txt";
 
@@ -229,7 +229,7 @@ public class Lab0NovaBaseline {
 			
 			Query query = null;
 			try {
-				query = parser.parse(queryString.getText());
+				query = parser.parse(QueryParser.escape(queryString.getText()));
 			} catch (org.apache.lucene.queryparser.classic.ParseException e) {
 				System.out.println("Error parsing query string.");
 			}
@@ -274,21 +274,16 @@ public class Lab0NovaBaseline {
 	}
 
 	public List<QueryString> readFile(){
-		// format of each line (id:query)
-//		HashMap<String, String> queries = new HashMap<String, String>();
-		//instead have something like this, and add new QueryString(...)
 		List<QueryString> listQueries = new ArrayList<QueryString>();
 		
-		try (BufferedReader br = new BufferedReader(new FileReader(queriesPath))) {
+		try (BufferedReader br = new BufferedReader(new FileReader(queriesKagglePath))) {
 			String line = br.readLine(); 
-//			System.out.println("Line read from queries: " + line);
 			while (line != null) {
 				StringTokenizer lineTokens = new StringTokenizer(line, ":");
-				//need to remove the : because some queries have : in the text, which leads to wrong tokenization
+				
 				//those replaces are due to a strange bug in the first query parse...
 				listQueries.add(new QueryString(lineTokens.nextToken().replace("ï", "").replace("»", "").replace("¿", ""), lineTokens.nextToken("").replace(":", "").replace("\"", "")));		
 				line = br.readLine();
-//				System.out.println("Line read	 from queries: " + line);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -297,24 +292,66 @@ public class Lab0NovaBaseline {
 		return listQueries;
 	}
 	
+	//to read from query kaggle descriptions
+	public List<QueryString> readFile2(){
+		List<QueryString> listQueries = new ArrayList<QueryString>();
+		
+		try (BufferedReader br = new BufferedReader(new FileReader(queriesKagglePath))) {
+			String line = br.readLine(); 
+			
+			QueryString aux = new QueryString();
+			while (line != null) {
+				//if its a line with the beggining of a query description
+				if(line.equals("")){
+					//do nothing
+				}
+				else if(line.split(":")[0].matches("\\d+")){
+					//just set aux variable to null
+					if(aux.getId() != null && aux.getText() != null){
+						listQueries.add(aux);
+						aux = new QueryString();
+					}
+					aux.setId(null);
+					aux.setText(null);
+					
+					//and start tokenizing the line
+					StringTokenizer lineTokens = new StringTokenizer(line, ":");
+					aux.setId(lineTokens.nextToken());
+					//until the end of the line
+					aux.setText(lineTokens.nextToken(""));
+				}
+				else{
+					aux.setText(aux.getText() + "\n" + line);
+				}
+				line = br.readLine();
+				
+				
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return listQueries;
+	}
+	
 	void writeFile(List<Result> results){
 	
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(resultsPath))) {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(resultsKagglePath))) {
 
-			bw.write(String.format("%-10s %-10s %-10s %-10s %-10s %-10s \n", "QueryID", "Q0", "DocID", "Rank", "Score", "RunID"));
-//			bw.write("ID,AnswerId");
+//			bw.write(String.format("%-10s %-10s %-10s %-10s %-10s %-10s \n", "QueryID", "Q0", "DocID", "Rank", "Score", "RunID"));
+			bw.write("ID,AnswerId");
 			
 			//all tuples save the query id, so get from the first
 			String queryIdValue = "";
 			for (Result result : results) { 
-//				if(queryIdValue == result.getQueryId()){
-//					bw.write(result.getAnswerId() + " ");
-//				}else{
-//					bw.write("\n" + result.getQueryId() + "," + result.getAnswerId() + " ");
-//					queryIdValue = result.getQueryId();
-//				}
-//				
-				bw.write(result.toString());
+				if(queryIdValue == result.getQueryId()){
+					bw.write(result.getAnswerId() + " ");
+				}else{
+					bw.write("\n" + result.getQueryId() + "," + result.getAnswerId() + " ");
+					queryIdValue = result.getQueryId();
+				}
+				
+//				bw.write(result.toString());
 				
 			}
 			bw.write("\n");
@@ -344,12 +381,12 @@ public class Lab0NovaBaseline {
 		// Similarity similarity = new TFIDFSimilarity();
 		
 		Lab0NovaBaseline baseline = new Lab0NovaBaseline();
- 		baseline.openIndex(analyzer, similarity);
-		baseline.indexDocuments();
-		baseline.close();
+// 		baseline.openIndex(analyzer, similarity);
+//		baseline.indexDocuments();
+//		baseline.close();
 		
 		// 2nd step - loop over all the queries
-		List<QueryString> queries = baseline.readFile();
+		List<QueryString> queries = baseline.readFile2();
 		List<Result> results = new ArrayList<Result>();
 		for (QueryString queryString : queries) {
 			results.addAll(baseline.indexSearch(analyzer, similarity, queryString));
