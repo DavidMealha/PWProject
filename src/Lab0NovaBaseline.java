@@ -11,10 +11,13 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.apache.lucene.analysis.Analyzer;
@@ -167,6 +170,7 @@ public class Lab0NovaBaseline {
 //				System.out.println("This entered because it's not NA, it's:" + aux);
 				Integer OwnerUserId = Integer.decode(aux);
 				doc.add(new IntPoint("OwnerUserId", OwnerUserId));
+				doc.add(new StoredField("OwnerUserId", OwnerUserId));
 			}
 
 			// Extract field CreationDate
@@ -217,13 +221,12 @@ public class Lab0NovaBaseline {
 
 	// ====================================================
 	// ANNOTATE THIS METHOD YOURSELF
-	List<Result> indexSearch(Analyzer analyzer, Similarity similarity, QueryString queryString) {
+	List<Result> indexSearch(Analyzer analyzer, Similarity similarity, QueryString queryString, Map<Integer, Float> nsGraph) {
 
 		IndexReader reader = null;	
 		try {
 			reader = DirectoryReader.open(FSDirectory.open(Paths.get(indexPath)));
 			IndexSearcher searcher = new IndexSearcher(reader);
-
 			BufferedReader in = null;
 			in = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
 
@@ -248,13 +251,32 @@ public class Lab0NovaBaseline {
 //				System.out.println(searcher.explain(query, hits[j].doc));
 				String answer = doc.get("Body");
 				String answerId = doc.get("Id");
+				String ownerUserId = doc.get("OwnerUserId");
 				
-				queryResults.add(new Result(queryString.getId(), answerId, j+1, hits[j].score, "Lab-0"));
+				int parseUserId = 0;
+				float alfa = 0.0f;
+				float newScore = 0.0f;
+				
+				if (ownerUserId != null) {
+					parseUserId = Integer.parseInt(ownerUserId);
+					//score = (alfa * score) + ((1 - alfa) * pageRank)
+					if (nsGraph.containsKey(parseUserId)) {
+						float pageRank = nsGraph.get(parseUserId);
+						newScore = (alfa * hits[j].score) + ((1 - alfa) * pageRank);
+					}else{
+						newScore = (alfa * hits[j].score);
+					}
+				}else{
+					newScore = (alfa * hits[j].score);
+				}
+				
+				
+				queryResults.add(new Result(queryString.getId(), answerId, j+1, newScore, "Lab-0"));
 //				System.out.println("DocId: " + answerId + " | DocScore: " + hits[j].score + " | Body: " + answer);
 			}
 			reader.close();
 			
-			return queryResults;
+			return getBestScores(queryResults);
 		} catch (IOException e) {
 			try {
 				reader.close();
@@ -265,6 +287,27 @@ public class Lab0NovaBaseline {
 		}
 		
 		return null;
+	}
+	
+	public List<Result> getBestScores(List<Result> queryResults) {
+		//Collections.sort(queryResults, (Result r1, Result r2) -> Float.compare(r1.score, r2.score));
+
+		Collections.sort(queryResults, new Comparator<Result>() {
+		    @Override
+		    public int compare(Result r1, Result r2) {
+		        return Float.compare(r1.getScore(), r2.getScore());
+		    }
+		});
+		
+		//it's ordered in revers
+		Collections.reverse(queryResults);
+				
+		for (int i = 0; i < 10; i++) {
+			Result tempResult = queryResults.get(i);
+			tempResult.setRank(i + 1);
+			queryResults.set(i, tempResult);
+		}
+		return queryResults;
 	}
 
 	public void close() {
@@ -373,7 +416,7 @@ public class Lab0NovaBaseline {
 	public static void main(String[] args) {
 
 		// 1st step - index all the answers, just has to be done once
-//		Analyzer analyzer = new StandardAnalyzer();
+		// Analyzer analyzer = new StandardAnalyzer();
 		Lab1NovaAnalyser analyzer = new Lab1NovaAnalyser();
 		QueryAnalyzer queryAnalyzer = new QueryAnalyzer();
 		
@@ -387,11 +430,18 @@ public class Lab0NovaBaseline {
 //		baseline.indexDocuments();
 //		baseline.close();
 		
+		// Social graph instance
+		Lab3NovaSocialGraph nsGraph = new Lab3NovaSocialGraph();
+//		nsGraph.loadSocialGraph();
+//		nsGraph.computePageRank(10);
+//		nsGraph.writePageRank();
+		Map<Integer, Float> socialGraph = nsGraph.readPageRank();
+		
 		// 2nd step - loop over all the queries
 		List<QueryString> queries = baseline.readFile();
 		List<Result> results = new ArrayList<Result>();
 		for (QueryString queryString : queries) {
-			results.addAll(baseline.indexSearch(analyzer, similarity, queryString));
+			results.addAll(baseline.indexSearch(analyzer, similarity, queryString, socialGraph));
 		}
 		
 		for (Result result : results) {

@@ -1,5 +1,7 @@
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,6 +9,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
@@ -70,11 +73,12 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 	}
 
 	protected HashMap<Integer, User> socialGraph;
-	protected double damping;
+	//protected double damping;
 
-	public void loadSocialGraph(String answersPath, String questionsPath, double d) {
-
-		damping = d;
+	public void loadSocialGraph() {
+		String answersPath = "docs/Answers.csv";
+		String questionsPath = "docs/Questions.csv";
+		//damping = d;
 
 		loadData(questionsPath, answersPath);
 
@@ -86,10 +90,10 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 			for (Map.Entry<Integer, QA> ans : answers.entrySet()) {
 				QA a = ans.getValue();
 				if(a == null){
-					System.out.println("This answer is null!");
+					//System.out.println("This answer is null!");
 				}
 				if (q == null) {
-					System.out.println("This question is null!");
+					//System.out.println("This question is null!");
 				}else{
 					addLinkToGraph(q, a);
 				}
@@ -105,7 +109,7 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 		
 		User src = null;
 		Integer srcUserId = question.ownerUserId;
-		System.out.println("Question user id:" + srcUserId);
+		//System.out.println("Question user id:" + srcUserId);
 		
 		if(!socialGraph.containsKey(srcUserId)){
 			src = new User(srcUserId);
@@ -116,7 +120,7 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 		
 		User dst = null;
 		Integer dstUserId = answer.ownerUserId;
-		System.out.println("Answer user id:" + dstUserId);
+		//System.out.println("Answer user id:" + dstUserId);
 		
 		if(!socialGraph.containsKey(dstUserId)){
 			dst = new User(dstUserId);
@@ -184,18 +188,11 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 	}
 	
 	public void writePageRank() {
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter("docs/pagerank.csv"))) {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter("docs/pagerank.txt"))) {
 
-			//bw.write(String.format("%-10s %-30s %-10s %-10s \n", "User", "UserRank", "InLinks", "OutLinks"));
-			bw.write("User,UserRank,InLinks,OutLinks\n");
-			
 			for (Entry<Integer, User> usr : socialGraph.entrySet()) {
-//				bw.write(String.format("%-10s %-30s %-10s %-10s \n", 
-//						usr.getKey(), usr.getValue().userRank, usr.getValue().inLinks.size(), usr.getValue().outLinks.size()));
-				bw.write(usr.getKey() + "," + usr.getValue().userRank + "," +  usr.getValue().inLinks.size() + "," +  usr.getValue().outLinks.size() + "\n");
+				bw.write(usr.getKey() + "," + usr.getValue().userRank + "\n");
 			}
-			
-			bw.write("\n");
 			
 			// no need to close it.
 			//bw.close();
@@ -208,15 +205,32 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 
 		}
 	}
+	
+	public Map<Integer, Float> readPageRank() {
+		Map<Integer, Float> socialGraph = new HashMap<Integer, Float>();
+		
+		try (BufferedReader br = new BufferedReader(new FileReader("docs/pagerank.txt"))) {
+			String line = br.readLine();
+			
+			while (line != null) {
+				StringTokenizer lineTokens = new StringTokenizer(line, ",");
+				
+				socialGraph.put(Integer.parseInt(lineTokens.nextToken()), Float.parseFloat(lineTokens.nextToken()));		
+				line = br.readLine();	
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return socialGraph;
+	}
 
 	public static void main(String[] args) {
 
 		Lab3NovaSocialGraph temp = new Lab3NovaSocialGraph();
 
-		String answersPath = "docs/Answers.csv";
-		String questionsPath = "docs/Questions.csv";
-
-		temp.loadSocialGraph(answersPath, questionsPath, 0.1);
+		temp.loadSocialGraph();
 
 		temp.computePageRank(10);
 
