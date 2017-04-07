@@ -1,4 +1,7 @@
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -160,13 +163,13 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 				int numUsers = socialGraph.size();
 				
 				// initialize the PR of each user with a seed value of 1/#numUsers
-				tempUser.userRank = (1/numUsers);
+				tempUser.userRank = (1.0f/numUsers);
 				
 				for (Link link : tempUser.inLinks) {
-					// PR(A) = (1-d) + d * Sum(PRoutLindstkUser / nrOutlinksdstUser) - [PR(B)/OL(B) + PR(C)/OL(C)]
-					tempUser.userRank += link.dstUser.userRank / link.dstUser.outLinks.size();
+					// PR(A) = (1-d) + d * Sum[userInlinks](PRoutLindstkUser / nrOutlinksdstUser) - [PR(B)/OL(B) + PR(C)/OL(C)]
+					tempUser.userRank += link.srcUser.userRank / link.srcUser.outLinks.size();
 				}
-				tempUser.userRank = (1-d) + d*tempUser.userRank; 
+				tempUser.userRank = (1.0f-d)/(float) numUsers + d*tempUser.userRank; 
 	
 				user.setValue(tempUser);
 			}
@@ -177,6 +180,32 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 		for (Entry<Integer, User> usr : socialGraph.entrySet()) {
 			System.out.println(usr.getKey() + "\t" + usr.getValue().userRank + "\t" + usr.getValue().inLinks.size()
 					+ "\t" + usr.getValue().outLinks.size());
+		}
+	}
+	
+	public void writePageRank() {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter("docs/pagerank.csv"))) {
+
+			//bw.write(String.format("%-10s %-30s %-10s %-10s \n", "User", "UserRank", "InLinks", "OutLinks"));
+			bw.write("User,UserRank,InLinks,OutLinks\n");
+			
+			for (Entry<Integer, User> usr : socialGraph.entrySet()) {
+//				bw.write(String.format("%-10s %-30s %-10s %-10s \n", 
+//						usr.getKey(), usr.getValue().userRank, usr.getValue().inLinks.size(), usr.getValue().outLinks.size()));
+				bw.write(usr.getKey() + "," + usr.getValue().userRank + "," +  usr.getValue().inLinks.size() + "," +  usr.getValue().outLinks.size() + "\n");
+			}
+			
+			bw.write("\n");
+			
+			// no need to close it.
+			//bw.close();
+
+			System.out.println("Done");
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
 		}
 	}
 
@@ -192,6 +221,8 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 		temp.computePageRank(10);
 
 		temp.outUserRank();
+		
+		temp.writePageRank();
 
 		return;
 

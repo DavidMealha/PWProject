@@ -50,7 +50,9 @@ public class Lab0NovaBaseline {
 	String indexPath = "docs/index";
 	String docPath = "docs/Answers.csv";
 	String queriesPath = "docs/queries.txt";
-	String queriesKagglePath = "docs/queries-descriptions.kaggle.txt";
+	String queriesDescPath = "docs/queries-descriptions.offline.txt";
+	String queriesKagglePath = "docs/queries.kaggle.txt";
+	String queriesDescKagglePath = "docs/queries-descriptions.kaggle.txt";
 	String resultsPath = "docs/results.txt";
 	String resultsKagglePath = "docs/resultsKaggle.txt";
 
@@ -296,7 +298,7 @@ public class Lab0NovaBaseline {
 	public List<QueryString> readFile2(){
 		List<QueryString> listQueries = new ArrayList<QueryString>();
 		
-		try (BufferedReader br = new BufferedReader(new FileReader(queriesKagglePath))) {
+		try (BufferedReader br = new BufferedReader(new FileReader(queriesDescKagglePath))) {
 			String line = br.readLine(); 
 			
 			QueryString aux = new QueryString();
@@ -376,8 +378,8 @@ public class Lab0NovaBaseline {
 		QueryAnalyzer queryAnalyzer = new QueryAnalyzer();
 		
 		// Similarity similarity = new ClassicSimilarity();
-		Similarity similarity = new BM25Similarity();
-		// Similarity similarity = new LMDirichletSimilarity();
+		// Similarity similarity = new BM25Similarity();
+		Similarity similarity = new LMDirichletSimilarity();
 		// Similarity similarity = new TFIDFSimilarity();
 		
 		Lab0NovaBaseline baseline = new Lab0NovaBaseline();
@@ -386,7 +388,7 @@ public class Lab0NovaBaseline {
 //		baseline.close();
 		
 		// 2nd step - loop over all the queries
-		List<QueryString> queries = baseline.readFile2();
+		List<QueryString> queries = baseline.readFile();
 		List<Result> results = new ArrayList<Result>();
 		for (QueryString queryString : queries) {
 			results.addAll(baseline.indexSearch(analyzer, similarity, queryString));
