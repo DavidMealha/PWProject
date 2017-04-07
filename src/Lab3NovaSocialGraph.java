@@ -145,34 +145,32 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 	}
 
 	/**
-	 * 
+	 * Basically PageRank is the probability of going to Page A, from the other pages that have
+	 * links to the page A
+	 * So if A has 2 inlinks, it means there are pages with 2 outlinks to Page A
 	 * @param iter - number of iterations to update the PageRank(i)
 	 */
 	public void computePageRank(Integer iter) {
 		// dampening = d = 0.8
 		float d = 0.8f;
-
-		for (Map.Entry<Integer, User> user : socialGraph.entrySet()) {
-			User tempUser = user.getValue();
-			
-			// N = num users
-			int numUsers = socialGraph.size();
-			
-			// initialize the PR of each user with a seed value of 1/#numUsers
-			tempUser.userRank = (1/numUsers);
-			
-			for (Link link : tempUser.inLinks) {
-				// Sum(PRoutLindstkUser / nrOutlinksdstUser) - [PR(B)/OL(B) + PR(C)/OL(C)]
-				tempUser.userRank += link.dstUser.userRank / link.dstUser.outLinks.size();
+		for (int i = 0; i < 10; i++) {
+			for (Map.Entry<Integer, User> user : socialGraph.entrySet()) {
+				User tempUser = user.getValue();	
+				// N = num users
+				int numUsers = socialGraph.size();
+				
+				// initialize the PR of each user with a seed value of 1/#numUsers
+				tempUser.userRank = (1/numUsers);
+				
+				for (Link link : tempUser.inLinks) {
+					// PR(A) = (1-d) + d * Sum(PRoutLindstkUser / nrOutlinksdstUser) - [PR(B)/OL(B) + PR(C)/OL(C)]
+					tempUser.userRank += link.dstUser.userRank / link.dstUser.outLinks.size();
+				}
+				tempUser.userRank = (1-d) + d*tempUser.userRank; 
+	
+				user.setValue(tempUser);
 			}
-			// PRuser = (1-d) + d* Sum(PRoutLindstkUser / nrOutlinksdstUser)
-			tempUser.userRank = (1-d)/numUsers + d*tempUser.userRank; 
-
-			user.setValue(tempUser);
 		}
-
-		//Initialize d=0.08 or d=0.15
-
 	}
 
 	public void outUserRank() {
