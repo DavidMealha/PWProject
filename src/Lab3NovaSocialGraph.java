@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -81,7 +82,15 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 
 			for (Map.Entry<Integer, QA> ans : answers.entrySet()) {
 				QA a = ans.getValue();
-				addLinkToGraph(q, a);
+				if(a == null){
+					System.out.println("This answer is null!");
+				}
+				if (q == null) {
+					System.out.println("This question is null!");
+				}else{
+					addLinkToGraph(q, a);
+				}
+				
 			}
 		}
 	}
@@ -93,6 +102,7 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 		
 		User src = null;
 		Integer srcUserId = question.ownerUserId;
+		System.out.println("Question user id:" + srcUserId);
 		
 		if(!socialGraph.containsKey(srcUserId)){
 			src = new User(srcUserId);
@@ -103,6 +113,7 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 		
 		User dst = null;
 		Integer dstUserId = answer.ownerUserId;
+		System.out.println("Answer user id:" + dstUserId);
 		
 		if(!socialGraph.containsKey(dstUserId)){
 			dst = new User(dstUserId);
@@ -138,17 +149,28 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 	 * @param iter - number of iterations to update the PageRank(i)
 	 */
 	public void computePageRank(Integer iter) {
+		// dampening = d = 0.8
+		float d = 0.8f;
 
-		// TODO: compute the PageRank of the social-graph
+		for (Map.Entry<Integer, User> user : socialGraph.entrySet()) {
+			User tempUser = user.getValue();
+			
+			// N = num users
+			int numUsers = socialGraph.size();
+			
+			// initialize the PR of each user with a seed value of 1/#numUsers
+			tempUser.userRank = (1/numUsers);
+			
+			for (Link link : tempUser.inLinks) {
+				// Sum(PRoutLindstkUser / nrOutlinksdstUser) - [PR(B)/OL(B) + PR(C)/OL(C)]
+				tempUser.userRank += link.dstUser.userRank / link.dstUser.outLinks.size();
+			}
+			// PRuser = (1-d) + d* Sum(PRoutLindstkUser / nrOutlinksdstUser)
+			tempUser.userRank = (1-d)/numUsers + d*tempUser.userRank; 
 
-		//Step 1 - initialize the PR of each user with a seed value of 1/#numUsers
-		for(int j = 0; j < socialGraph.size(); j++) {
-			socialGraph.get(j).userRank = (1/socialGraph.size());
+			user.setValue(tempUser);
 		}
 
-		//TODO: step 2 - iterate over the full set of links
-		//TODO: step 3 - update the PR of each user using the formula
-		// PRi = ((1-d)/N + d.sum jEinLinks(i)(PRj / #outlinks(j))
 		//Initialize d=0.08 or d=0.15
 
 	}
@@ -164,8 +186,8 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 
 		Lab3NovaSocialGraph temp = new Lab3NovaSocialGraph();
 
-		String answersPath = "/Users/apple/PWProject/docs/Answers.csv";
-		String questionsPath = "/Users/apple/PWProject/docs/Questions.csv";
+		String answersPath = "docs/Answers.csv";
+		String questionsPath = "docs/Questions.csv";
 
 		temp.loadSocialGraph(answersPath, questionsPath, 0.1);
 

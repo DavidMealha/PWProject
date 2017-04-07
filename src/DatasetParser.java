@@ -49,7 +49,7 @@ public abstract class DatasetParser {
 			end = rawDocument.indexOf(',', start);
 			aux = rawDocument.substring(start, end);
 			if (aux.equals("NA")) {
-				System.out.println("Unknown OwnerID for answer " + Id);
+//				System.out.println("Unknown OwnerID for answer " + Id);
 				return null;
 			} else {
 				Integer OwnerUserId = Integer.decode(aux);
@@ -115,7 +115,7 @@ public abstract class DatasetParser {
 			end = rawDocument.indexOf(',', start);
 			aux = rawDocument.substring(start, end);
 			if (aux.equals("NA")) {
-				System.out.println("Unknown OwnerID for question " + Id);
+//				System.out.println("Unknown OwnerID for question " + Id);
 				doc.ownerUserId = -1;
 				return null;
 			} else {
