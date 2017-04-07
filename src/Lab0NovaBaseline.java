@@ -254,7 +254,7 @@ public class Lab0NovaBaseline {
 				String ownerUserId = doc.get("OwnerUserId");
 				
 				int parseUserId = 0;
-				float alfa = 0.0f;
+				float alfa = 0.005f;
 				float newScore = 0.0f;
 				
 				if (ownerUserId != null) {
@@ -290,8 +290,6 @@ public class Lab0NovaBaseline {
 	}
 	
 	public List<Result> getBestScores(List<Result> queryResults) {
-		//Collections.sort(queryResults, (Result r1, Result r2) -> Float.compare(r1.score, r2.score));
-
 		Collections.sort(queryResults, new Comparator<Result>() {
 		    @Override
 		    public int compare(Result r1, Result r2) {
@@ -299,15 +297,17 @@ public class Lab0NovaBaseline {
 		    }
 		});
 		
-		//it's ordered in revers
+		//it's ordered in reverse
 		Collections.reverse(queryResults);
-				
+			
+		List<Result> newResults = new ArrayList<Result>();
 		for (int i = 0; i < 10; i++) {
 			Result tempResult = queryResults.get(i);
-			tempResult.setRank(i + 1);
-			queryResults.set(i, tempResult);
+			//with .getRank() we can see what was the previous rank position of that answer 
+			newResults.add(new Result(tempResult.getQueryId(), 
+					tempResult.getAnswerId(), tempResult.getRank(), tempResult.getScore(), tempResult.getRunId()));
 		}
-		return queryResults;
+		return newResults;
 	}
 
 	public void close() {
