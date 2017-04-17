@@ -64,7 +64,7 @@ public class Lab1NovaAnalyser extends StopwordAnalyzerBase {
 		
 		TokenStream tok = null;
 		tok = new StandardFilter(src);					// text into non punctuated text
-//		tok = new LowerCaseFilter(tok);					// changes all texto into lowercase
+		tok = new LowerCaseFilter(tok);					// changes all texto into lowercase
 		tok = new StopFilter(tok, stopwords);			// removes stop words
 
 //		tok = new ShingleFilter(tok, 2, 3);				// creates word-grams with neighboring works

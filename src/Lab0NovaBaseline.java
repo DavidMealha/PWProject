@@ -253,25 +253,26 @@ public class Lab0NovaBaseline {
 				String answerId = doc.get("Id");
 				String ownerUserId = doc.get("OwnerUserId");
 				
-				int parseUserId = 0;
-				float alfa = 0.005f;
-				float newScore = 0.0f;
-				
-				if (ownerUserId != null) {
-					parseUserId = Integer.parseInt(ownerUserId);
-					//score = (alfa * score) + ((1 - alfa) * pageRank)
-					if (nsGraph.containsKey(parseUserId)) {
-						float pageRank = nsGraph.get(parseUserId);
-						newScore = (alfa * hits[j].score) + ((1 - alfa) * pageRank);
-					}else{
-						newScore = (alfa * hits[j].score);
-					}
-				}else{
-					newScore = (alfa * hits[j].score);
-				}
-				
-				
-				queryResults.add(new Result(queryString.getId(), answerId, j+1, newScore, "Lab-0"));
+//				int parseUserId = 0;
+//				float alfa = 0.00001f;
+//				float newScore = 0.0f;
+//				
+//				if (ownerUserId != null) {
+//					parseUserId = Integer.parseInt(ownerUserId);
+//					//score = (alfa * score) + ((1 - alfa) * pageRank)
+//					if (nsGraph.containsKey(parseUserId)) {
+//						float pageRank = nsGraph.get(parseUserId);
+//						newScore = pageRank;
+//					}else{
+//						newScore = (alfa * hits[j].score);
+//					}
+//				}else{
+//					newScore = (alfa * hits[j].score);
+//				}
+//				
+//				
+//				queryResults.add(new Result(queryString.getId(), answerId, j+1, newScore, "Lab-0"));
+				queryResults.add(new Result(queryString.getId(), answerId, j+1, hits[j].score, "Lab-0"));
 //				System.out.println("DocId: " + answerId + " | DocScore: " + hits[j].score + " | Body: " + answer);
 			}
 			reader.close();
@@ -341,7 +342,7 @@ public class Lab0NovaBaseline {
 	public List<QueryString> readFile2(){
 		List<QueryString> listQueries = new ArrayList<QueryString>();
 		
-		try (BufferedReader br = new BufferedReader(new FileReader(queriesDescKagglePath))) {
+		try (BufferedReader br = new BufferedReader(new FileReader(queriesDescPath))) {
 			String line = br.readLine(); 
 			
 			QueryString aux = new QueryString();
@@ -381,22 +382,22 @@ public class Lab0NovaBaseline {
 	
 	void writeFile(List<Result> results){
 	
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(resultsKagglePath))) {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(resultsPath))) {
 
-//			bw.write(String.format("%-10s %-10s %-10s %-10s %-10s %-10s \n", "QueryID", "Q0", "DocID", "Rank", "Score", "RunID"));
-			bw.write("ID,AnswerId");
+			bw.write(String.format("%-10s %-10s %-10s %-10s %-10s %-10s \n", "QueryID", "Q0", "DocID", "Rank", "Score", "RunID"));
+//			bw.write("ID,AnswerId");
 			
 			//all tuples save the query id, so get from the first
 			String queryIdValue = "";
 			for (Result result : results) { 
-				if(queryIdValue == result.getQueryId()){
-					bw.write(result.getAnswerId() + " ");
-				}else{
-					bw.write("\n" + result.getQueryId() + "," + result.getAnswerId() + " ");
-					queryIdValue = result.getQueryId();
-				}
-				
-//				bw.write(result.toString());
+//				if(queryIdValue == result.getQueryId()){
+//					bw.write(result.getAnswerId() + " ");
+//				}else{
+//					bw.write("\n" + result.getQueryId() + "," + result.getAnswerId() + " ");
+//					queryIdValue = result.getQueryId();
+//				}
+//				
+				bw.write(result.toString());
 				
 			}
 			bw.write("\n");
@@ -430,7 +431,7 @@ public class Lab0NovaBaseline {
 //		baseline.indexDocuments();
 //		baseline.close();
 		
-		// Social graph instance
+		// Social graph instance	
 		Lab3NovaSocialGraph nsGraph = new Lab3NovaSocialGraph();
 //		nsGraph.loadSocialGraph();
 //		nsGraph.computePageRank(10);
@@ -438,7 +439,7 @@ public class Lab0NovaBaseline {
 		Map<Integer, Float> socialGraph = nsGraph.readPageRank();
 		
 		// 2nd step - loop over all the queries
-		List<QueryString> queries = baseline.readFile();
+		List<QueryString> queries = baseline.readFile2();
 		List<Result> results = new ArrayList<Result>();
 		for (QueryString queryString : queries) {
 			results.addAll(baseline.indexSearch(analyzer, similarity, queryString, socialGraph));
