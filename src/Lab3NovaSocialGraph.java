@@ -34,6 +34,7 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 		public User dstUser;
 		public QA question;
 		public QA answer;
+		public int score;
 		
 	};
 
@@ -133,7 +134,8 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 		Link l = new Link();
 		l.question = question;
 		l.answer = answer;
-		
+		l.score = answer.score;
+
 		//Step 2b: Decide which should be the direction of the link (Q->A or A->Q).
 		//We are assuming Q->A, the source user is the question user.
 		l.srcUser = src;
@@ -172,6 +174,8 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 				for (Link link : tempUser.inLinks) {
 					// PR(A) = (1-d) + d * Sum[userInlinks](PRoutLindstkUser / nrOutlinksdstUser) - [PR(B)/OL(B) + PR(C)/OL(C)]
 					tempUser.userRank += link.srcUser.userRank / link.srcUser.outLinks.size();
+					//giving advantage to answers with better scores
+					tempUser.userRank += link.score;
 				}
 				tempUser.userRank = (1.0f-d)/(float) numUsers + d*tempUser.userRank; 
 	
