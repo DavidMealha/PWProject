@@ -240,7 +240,7 @@ public class Lab0NovaBaseline {
 			}
 			
 			searcher.setSimilarity(similarity);
-			TopDocs results = searcher.search(query, 10);
+			TopDocs results = searcher.search(query, 50);
 			ScoreDoc[] hits = results.scoreDocs;
 
 //			int numTotalHits = results.totalHits;
@@ -248,13 +248,13 @@ public class Lab0NovaBaseline {
 			List<Result> queryResults = new ArrayList<Result>();
 			for (int j = 0; j < hits.length; j++) {
 				Document doc = searcher.doc(hits[j].doc);
-//				System.out.println(searcher.explain(query, hits[j].doc));
+
 				String answer = doc.get("Body");
 				String answerId = doc.get("Id");
 				String ownerUserId = doc.get("OwnerUserId");
 				
 				int parseUserId = 0;
-				float alfa = 0.00001f;
+				float alfa = 0.9f;
 				float newScore = 0.0f;
 				
 				if (ownerUserId != null) {
@@ -262,18 +262,17 @@ public class Lab0NovaBaseline {
 					//score = (alfa * score) + ((1 - alfa) * pageRank)
 					if (nsGraph.containsKey(parseUserId)) {
 						float pageRank = nsGraph.get(parseUserId);
+						//newScore = (alfa * hits[j].score) + ((1 - alfa)	* pageRank);
 						newScore = pageRank;
 					}else{
 						newScore = (alfa * hits[j].score);
 					}
 				}else{
 					newScore = (alfa * hits[j].score);
-				}
-				
+				}				
 				
 				queryResults.add(new Result(queryString.getId(), answerId, j+1, newScore, "Lab-0"));
-//				queryResults.add(new Result(queryString.getId(), answerId, j+1, hits[j].score, "Lab-0"));
-//				System.out.println("DocId: " + answerId + " | DocScore: " + hits[j].score + " | Body: " + answer);
+				// queryResults.add(new Result(queryString.getId(), answerId, j+1, hits[j].score, "Lab-0"));
 			}
 			reader.close();
 			
@@ -322,7 +321,7 @@ public class Lab0NovaBaseline {
 	public List<QueryString> readFile(){
 		List<QueryString> listQueries = new ArrayList<QueryString>();
 		
-		try (BufferedReader br = new BufferedReader(new FileReader(queriesKagglePath))) {
+		try (BufferedReader br = new BufferedReader(new FileReader(queriesPath))) {
 			String line = br.readLine(); 
 			while (line != null) {
 				StringTokenizer lineTokens = new StringTokenizer(line, ":");
@@ -382,22 +381,22 @@ public class Lab0NovaBaseline {
 	
 	void writeFile(List<Result> results){
 	
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(resultsKagglePath))) {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter("docs/reportResults/test9.txt"))) {
 
-//			bw.write(String.format("%-10s %-10s %-10s %-10s %-10s %-10s \n", "QueryID", "Q0", "DocID", "Rank", "Score", "RunID"));
-			bw.write("ID,AnswerId");
+			bw.write(String.format("%-10s %-10s %-10s %-10s %-10s %-10s \n", "QueryID", "Q0", "DocID", "Rank", "Score", "RunID"));
+//			bw.write("ID,AnswerId");
 			
 			//all tuples save the query id, so get from the first
 			String queryIdValue = "";
 			for (Result result : results) { 
-				if(queryIdValue == result.getQueryId()){
-					bw.write(result.getAnswerId() + " ");
-				}else{
-					bw.write("\n" + result.getQueryId() + "," + result.getAnswerId() + " ");
-					queryIdValue = result.getQueryId();
-				}
+//				if(queryIdValue == result.getQueryId()){
+//					bw.write(result.getAnswerId() + " ");
+//				}else{
+//					bw.write("\n" + result.getQueryId() + "," + result.getAnswerId() + " ");
+//					queryIdValue = result.getQueryId();
+//				}
 				
-//				bw.write(result.toString());
+				bw.write(result.toString());
 				
 			}
 			bw.write("\n");
@@ -419,17 +418,16 @@ public class Lab0NovaBaseline {
 		// 1st step - index all the answers, just has to be done once
 		// Analyzer analyzer = new StandardAnalyzer();
 		Lab1NovaAnalyser analyzer = new Lab1NovaAnalyser();
-		QueryAnalyzer queryAnalyzer = new QueryAnalyzer();
 		
 		// Similarity similarity = new ClassicSimilarity();
-		// Similarity similarity = new BM25Similarity();
-		Similarity similarity = new LMDirichletSimilarity();
+		Similarity similarity = new BM25Similarity();
+		// Similarity similarity = new LMDirichletSimilarity();
 		// Similarity similarity = new TFIDFSimilarity();
 		
 		Lab0NovaBaseline baseline = new Lab0NovaBaseline();
-// 		baseline.openIndex(analyzer, similarity);
-//		baseline.indexDocuments();
-//		baseline.close();
+ 		baseline.openIndex(analyzer, similarity);
+		baseline.indexDocuments();
+		baseline.close();
 		
 		// Social graph instance	
 		Lab3NovaSocialGraph nsGraph = new Lab3NovaSocialGraph();
@@ -439,7 +437,7 @@ public class Lab0NovaBaseline {
 		Map<Integer, Float> socialGraph = nsGraph.readPageRank();
 		
 		// 2nd step - loop over all the queries
-		List<QueryString> queries = baseline.readFile();
+		List<QueryString> queries = baseline.readFile2();
 		List<Result> results = new ArrayList<Result>();
 		for (QueryString queryString : queries) {
 			results.addAll(baseline.indexSearch(analyzer, similarity, queryString, socialGraph));
