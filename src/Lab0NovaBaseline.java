@@ -257,22 +257,22 @@ public class Lab0NovaBaseline {
 				float alfa = 0.9f;
 				float newScore = 0.0f;
 				
-				if (ownerUserId != null) {
-					parseUserId = Integer.parseInt(ownerUserId);
-					//score = (alfa * score) + ((1 - alfa) * pageRank)
-					if (nsGraph.containsKey(parseUserId)) {
-						float pageRank = nsGraph.get(parseUserId);
-						//newScore = (alfa * hits[j].score) + ((1 - alfa)	* pageRank);
-						newScore = pageRank;
-					}else{
-						newScore = hits[j].score;
-					}
-				}else{
-					newScore = hits[j].score;
-				}				
-				
-				queryResults.add(new Result(queryString.getId(), answerId, j+1, newScore, "Lab-0"));
-				// queryResults.add(new Result(queryString.getId(), answerId, j+1, hits[j].score, "Lab-0"));
+//				if (ownerUserId != null) {
+//					parseUserId = Integer.parseInt(ownerUserId);
+//					//score = (alfa * score) + ((1 - alfa) * pageRank)
+//					if (nsGraph.containsKey(parseUserId)) {
+//						float pageRank = nsGraph.get(parseUserId);
+//						//newScore = (alfa * hits[j].score) + ((1 - alfa)	* pageRank);
+//						newScore = pageRank;
+//					}else{
+//						newScore = hits[j].score;
+//					}
+//				}else{
+//					newScore = hits[j].score;
+//				}				
+//				
+				//queryResults.add(new Result(queryString.getId(), answerId, j+1, newScore, "Lab-0"));
+				queryResults.add(new Result(queryString.getId(), answerId, j+1, hits[j].score, "Lab-0"));
 			}
 			reader.close();
 			
@@ -305,7 +305,7 @@ public class Lab0NovaBaseline {
 			Result tempResult = queryResults.get(i);
 			//with .getRank() we can see what was the previous rank position of that answer 
 			newResults.add(new Result(tempResult.getQueryId(), 
-					tempResult.getAnswerId(), tempResult.getRank(), tempResult.getScore(), tempResult.getRunId()));
+					tempResult.getAnswerId(), i+1, tempResult.getScore(), tempResult.getRunId()));
 		}
 		return newResults;
 	}
@@ -321,7 +321,7 @@ public class Lab0NovaBaseline {
 	public List<QueryString> readFile(){
 		List<QueryString> listQueries = new ArrayList<QueryString>();
 		
-		try (BufferedReader br = new BufferedReader(new FileReader("docs/queries.kaggle-public.txt"))) {
+		try (BufferedReader br = new BufferedReader(new FileReader(queriesKagglePath))) {
 			String line = br.readLine(); 
 			while (line != null) {
 				StringTokenizer lineTokens = new StringTokenizer(line, ":");
@@ -381,7 +381,7 @@ public class Lab0NovaBaseline {
 	
 	void writeFile(List<Result> results){
 	
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter("docs/reportResults/test10.txt"))) {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter("docs/reportResults/test12.txt"))) {
 
 			bw.write(String.format("%-10s %-10s %-10s %-10s %-10s %-10s \n", "QueryID", "Q0", "DocID", "Rank", "Score", "RunID"));
 //			bw.write("ID,AnswerId");
@@ -425,9 +425,9 @@ public class Lab0NovaBaseline {
 		// Similarity similarity = new TFIDFSimilarity();
 		
 		Lab0NovaBaseline baseline = new Lab0NovaBaseline();
-// 		baseline.openIndex(analyzer, similarity);
-//		baseline.indexDocuments();
-//		baseline.close();
+ 		baseline.openIndex(analyzer, similarity);
+		baseline.indexDocuments();
+		baseline.close();
 		
 		// Social graph instance	
 		Lab3NovaSocialGraph nsGraph = new Lab3NovaSocialGraph();
