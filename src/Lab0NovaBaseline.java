@@ -222,7 +222,7 @@ public class Lab0NovaBaseline {
 	// ====================================================
 	// ANNOTATE THIS METHOD YOURSELF
 	List<Result> indexSearch(Analyzer analyzer, Similarity similarity, QueryString queryString, Map<Integer, Float> nsGraph) {
-
+		
 		IndexReader reader = null;	
 		try {
 			reader = DirectoryReader.open(FSDirectory.open(Paths.get(indexPath)));
@@ -240,7 +240,7 @@ public class Lab0NovaBaseline {
 			}
 			
 			searcher.setSimilarity(similarity);
-			TopDocs results = searcher.search(query, 10);
+			TopDocs results = searcher.search(query, 25);
 			ScoreDoc[] hits = results.scoreDocs;
 
 //			int numTotalHits = results.totalHits;
@@ -257,22 +257,22 @@ public class Lab0NovaBaseline {
 				float alfa = 0.9f;
 				float newScore = 0.0f;
 				
-//				if (ownerUserId != null) {
-//					parseUserId = Integer.parseInt(ownerUserId);
-//					//score = (alfa * score) + ((1 - alfa) * pageRank)
-//					if (nsGraph.containsKey(parseUserId)) {
-//						float pageRank = nsGraph.get(parseUserId);
-//						//newScore = (alfa * hits[j].score) + ((1 - alfa)	* pageRank);
-//						newScore = pageRank;
-//					}else{
-//						newScore = hits[j].score;
-//					}
-//				}else{
-//					newScore = hits[j].score;
-//				}				
-//				
-				//queryResults.add(new Result(queryString.getId(), answerId, j+1, newScore, "Lab-0"));
-				queryResults.add(new Result(queryString.getId(), answerId, j+1, hits[j].score, "Lab-0"));
+				if (ownerUserId != null) {
+					parseUserId = Integer.parseInt(ownerUserId);
+					//score = (alfa * score) + ((1 - alfa) * pageRank)
+					if (nsGraph.containsKey(parseUserId)) {
+						float pageRank = nsGraph.get(parseUserId);
+						//newScore = (alfa * hits[j].score) + ((1 - alfa)	* pageRank);
+						newScore = pageRank;
+					}else{
+						newScore = hits[j].score;
+					}
+				}else{
+					newScore = hits[j].score;
+				}				
+				
+				queryResults.add(new Result(queryString.getId(), answerId, j+1, newScore, "Lab-0"));
+				//queryResults.add(new Result(queryString.getId(), answerId, j+1, hits[j].score, "Lab-0"));
 			}
 			reader.close();
 			
@@ -321,7 +321,7 @@ public class Lab0NovaBaseline {
 	public List<QueryString> readFile(){
 		List<QueryString> listQueries = new ArrayList<QueryString>();
 		
-		try (BufferedReader br = new BufferedReader(new FileReader(queriesKagglePath))) {
+		try (BufferedReader br = new BufferedReader(new FileReader("docs/queries.kaggle-public.txt"))) {
 			String line = br.readLine(); 
 			while (line != null) {
 				StringTokenizer lineTokens = new StringTokenizer(line, ":");
@@ -381,7 +381,7 @@ public class Lab0NovaBaseline {
 	
 	void writeFile(List<Result> results){
 	
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter("docs/reportResults/test12.txt"))) {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter("docs/newReportResults/test7.txt"))) {
 
 			bw.write(String.format("%-10s %-10s %-10s %-10s %-10s %-10s \n", "QueryID", "Q0", "DocID", "Rank", "Score", "RunID"));
 //			bw.write("ID,AnswerId");
