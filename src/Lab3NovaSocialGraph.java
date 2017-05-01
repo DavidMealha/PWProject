@@ -175,7 +175,7 @@ public class Lab3NovaSocialGraph extends DatasetParser {
 					// PR(A) = (1-d) + d * Sum[userInlinks](PRoutLindstkUser / nrOutlinksdstUser) - [PR(B)/OL(B) + PR(C)/OL(C)]
 					tempUser.userRank += link.srcUser.userRank / link.srcUser.outLinks.size();
 					//giving advantage to answers with better scores
-					tempUser.userRank += link.score;
+					//tempUser.userRank += link.score;
 				}
 				tempUser.userRank = (1.0f-d)/(float) numUsers + d*tempUser.userRank; 
 	

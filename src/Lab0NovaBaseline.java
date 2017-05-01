@@ -240,7 +240,7 @@ public class Lab0NovaBaseline {
 			}
 			
 			searcher.setSimilarity(similarity);
-			TopDocs results = searcher.search(query, 25);
+			TopDocs results = searcher.search(query, 10);
 			ScoreDoc[] hits = results.scoreDocs;
 
 //			int numTotalHits = results.totalHits;
@@ -270,7 +270,6 @@ public class Lab0NovaBaseline {
 				}else{
 					newScore = hits[j].score;
 				}				
-				
 				queryResults.add(new Result(queryString.getId(), answerId, j+1, newScore, "Lab-0"));
 				//queryResults.add(new Result(queryString.getId(), answerId, j+1, hits[j].score, "Lab-0"));
 			}
@@ -419,8 +418,8 @@ public class Lab0NovaBaseline {
 		// Analyzer analyzer = new StandardAnalyzer();
 		Lab1NovaAnalyser analyzer = new Lab1NovaAnalyser();
 		
-		// Similarity similarity = new ClassicSimilarity();
-		Similarity similarity = new BM25Similarity();
+		Similarity similarity = new ClassicSimilarity();
+		// Similarity similarity = new BM25Similarity();
 		// Similarity similarity = new LMDirichletSimilarity();
 		// Similarity similarity = new TFIDFSimilarity();
 		
