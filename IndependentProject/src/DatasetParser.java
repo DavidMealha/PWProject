@@ -5,8 +5,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.json.*;
 import javax.json.stream.JsonParser;
@@ -20,8 +24,10 @@ public class DatasetParser {
 	 * Parse the string to json, now that the strange characters are removed
 	 * @return
 	 * @throws FileNotFoundException 
+	 * @throws ParseException 
 	 */
-	public static ArrayList<Tweet> readTweets() throws FileNotFoundException{
+	public static ArrayList<Tweet> readTweets() throws FileNotFoundException, ParseException{
+		ArrayList<Tweet> tweetsParsed = new ArrayList<Tweet>();
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(TWEETS_PATH))) {
 			String line = br.readLine();
@@ -42,10 +48,8 @@ public class DatasetParser {
 				int userFollowers = userInfo.getInt("followers_count");
 				
 				//creationDate, id, text, userId, userFollowers
-				Tweet t = new Tweet(new Date(), id, text, userId, userFollowers);
-				
-				System.out.println(t.toString());
-				//tweetsParsed.add();
+				Tweet t = new Tweet(convertStringToDate(creationDate), id, text, userId, userFollowers);
+				tweetsParsed.add(t);
 				
 				line = br.readLine();
 			}
@@ -53,14 +57,40 @@ public class DatasetParser {
 			e.printStackTrace();
 		}
 
-		return null;
+		return tweetsParsed;
 	}
 	
+	/**
+	 * Method to parse the string date to a Date Object.
+	 * tweets date comes with this format: "Thu Aug 11 20:48:58 +0000 2016"
+	 * @param dateTime
+	 * @return
+	 * @throws ParseException
+	 */
+	private static Date convertStringToDate(String dateTime) throws ParseException{
+		
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy", Locale.ENGLISH);
+        formatter.setLenient(true);
+        Date newDate = formatter.parse(dateTime);
+        return newDate;
+	}
+	
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public ArrayList<Tweet> readProfiles(){
 		return null;
 	}
 	
-	public static void main(String[] args) throws FileNotFoundException{
-		readTweets();
+	public static void main(String[] args) throws FileNotFoundException, ParseException{
+		ArrayList<Tweet> tweets = readTweets();
+		for(Tweet t : tweets){
+			if(t.getUserFollowers() > 10000000) {
+				System.out.println(t.toString());
+			}
+		}
+		System.out.println("Finished Parsing Datasets");
 	}
 }
