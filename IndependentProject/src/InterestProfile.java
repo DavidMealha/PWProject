@@ -1,24 +1,24 @@
 
 public class InterestProfile {
 	
-	private String topic;
+	private String topId;
 	private String title;
 	private String description;
 	private String narrative;
 	
-	public InterestProfile(String topic, String title, String description, String narrative) {
-		this.topic = topic;
+	public InterestProfile(String topId, String title, String description, String narrative) {
+		this.topId = topId;
 		this.title = title;
 		this.description = description;
 		this.narrative = narrative;
 	}
 
-	public String getTopic() {
-		return topic;
+	public String getTopId() {
+		return topId;
 	}
 
-	public void setTopic(String topic) {
-		this.topic = topic;
+	public void setTopId(String topId) {
+		this.topId = topId;
 	}
 
 	public String getTitle() {
@@ -44,4 +44,11 @@ public class InterestProfile {
 	public void setNarrative(String narrative) {
 		this.narrative = narrative;
 	}
+
+	@Override
+	public String toString() {
+		return "InterestProfile [topId=" + topId + ", title=" + title + ", description=" + description + ", narrative="
+				+ narrative + "]";
+	}
+	
 }

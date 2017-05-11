@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -20,21 +21,27 @@ public class DatasetParser {
 	private static final String TWEETS_PATH = "docs/rts2016-qrels-tweets2016.jsonl";
 	private static final String PROFILES_PATH = "docs/TREC2016-RTS-topics.json";
 	
+	private ArrayList<Tweet> tweetsParsed;
+	private ArrayList<InterestProfile> profilesParsed;
+	
+	
+	public DatasetParser() {
+		tweetsParsed = new ArrayList<Tweet>();
+		profilesParsed = new ArrayList<InterestProfile>();
+	}
+	
 	/**
 	 * Parse the string to json, now that the strange characters are removed
 	 * @return
 	 * @throws FileNotFoundException 
 	 * @throws ParseException 
 	 */
-	public static ArrayList<Tweet> readTweets() throws FileNotFoundException, ParseException{
-		ArrayList<Tweet> tweetsParsed = new ArrayList<Tweet>();
-		
+	public ArrayList<Tweet> readTweets() throws FileNotFoundException, ParseException{		
 		try (BufferedReader br = new BufferedReader(new FileReader(TWEETS_PATH))) {
 			String line = br.readLine();
 			
 			while (line != null) {
 				JsonReader reader = Json.createReader(new StringReader(line));
-				
 				JsonObject tweetObject = reader.readObject();
 				
 				//gets tweet info
@@ -67,8 +74,7 @@ public class DatasetParser {
 	 * @return
 	 * @throws ParseException
 	 */
-	private static Date convertStringToDate(String dateTime) throws ParseException{
-		
+	private Date convertStringToDate(String dateTime) throws ParseException{
         SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy", Locale.ENGLISH);
         formatter.setLenient(true);
         Date newDate = formatter.parse(dateTime);
@@ -79,18 +85,24 @@ public class DatasetParser {
 	/**
 	 * 
 	 * @return
+	 * @throws FileNotFoundException 
 	 */
-	public ArrayList<Tweet> readProfiles(){
-		return null;
+	public ArrayList<InterestProfile> readProfiles() throws FileNotFoundException{
+		JsonReader reader = Json.createReader(new FileReader(PROFILES_PATH));
+		JsonArray profilesArray = reader.readArray();
+		
+		for(int i = 0; i < profilesArray.size(); i++){
+			JsonObject profileObj = profilesArray.getJsonObject(i);
+			String topid = profileObj.getString("topid");
+			String title = profileObj.getString("title");
+			String description = profileObj.getString("description");
+			String narrative = profileObj.getString("narrative");
+			
+			InterestProfile ip = new InterestProfile(topid, title, description, narrative);
+			profilesParsed.add(ip);
+		}
+				
+		return profilesParsed;
 	}
 	
-	public static void main(String[] args) throws FileNotFoundException, ParseException{
-		ArrayList<Tweet> tweets = readTweets();
-		for(Tweet t : tweets){
-			if(t.getUserFollowers() > 10000000) {
-				System.out.println(t.toString());
-			}
-		}
-		System.out.println("Finished Parsing Datasets");
-	}
 }
