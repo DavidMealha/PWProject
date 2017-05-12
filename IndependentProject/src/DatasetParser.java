@@ -1,21 +1,16 @@
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringReader;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
 
 import javax.json.*;
-import javax.json.stream.JsonParser;
 
 public class DatasetParser {
 	
@@ -75,11 +70,14 @@ public class DatasetParser {
 	 * @return
 	 * @throws ParseException
 	 */
-	private Date convertStringToDate(String dateTime) throws ParseException{
+	private Calendar convertStringToDate(String dateTime) throws ParseException{
         SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH);
         formatter.setLenient(true);
         Date newDate = formatter.parse(dateTime);
-        return newDate;
+        
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(newDate);
+        return calendar;
 	}
 	
 	

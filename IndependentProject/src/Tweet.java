@@ -1,14 +1,14 @@
-import java.util.Date;
+import java.util.Calendar;
 
 public class Tweet {
 	
-	private Date creationDate;
+	private Calendar creationDate;
 	private long id;
 	private String text;
 	private long userId;
 	private long userFollowers;
 	
-	public Tweet(Date creationDate, long id, String text, long userId, long userFollowers) {
+	public Tweet(Calendar creationDate, long id, String text, long userId, long userFollowers) {
 		this.creationDate = creationDate;
 		this.id = id;
 		this.text = text;
@@ -16,11 +16,11 @@ public class Tweet {
 		this.userFollowers = userFollowers;
 	}
 
-	public Date getCreationDate() {
+	public Calendar getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(Date creationDate) {
+	public void setCreationDate(Calendar creationDate) {
 		this.creationDate = creationDate;
 	}
 
@@ -58,7 +58,7 @@ public class Tweet {
 
 	@Override
 	public String toString() {
-		return "Tweet [creationDate=" + creationDate + ", id=" + id + ", text=" + text + ", userId=" + userId
+		return "Tweet [creationDate=" + creationDate.getTime() + ", id=" + id + ", text=" + text + ", userId=" + userId
 				+ ", userFollowers=" + userFollowers + "]";
 	}
 	
