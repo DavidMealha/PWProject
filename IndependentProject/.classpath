@@ -16,5 +16,11 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/David/Downloads/lucene-6.4.2/lucene-6.4.2/benchmark/lucene-benchmark-6.4.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/David/Downloads/lucene-6.4.2/lucene-6.4.2/analysis/common/lucene-analyzers-common-6.4.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/David/Downloads/lucene-6.4.2/lucene-6.4.2/core/lucene-core-6.4.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/David/Downloads/lucene-6.4.2/lucene-6.4.2/spatial/lucene-spatial-6.4.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/David/Downloads/lucene-6.4.2/lucene-6.4.2/queries/lucene-queries-6.4.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/David/Downloads/lucene-6.4.2/lucene-6.4.2/queryparser/lucene-queryparser-6.4.2.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

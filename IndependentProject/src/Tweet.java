@@ -3,12 +3,12 @@ import java.util.Date;
 public class Tweet {
 	
 	private Date creationDate;
-	private int id;
+	private long id;
 	private String text;
-	private int userId;
-	private int userFollowers;
+	private long userId;
+	private long userFollowers;
 	
-	public Tweet(Date creationDate, int id, String text, int userId, int userFollowers) {
+	public Tweet(Date creationDate, long id, String text, long userId, long userFollowers) {
 		this.creationDate = creationDate;
 		this.id = id;
 		this.text = text;
@@ -24,11 +24,11 @@ public class Tweet {
 		this.creationDate = creationDate;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -40,15 +40,15 @@ public class Tweet {
 		this.text = text;
 	}
 
-	public int getUserId() {
+	public long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 
-	public int getUserFollowers() {
+	public long getUserFollowers() {
 		return userFollowers;
 	}
 

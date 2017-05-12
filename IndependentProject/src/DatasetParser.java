@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import javax.json.*;
 import javax.json.stream.JsonParser;
@@ -46,16 +47,16 @@ public class DatasetParser {
 				
 				//gets tweet info
 				String creationDate = tweetObject.getString("created_at");
-				int id = tweetObject.getInt("id");
+				String id = tweetObject.getString("id_str");
 				String text = tweetObject.getString("text");
 				
 				//gets user info
 				JsonObject userInfo = tweetObject.getJsonObject("user");
-				int userId = userInfo.getInt("id");
+				String userId = userInfo.getString("id_str");
 				int userFollowers = userInfo.getInt("followers_count");
 				
 				//creationDate, id, text, userId, userFollowers
-				Tweet t = new Tweet(convertStringToDate(creationDate), id, text, userId, userFollowers);
+				Tweet t = new Tweet(convertStringToDate(creationDate), Long.parseLong(id), text, Long.parseLong(userId), userFollowers);
 				tweetsParsed.add(t);
 				
 				line = br.readLine();
@@ -75,7 +76,7 @@ public class DatasetParser {
 	 * @throws ParseException
 	 */
 	private Date convertStringToDate(String dateTime) throws ParseException{
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy", Locale.ENGLISH);
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH);
         formatter.setLenient(true);
         Date newDate = formatter.parse(dateTime);
         return newDate;
