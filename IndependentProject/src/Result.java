@@ -1,13 +1,20 @@
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Result {
 
+	private String date;
 	private String queryId; // QueryString
 	private String answerId;
 	private int rank;
 	private float score;
 	private String runId;
 	
-	public Result(String queryId, String answerId, int rank, float score, String runId) {
+	public Result(Date date, String queryId, String answerId, int rank, float score, String runId) {
+		DateFormat df = new SimpleDateFormat("yyyyMMdd");
+		this.date = df.format(date);
+
 		this.queryId = queryId;
 		this.answerId = answerId;
 		this.rank = rank;
@@ -57,7 +64,7 @@ public class Result {
 
 	@Override
 	public String toString() {
-		return String.format("%-10s %-10s %-10s %-10s %-10s %-10s \n", queryId, 0, answerId, rank, score, runId);
+		return String.format("%-15s %-10s %-10s %-20s %-10s %-10s %-10s \n", date, queryId, 0, answerId, rank, score, runId);
 	}
 	
 	

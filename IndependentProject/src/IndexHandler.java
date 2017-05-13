@@ -129,14 +129,15 @@ public class IndexHandler {
 				// id, creationDate, text, userId, userFollowers
 				try {
 					// Extract field Id
-					doc.add(new LongPoint("Id", t.getId()));
-					doc.add(new StoredField("Id", t.getId()));
+					doc.add(new LongPoint("id", t.getId()));
+					doc.add(new StoredField("id", t.getId()));
 
 					// Extract field creationDate
-					doc.add(new LongPoint("CreationDate", t.getCreationDate().getTimeInMillis()));
-
+					doc.add(new LongPoint("creationDate", t.getCreationDate().getTimeInMillis()));
+					doc.add(new StoredField("creationDate", t.getCreationDate().getTimeInMillis()));
+					
 					// Extract field text
-					doc.add(new TextField("Text", t.getText(), Field.Store.YES));
+					doc.add(new TextField("text", t.getText(), Field.Store.YES));
 					
 					// Extract field userId
 					doc.add(new LongPoint("userId", t.getUserId()));
@@ -147,12 +148,10 @@ public class IndexHandler {
 					doc.add(new StoredField("userFollowers", t.getUserFollowers()));
 
 					// Add the document to the index
-					if (idx.getConfig().getOpenMode() == OpenMode.CREATE) {
-						System.out.println(tweetDate.getTime() + " >= " + t.getCreationDate().getTime());
-						
+					if (idx.getConfig().getOpenMode() == OpenMode.CREATE) {						
 						idx.addDocument(doc);
 					} else {
-						idx.updateDocument(new Term("Id", t.getId()+""), doc);
+						idx.updateDocument(new Term("id", t.getId()+""), doc);
 					}
 					
 				} catch (IOException e) {

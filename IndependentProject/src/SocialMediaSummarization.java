@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -11,17 +12,6 @@ import org.apache.lucene.search.similarities.ClassicSimilarity;
 import org.apache.lucene.search.similarities.Similarity;
 
 public class SocialMediaSummarization {
-	
-
-
-	/**
-	 * 
-	 * @param analyzer
-	 * @param similarity
-	 * @param indexPath
-	 * @param tweetsParsed
-	 */
-	
 	
 	public static void main(String[] args) throws FileNotFoundException, ParseException {
 		Analyzer analyzer = new StandardAnalyzer();
@@ -45,8 +35,13 @@ public class SocialMediaSummarization {
 		IndexHandler ih = new IndexHandler();
 		ih.generateIndexes(analyzer, similarity, tweets);
 		
-		
 		//search the documents with the queries(interest profiles)
+		SearchHandler sh = new SearchHandler();
+		List<Result> searchResults = sh.SearchProfiles(analyzer, similarity, profiles);
+		
+		//write to file the results
+		FileHandler fh = new FileHandler();
+		fh.writeFile(searchResults);
 	}
 
 }
