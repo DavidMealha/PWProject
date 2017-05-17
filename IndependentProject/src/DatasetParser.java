@@ -69,9 +69,9 @@ public class DatasetParser {
 	 * @param dateTime
 	 * @return
 	 * @throws ParseException
-	 */
+	 */	
 	private Calendar convertStringToDate(String dateTime) throws ParseException{
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH);
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.UK);
         formatter.setLenient(true);
         Date newDate = formatter.parse(dateTime);
         

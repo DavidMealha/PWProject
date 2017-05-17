@@ -34,7 +34,7 @@ public class SocialMediaSummarization {
 		
 		//search the documents with the queries(interest profiles)
 		SearchHandler sh = new SearchHandler();
-		List<Result> searchResults = sh.SearchProfiles(analyzer, similarity, profiles);
+		List<Result> searchResults = sh.searchProfiles(analyzer, similarity, profiles);
 		
 		//write to file the results
 		FileHandler fh = new FileHandler();

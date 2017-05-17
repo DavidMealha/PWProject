@@ -32,7 +32,7 @@ public class SearchHandler {
 	 * @param similarity
 	 * @param profiles
 	 */
-	public List<Result> SearchProfiles(Analyzer analyzer, Similarity similarity, List<InterestProfile> profiles){
+	public List<Result> searchProfiles(Analyzer analyzer, Similarity similarity, List<InterestProfile> profiles){
 		List<Result> listDailyResults = new ArrayList<Result>();
 		
 		for(int i = 0; i < Utils.INDEX_PATHS.length; i++){
