@@ -1,9 +1,6 @@
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.apache.lucene.analysis.Analyzer;
@@ -14,7 +11,7 @@ import org.apache.lucene.search.similarities.Similarity;
 public class SocialMediaSummarization {
 	
 	public static void main(String[] args) throws FileNotFoundException, ParseException {
-		Analyzer analyzer = new StandardAnalyzer();
+ 		Analyzer analyzer = new StandardAnalyzer();
 		//Lab1NovaAnalyser analyzer = new Lab1NovaAnalyser();
 		
 		Similarity similarity = new ClassicSimilarity();
@@ -32,8 +29,8 @@ public class SocialMediaSummarization {
 		ArrayList<InterestProfile> profiles = dp.readProfiles();
 		
 		//Index Documents(tweets)
-		IndexHandler ih = new IndexHandler();
-		ih.generateIndexes(analyzer, similarity, tweets);
+		//IndexHandler ih = new IndexHandler();
+		//ih.generateIndexes(analyzer, similarity, tweets);
 		
 		//search the documents with the queries(interest profiles)
 		SearchHandler sh = new SearchHandler();

@@ -21,6 +21,16 @@ public class Result {
 		this.score = score;
 		this.runId = runId;
 	}
+	
+	public Result(String date, String queryId, String answerId, int rank, float score, String runId) {
+		this.date = date;
+		this.queryId = queryId;
+		this.answerId = answerId;
+		this.rank = rank;
+		this.score = score;
+		this.runId = runId;
+	}
+
 
 	public String getQueryId() {
 		return queryId;
@@ -60,6 +70,14 @@ public class Result {
 
 	public void setRunId(String runId) {
 		this.runId = runId;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	@Override

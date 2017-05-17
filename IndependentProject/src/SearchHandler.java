@@ -4,6 +4,9 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -20,21 +23,6 @@ import org.apache.lucene.search.similarities.Similarity;
 import org.apache.lucene.store.FSDirectory;
 
 public class SearchHandler {
-	
-	private static final String[] INDEX_PATHS = new String[]
-			{
-				"docs/index/2016/08/02", 
-				"docs/index/2016/08/03", 
-				"docs/index/2016/08/04", 
-				"docs/index/2016/08/05", 
-				"docs/index/2016/08/06", 
-				"docs/index/2016/08/07", 
-				"docs/index/2016/08/08", 
-				"docs/index/2016/08/09", 
-				"docs/index/2016/08/10",
-				"docs/index/2016/08/11"
-			};
-
 
 	public SearchHandler() {}
 	
@@ -47,9 +35,9 @@ public class SearchHandler {
 	public List<Result> SearchProfiles(Analyzer analyzer, Similarity similarity, List<InterestProfile> profiles){
 		List<Result> listDailyResults = new ArrayList<Result>();
 		
-		for(int i = 0; i < INDEX_PATHS.length; i++){
+		for(int i = 0; i < Utils.INDEX_PATHS.length; i++){
 			for(InterestProfile profile : profiles){
-				listDailyResults.addAll(searchProfile(analyzer, similarity, profile, INDEX_PATHS[i]));
+				listDailyResults.addAll(searchProfile(analyzer, similarity, profile, Utils.INDEX_PATHS[i], Utils.TWEETS_DATES[i]));
 			}
 		}
 		
@@ -60,7 +48,7 @@ public class SearchHandler {
 	 * 
 	 * @param indexPath
 	 */
-	private List<Result> searchProfile(Analyzer analyzer, Similarity similarity, InterestProfile profile, String indexPath){
+	private List<Result> searchProfile(Analyzer analyzer, Similarity similarity, InterestProfile profile, String indexPath, Calendar tweetDate){
 		
 		IndexReader reader = null;	
 		
@@ -81,7 +69,8 @@ public class SearchHandler {
 			}
 			
 			searcher.setSimilarity(similarity);
-			TopDocs results = searcher.search(query, 10);
+			//search how many? Can't be 10, because top 10 might not be from the same day, and those won't be added..
+			TopDocs results = searcher.search(query, 20);
 			ScoreDoc[] hits = results.scoreDocs;
 
 //			int numTotalHits = results.totalHits;
@@ -97,15 +86,22 @@ public class SearchHandler {
 				String creationDate = doc.get("creationDate");
 				
 				long creationDateTimestamp = Long.parseLong(creationDate);
-				Date tweetCreationDate = new Date(creationDateTimestamp);
+				Calendar tweetCreationDate = Calendar.getInstance();
+				tweetCreationDate.setTimeInMillis(creationDateTimestamp);
 				
-				queryResults.add(new Result(tweetCreationDate, profile.getTopId(), tweetId, j+1, hits[j].score, "Lab-0"));
+				//calculation of the new score, accounting the nr of followers can go here!
+				
+				if (Utils.areDatesEqual(tweetCreationDate, tweetDate)) {
+					queryResults.add(new Result(tweetCreationDate.getTime(), profile.getTopId(), tweetId, j+1, hits[j].score, "Lab-0"));
+				}
+				
+				
 				
 			}
 			reader.close();
 			
-//			return getBestScores(queryResults);
-			return queryResults;
+			return getBestScores(queryResults);
+			//return queryResults;
 		} catch (IOException e) {
 			try {
 				reader.close();
@@ -116,6 +112,28 @@ public class SearchHandler {
 		}
 		
 		return null;
+	}
+	
+	public List<Result> getBestScores(List<Result> queryResults) {
+		Collections.sort(queryResults, new Comparator<Result>() {
+		    @Override
+		    public int compare(Result r1, Result r2) {
+		        return Float.compare(r1.getScore(), r2.getScore());
+		    }
+		});
+		
+		//it's ordered in reverse
+		Collections.reverse(queryResults);
+			
+		List<Result> newResults = new ArrayList<Result>();
+		for (int i = 0; i < queryResults.size(); i++) {
+			if(i < 10){
+				Result tempResult = queryResults.get(i);
+				//with .getRank() we can see what was the previous rank position of that answer 
+				newResults.add(new Result(tempResult.getDate(), tempResult.getQueryId(), tempResult.getAnswerId(), i+1, tempResult.getScore(), tempResult.getRunId()));
+			}			
+		}
+		return newResults;
 	}
 	
 	/**

@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
@@ -20,34 +19,6 @@ import org.apache.lucene.store.FSDirectory;
 
 public class IndexHandler {
 	
-	private static final String[] INDEX_PATHS = new String[]
-			{
-				"docs/index/2016/08/02", 
-				"docs/index/2016/08/03", 
-				"docs/index/2016/08/04", 
-				"docs/index/2016/08/05", 
-				"docs/index/2016/08/06", 
-				"docs/index/2016/08/07", 
-				"docs/index/2016/08/08", 
-				"docs/index/2016/08/09", 
-				"docs/index/2016/08/10",
-				"docs/index/2016/08/11"
-			};
-	
-	private static final Calendar[] TWEETS_DATES = new Calendar[]
-			{
-				new GregorianCalendar(2016,7,2,23,59,59),
-				new GregorianCalendar(2016,7,3,23,59,59),
-				new GregorianCalendar(2016,7,4,23,59,59),
-				new GregorianCalendar(2016,7,5,23,59,59),
-				new GregorianCalendar(2016,7,6,23,59,59),
-				new GregorianCalendar(2016,7,7,23,59,59),
-				new GregorianCalendar(2016,7,8,23,59,59),
-				new GregorianCalendar(2016,7,9,23,59,59),
-				new GregorianCalendar(2016,7,10,23,59,59),
-				new GregorianCalendar(2016,7,11,23,59,59)
-			};
-	
 	boolean create = true;
 	private IndexWriter idx;
 	
@@ -60,8 +31,8 @@ public class IndexHandler {
 	 * @param tweetsParsed
 	 */
 	public void generateIndexes(Analyzer analyzer, Similarity similarity, ArrayList<Tweet> tweetsParsed){
-		for(int i = 0; i < INDEX_PATHS.length; i++){
-			generateIndex(analyzer, similarity, INDEX_PATHS[i], tweetsParsed, TWEETS_DATES[i]);
+		for(int i = 0; i < Utils.INDEX_PATHS.length; i++){
+			generateIndex(analyzer, similarity, Utils.INDEX_PATHS[i], tweetsParsed, Utils.TWEETS_DATES[i]);
 		}
 	}
 	
