@@ -29,16 +29,16 @@ public class SocialMediaSummarization {
 		ArrayList<InterestProfile> profiles = dp.readProfiles();
 		
 		//Index Documents(tweets)
-		//IndexHandler ih = new IndexHandler();
-		//ih.generateIndexes(analyzer, similarity, tweets);
+		IndexHandler ih = new IndexHandler();
+		ih.generateIndexes(analyzer, similarity, tweets);
 		
 		//search the documents with the queries(interest profiles)
-		//SearchHandler sh = new SearchHandler();
-		//List<Result> searchResults = sh.searchProfiles(analyzer, similarity, profiles);
+		SearchHandler sh = new SearchHandler();
+		List<Result> searchResults = sh.searchProfiles(analyzer, similarity, profiles);
 		
 		//write to file the results
-		//FileHandler fh = new FileHandler();
-		//fh.writeFile(searchResults);
+		FileHandler fh = new FileHandler();
+		fh.writeFile(searchResults);
 	}
 
 }
