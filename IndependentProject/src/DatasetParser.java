@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import javax.json.*;
 
@@ -71,12 +72,17 @@ public class DatasetParser {
 	 * @throws ParseException
 	 */	
 	private Calendar convertStringToDate(String dateTime) throws ParseException{
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.UK);
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH);
+        
         formatter.setLenient(true);
         Date newDate = formatter.parse(dateTime);
+        long solvedDate = newDate.getTime() - 3600000;
         
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(newDate);
+        calendar.setTime(new Date(solvedDate));
+        
+        //System.out.println(calendar.getTime().toString());
+        
         return calendar;
 	}
 	
