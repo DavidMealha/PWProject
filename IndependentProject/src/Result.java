@@ -82,7 +82,7 @@ public class Result {
 
 	@Override
 	public String toString() {
-		return String.format("%-15s %-10s %-10s %-20s %-10s %-10s %-10s \n", date, queryId, 0, answerId, rank, score, runId);
+		return String.format("%-15s %-10s %-10s %-20s %-10s %-15s %-10s \n", date, queryId, 0, answerId, rank, score, runId);
 	}
 	
 	

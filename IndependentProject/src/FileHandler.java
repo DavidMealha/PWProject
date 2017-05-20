@@ -8,13 +8,13 @@ public class FileHandler {
 	public void writeFile(List<Result> results){
 		
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter("docs/results.txt"))) {
-			bw.write(String.format("%-15s %-10s %-10s %-20s %-10s %-10s %-10s \n", "CreationDate", "topic_id", "Q0", "tweet_id", "Rank", "Score", "RunID"));
+			bw.write(String.format("%-15s %-10s %-10s %-20s %-10s %-15s %-10s \n", "CreationDate", "topic_id", "Q0", "tweet_id", "Rank", "Score", "RunID"));
 
 			for (Result result : results) { 
 				bw.write(result.toString());
 				
 			}
-			bw.write("\n");
+			//bw.write("\n");
 			
 			// no need to close it.
 			//bw.close();
