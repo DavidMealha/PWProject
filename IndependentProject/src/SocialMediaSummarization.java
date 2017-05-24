@@ -11,8 +11,8 @@ import org.apache.lucene.search.similarities.Similarity;
 public class SocialMediaSummarization {
 	
 	public static void main(String[] args) throws FileNotFoundException, ParseException {
- 		Analyzer analyzer = new StandardAnalyzer();
-		//Lab1NovaAnalyser analyzer = new Lab1NovaAnalyser();
+ 		//Analyzer analyzer = new StandardAnalyzer();
+		Lab1NovaAnalyser analyzer = new Lab1NovaAnalyser();
 		
 		Similarity similarity = new ClassicSimilarity();
 		// Similarity similarity = new BM25Similarity();
