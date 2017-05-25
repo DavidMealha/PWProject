@@ -31,21 +31,36 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
+            <!-- <li class="active"><a href="#">Home</a></li>
             <li><a href="#">Page 1</a></li>
             <li><a href="#">Page 2</a></li> 
-            <li><a href="#">Page 3</a></li> 
+            <li><a href="#">Page 3</a></li>  -->
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <!-- <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li> -->
           </ul>
         </div>
       </div>
     </nav>
     <div class="container">
-      <div>
-        
+      <div class="row">
+      	<div class="col-md-12">
+      		<form id="myform">
+      			<div class="form-group">
+      				<label>Choose Query:</label>
+      				<select class="form-control" id="profilesList"></select>
+      			</div>
+      			<div class="form-group">
+      				<label>Choose Date:</label>
+      				<input type="date" class="form-control" id="date" name="date" max="2016-08-11" min="2016-08-02">
+      			</div>
+      			<div class="form-group">
+      				<button type="submit" class="btn btn-primary form-control">Submit</button>	
+      			</div>
+      			
+      		</form>
+      	</div>
       </div>
       
     </div>
@@ -54,5 +69,50 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="scripts/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    	function getProfiles(){
+    		var profiles;
+    		$.ajax({
+    			method: "GET",
+    			url: "http://demo1518708.mockable.io/profiles",
+    			dataType: "json",
+    			async: false,
+    			success: function(data){
+    				profiles = data;
+    			}
+    		});
+    		return profiles;
+    	}
+
+    	function addProfilesToSelect(profiles){
+    		var select = document.getElementById("profilesList");
+
+    		profiles.forEach(function(profile){
+    			var option = document.createElement("option");
+    			option.id = profile.topid;
+    			option.text = profile.title;
+    			select.add(option);
+    		});
+    	}
+
+    	function handleForm(){
+    		var select = document.getElementById("profilesList");
+    		var selectedOption = select.options[select.selectedIndex].value;
+
+    		var selectedDate = document.getElementById("date");
+    		console.log(selectedOption);
+    	}
+
+    	$(document).ready(function() {
+    		var profiles = getProfiles();
+    		addProfilesToSelect(profiles);
+
+    		$('#myform').on("submit", function(evt){
+    			evt.preventDefault();
+    			handleForm();	
+    		});
+    	});	
+
+    </script>
   </body>
 </html>

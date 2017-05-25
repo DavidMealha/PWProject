@@ -12,7 +12,7 @@ public class SocialMediaSummarization {
 	
 	public static void main(String[] args) throws FileNotFoundException, ParseException {
  		//Analyzer analyzer = new StandardAnalyzer();
-		Lab1NovaAnalyser analyzer = new Lab1NovaAnalyser();
+		CustomAnalyzer analyzer = new CustomAnalyzer();
 		
 		Similarity similarity = new ClassicSimilarity();
 		// Similarity similarity = new BM25Similarity();

@@ -30,7 +30,7 @@ import org.apache.lucene.analysis.shingle.ShingleFilter;
  * @author jmag
  *
  */
-public class Lab1NovaAnalyser extends StopwordAnalyzerBase {
+public class CustomAnalyzer extends StopwordAnalyzerBase {
 
 	/**
 	 * An unmodifiable set containing some common English words that are not
@@ -48,7 +48,7 @@ public class Lab1NovaAnalyser extends StopwordAnalyzerBase {
 	/**
 	 * Builds an analyzer with the default stop words ({@link #STOP_WORDS_SET}).
 	 */
-	public Lab1NovaAnalyser() {
+	public CustomAnalyzer() {
 		super(stopSet);
 	}
 
@@ -79,7 +79,7 @@ public class Lab1NovaAnalyser extends StopwordAnalyzerBase {
 		return new TokenStreamComponents(src, tok) {
 			@Override
 			protected void setReader(final Reader reader) {	
-				src.setMaxTokenLength(Lab1NovaAnalyser.this.maxTokenLength);
+				src.setMaxTokenLength(CustomAnalyzer.this.maxTokenLength);
 				//super.setReader(new HTMLStripCharFilter(reader));
 				super.setReader(reader);
 			}
@@ -99,7 +99,7 @@ public class Lab1NovaAnalyser extends StopwordAnalyzerBase {
 
 		final String text = "The Two Cultures: statistics vs. machine learning?";
 
-		Lab1NovaAnalyser analyzer = new Lab1NovaAnalyser();
+		CustomAnalyzer analyzer = new CustomAnalyzer();
 		TokenStream stream = analyzer.tokenStream("field", new StringReader(text));
 
 		// get the CharTermAttribute from the TokenStream
