@@ -63,9 +63,6 @@
 		</div>
 	</div>
 	<div id="results" class="row">
-		<div class="col-md-4">
-			<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Sunsets don&#39;t get much better than this one over <a href="https://twitter.com/GrandTetonNPS">@GrandTetonNPS</a>. <a href="https://twitter.com/hashtag/nature?src=hash">#nature</a> <a href="https://twitter.com/hashtag/sunset?src=hash">#sunset</a> <a href="http://t.co/YuKy2rcjyU">pic.twitter.com/YuKy2rcjyU</a></p>&mdash; US Dept of Interior (@Interior) <a href="https://twitter.com/Interior/status/463440424141459456">May 5, 2014</a></blockquote>	
-		</div>
 	</div>
 </div>
 
@@ -142,10 +139,18 @@
 
 		var result;
 		matchedResults.forEach(function(element){
+			
 			result = document.createElement("div");
 			result.className = "col-md-4";
+			result.id = element.tweetId;
+			resultsDiv.append(result);
 
-			var thumbnail = document.createElement("div");
+			twttr.widgets.createTweet(
+				element.tweetId,
+				document.getElementById(element.tweetId)
+			);
+
+			/*var thumbnail = document.createElement("div");
 			thumbnail.className = "thumbnail";
 
 			var avatarDiv = document.createElement("div");
@@ -180,19 +185,8 @@
 			thumbnail.append(userDiv);
 			thumbnail.append(caption);
 
-			result.append(thumbnail);
-			resultsDiv.append(result);
-		});
-		
-	}
-
-	function getWidgets(){
-		$.ajax({
-			method: "GET",
-			url: "http://publish.twitter.com/oembed?url=http://twitter.com/Interior/status/763805923546497024",
-			success: function(data){
-				$('results').append(data.html);
-			}
+			result.append(thumbnail);*/
+			
 		});
 		
 	}
@@ -200,16 +194,14 @@
 	$(document).ready(function() {
 		var profiles = getProfiles();
 		addProfilesToSelect(profiles);
+		var results = getResults();
 
 		$('#myform').on("submit", function(evt){
 			evt.preventDefault();
-			var formParameters = handleForm();
-
-			var results = getResults();
+			var formParameters = handleForm();			
 			var matchedResults = matchResults(results, formParameters);	
 
 			showResults(matchedResults);
-			getWidgets();
 		});
 	});	
 
