@@ -50,9 +50,15 @@ public class DatasetParser {
 				JsonObject userInfo = tweetObject.getJsonObject("user");
 				String userId = userInfo.getString("id_str");
 				int userFollowers = userInfo.getInt("followers_count");
+				String userName = userInfo.getString("name");
+				String userAvatar = userInfo.getString("profile_image_url");
+				
+				//PARSE USERNAME AND IMAGE
+				//profile_image_url
+				//name
 				
 				//creationDate, id, text, userId, userFollowers
-				Tweet t = new Tweet(convertStringToDate(creationDate), Long.parseLong(id), text, Long.parseLong(userId), userFollowers);
+				Tweet t = new Tweet(convertStringToDate(creationDate), Long.parseLong(id), text, Long.parseLong(userId), userFollowers, userName, userAvatar);
 				tweetsParsed.add(t);
 				
 				line = br.readLine();

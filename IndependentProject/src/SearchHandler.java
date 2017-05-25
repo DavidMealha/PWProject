@@ -40,7 +40,6 @@ public class SearchHandler {
 				listDailyResults.addAll(searchProfile(analyzer, similarity, profile, Utils.INDEX_PATHS[i], Utils.TWEETS_DATES[i]));
 			}
 		}
-		
 		return listDailyResults;
 	}
 	
@@ -84,6 +83,8 @@ public class SearchHandler {
 				String userId = doc.get("userId");
 				String userFollowers = doc.get("userFollowers");
 				String creationDate = doc.get("creationDate");
+				String userName = doc.get("userName");
+				String userAvatar = doc.get("userAvatar");
 				
 				long creationDateTimestamp = Long.parseLong(creationDate);
 				Calendar tweetCreationDate = Calendar.getInstance();
@@ -92,10 +93,8 @@ public class SearchHandler {
 				//calculation of the new score, accounting the nr of followers can go here!
 				
 				if (Utils.areDatesEqual(tweetCreationDate, tweetDate)) {
-					queryResults.add(new Result(tweetCreationDate.getTime(), profile.getTopId(), tweetId, j+1, hits[j].score, "Lab-0"));
+					queryResults.add(new Result(tweetCreationDate.getTime(), profile.getTopId(), tweetId, j+1, hits[j].score, "Lab-0", tweetBody, userId, userName, userAvatar, userFollowers));
 				}
-				
-				
 				
 			}
 			reader.close();
@@ -130,7 +129,9 @@ public class SearchHandler {
 			if(i < 10){
 				Result tempResult = queryResults.get(i);
 				//with .getRank() we can see what was the previous rank position of that answer 
-				newResults.add(new Result(tempResult.getDate(), tempResult.getQueryId(), tempResult.getAnswerId(), i+1, tempResult.getScore(), tempResult.getRunId()));
+				newResults.add(new Result(tempResult.getDate(), tempResult.getQueryId(), tempResult.getAnswerId(),
+						i + 1, tempResult.getScore(), tempResult.getRunId(), tempResult.getTweetText(),
+						tempResult.getUserId(), tempResult.getUserName(), tempResult.getUserAvatar(), tempResult.getUserFollowers()));
 			}			
 		}
 		return newResults;

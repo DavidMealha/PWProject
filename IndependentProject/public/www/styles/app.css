@@ -13,3 +13,7 @@ body{
 .icon-bar {
 	background-color: #337ab7;
 }
+
+.thumbnail{
+	height: 220px;
+}

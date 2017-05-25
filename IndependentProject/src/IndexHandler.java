@@ -117,7 +117,13 @@ public class IndexHandler {
 					// Extract field userFollowers
 					doc.add(new LongPoint("userFollowers", t.getUserFollowers()));
 					doc.add(new StoredField("userFollowers", t.getUserFollowers()));
-
+					
+					// Extract username text
+					doc.add(new TextField("userName", t.getUserName(), Field.Store.YES));
+					
+					// Extract userAvatar text
+					doc.add(new TextField("userAvatar", t.getUserAvatar(), Field.Store.YES));
+					
 					// Add the document to the index
 					if (idx.getConfig().getOpenMode() == OpenMode.CREATE) {						
 						idx.addDocument(doc);

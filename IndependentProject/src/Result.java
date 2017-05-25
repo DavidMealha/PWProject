@@ -11,7 +11,13 @@ public class Result {
 	private float score;
 	private String runId;
 	
-	public Result(Date date, String queryId, String answerId, int rank, float score, String runId) {
+	private String tweetText;
+	private String userId;
+	private String userName;
+	private String userFollowers;
+	private String userAvatar;
+	
+	public Result(Date date, String queryId, String answerId, int rank, float score, String runId, String tweetText, String userId, String userName, String userAvatar, String userFollowers) {
 		DateFormat df = new SimpleDateFormat("yyyyMMdd");
 		this.date = df.format(date);
 
@@ -20,15 +26,27 @@ public class Result {
 		this.rank = rank;
 		this.score = score;
 		this.runId = runId;
+		
+		this.tweetText = tweetText;
+		this.userId = userId;
+		this.userFollowers = userFollowers;
+		this.userName = userName;
+		this.userAvatar = userAvatar;
 	}
 	
-	public Result(String date, String queryId, String answerId, int rank, float score, String runId) {
+	public Result(String date, String queryId, String answerId, int rank, float score, String runId, String tweetText, String userId, String userName, String userAvatar, String userFollowers) {
 		this.date = date;
 		this.queryId = queryId;
 		this.answerId = answerId;
 		this.rank = rank;
 		this.score = score;
 		this.runId = runId;
+		
+		this.tweetText = tweetText;
+		this.userId = userId;
+		this.userFollowers = userFollowers;
+		this.userName = userName;
+		this.userAvatar = userAvatar;
 	}
 
 
@@ -78,6 +96,46 @@ public class Result {
 
 	public void setDate(String date) {
 		this.date = date;
+	}
+
+	public String getTweetText() {
+		return tweetText;
+	}
+
+	public void setTweetText(String tweetText) {
+		this.tweetText = tweetText;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getUserFollowers() {
+		return userFollowers;
+	}
+
+	public void setUserFollowers(String userFollowers) {
+		this.userFollowers = userFollowers;
+	}
+
+	public String getUserAvatar() {
+		return userAvatar;
+	}
+
+	public void setUserAvatar(String userAvatar) {
+		this.userAvatar = userAvatar;
 	}
 
 	@Override
