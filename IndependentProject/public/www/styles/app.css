@@ -1,9 +1,15 @@
 body{
 	text-decoration-color: #337ab7;
+	font-family: 'Open Sans', sans-serif;
+	background-color: #f1f1f1;
 }
 
 .navbar {
-	border-bottom-color: #337ab7;
+    background-color: #e0e0e0;
+}
+
+.navbar-brand {
+	font-family: 'Montserrat', sans-serif;
 }
 
 .navbar-toggle {
