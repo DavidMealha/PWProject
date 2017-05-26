@@ -16,7 +16,7 @@ import javax.json.*;
 public class DatasetParser {
 	
 	private static final String TWEETS_PATH = "docs/rts2016-qrels-tweets2016.jsonl";
-	private static final String PROFILES_PATH = "docs/TREC2016-RTS-topics.json";
+	private static final String PROFILES_PATH = "docs/newProfiles.json";
 	
 	private ArrayList<Tweet> tweetsParsed;
 	private ArrayList<InterestProfile> profilesParsed;
