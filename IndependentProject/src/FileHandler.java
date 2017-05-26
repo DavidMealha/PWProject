@@ -48,13 +48,13 @@ public class FileHandler {
 			JsonObjectBuilder obj = Json.createObjectBuilder();
 			obj.add("tweetId", r.getAnswerId());
 			obj.add("profileId", r.getQueryId());
-			obj.add("tweetText", r.getTweetText());
+//			obj.add("tweetText", r.getTweetText());
 			obj.add("score", r.getScore());
 			obj.add("date", r.getDate());
-			obj.add("userId", r.getUserId());
-			obj.add("userName", r.getUserName());
-			obj.add("userAvatar", r.getUserAvatar());
-			obj.add("userFollowers", r.getUserFollowers());
+//			obj.add("userId", r.getUserId());
+//			obj.add("userName", r.getUserName());
+//			obj.add("userAvatar", r.getUserAvatar());
+//			obj.add("userFollowers", r.getUserFollowers());
 			array.add(obj);
 		}
 		JsonArray arrayJson = array.build();

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.search.similarities.ClassicSimilarity;
+import org.apache.lucene.search.similarities.LMDirichletSimilarity;
 import org.apache.lucene.search.similarities.Similarity;
 
 public class SocialMediaSummarization {
@@ -14,9 +15,9 @@ public class SocialMediaSummarization {
  		//Analyzer analyzer = new StandardAnalyzer();
 		CustomAnalyzer analyzer = new CustomAnalyzer();
 		
-		Similarity similarity = new ClassicSimilarity();
+		// Similarity similarity = new ClassicSimilarity();
 		// Similarity similarity = new BM25Similarity();
-		// Similarity similarity = new LMDirichletSimilarity();
+		Similarity similarity = new LMDirichletSimilarity();
 		// Similarity similarity = new TFIDFSimilarity();
 		
 		//Load Data

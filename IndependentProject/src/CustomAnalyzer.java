@@ -36,10 +36,14 @@ public class CustomAnalyzer extends StopwordAnalyzerBase {
 	 * An unmodifiable set containing some common English words that are not
 	 * usually useful for searching.
 	 */
-	static List<String> stopWords = Arrays.asList("a", "an", "and", "are", "as", "at", "be", "but", "by", "for", "if",
-			"in", "into", "is", "it", "no", "not", "of", "on", "or", "such", "that", "the", "their", "then", "there",
-			"these", "they", "this", "to", "was", "will", "with", "you", "use", "can", "i", "have", "your", "from", 
-			"more", "some", "other", "than", "also", "about");
+//	static List<String> stopWords = Arrays.asList("a", "an", "and", "are", "as", "at", "be", "but", "by", "for", "if",
+//			"in", "into", "is", "it", "no", "not", "of", "on", "or", "such", "that", "the", "their", "then", "there",
+//			"these", "they", "this", "to", "was", "will", "with", "you", "use", "can", "i", "have", "your", "from", 
+//			"more", "some", "other", "than", "also", "about");
+	
+	static List<String> stopWords = Arrays.asList("to", "the", "in", "and", "a", "of", "for", "is", "on",
+			"the", "at", "it", "from", "the", "i", "be", "from", "be", "are", "my", "this", "by", "that");
+	
 	static CharArraySet stopSet = new CharArraySet(stopWords, true);
 
 	/** Default maximum allowed token length */
@@ -64,11 +68,11 @@ public class CustomAnalyzer extends StopwordAnalyzerBase {
 		
 		TokenStream tok = null;
 		tok = new StandardFilter(src);					// text into non punctuated text
-//		tok = new LowerCaseFilter(tok);					// changes all texto into lowercase
-//		tok = new StopFilter(tok, stopwords);			// removes stop words
+		tok = new LowerCaseFilter(tok);					// changes all texto into lowercase
+		tok = new StopFilter(tok, stopwords);			// removes stop words
 
 //		tok = new ShingleFilter(tok, 2, 3);				// creates word-grams with neighboring works
-//		tok = new CommonGramsFilter(tok, stopwords);	// creates word-grams with stopwords
+		tok = new CommonGramsFilter(tok, stopwords);	// creates word-grams with stopwords
 //		
 //		tok = new NGramTokenFilter(tok,2,5);			// creates unbounded n-grams 
 //		tok = new EdgeNGramTokenFilter(tok,2,3);		// creates word-bounded n-grams
