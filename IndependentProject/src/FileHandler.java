@@ -14,15 +14,13 @@ import javax.json.JsonWriter;
 
 public class FileHandler {
 	
-	public void writeFile(List<Result> results){
-		writeTrecFormat(results);
-		writeJSONFormat(results);
-		
-		
+	public void writeFile(List<Result> results, String path){
+		writeTrecFormat(results, path);
+		//writeJSONFormat(results, path);	
 	}
 	
-	private void writeTrecFormat(List<Result> results){
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter("docs/results.txt"))) {
+	private void writeTrecFormat(List<Result> results, String path){
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
 			bw.write(String.format("%-15s %-10s %-10s %-20s %-10s %-15s %-10s \n", "CreationDate", "topic_id", "Q0", "tweet_id", "Rank", "Score", "RunID"));
 
 			for (Result result : results) { 

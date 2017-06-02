@@ -1,36 +1,21 @@
-/**
- * 
- */
+package tests;
 
-
-import java.util.List;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.Arrays;
+import java.util.List;
 
-import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.CharArraySet;
 import org.apache.lucene.analysis.LowerCaseFilter;
-import org.apache.lucene.analysis.StopFilter;
 import org.apache.lucene.analysis.StopwordAnalyzerBase;
 import org.apache.lucene.analysis.TokenStream;
-import org.apache.lucene.analysis.charfilter.HTMLStripCharFilter;
-import org.apache.lucene.analysis.snowball.SnowballFilter;
+import org.apache.lucene.analysis.Analyzer.TokenStreamComponents;
 import org.apache.lucene.analysis.standard.StandardFilter;
 import org.apache.lucene.analysis.standard.StandardTokenizer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
-import org.apache.lucene.analysis.commongrams.*;
-import org.apache.lucene.analysis.miscellaneous.FingerprintFilter;
-import org.apache.lucene.analysis.ngram.EdgeNGramTokenFilter;
-import org.apache.lucene.analysis.ngram.NGramTokenFilter;
-import org.apache.lucene.analysis.shingle.ShingleFilter;
 
-/**
- * @author jmag
- *
- */
-public class CustomAnalyzer extends StopwordAnalyzerBase {
+public class Test1Analyzer extends StopwordAnalyzerBase {
 
 	/**
 	 * An unmodifiable set containing some common English words that are not
