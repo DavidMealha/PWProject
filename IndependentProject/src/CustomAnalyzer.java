@@ -48,37 +48,70 @@ public class CustomAnalyzer extends StopwordAnalyzerBase {
 
 	/** Default maximum allowed token length */
 	private int maxTokenLength = 25;
+	
+	private boolean useStandardFilter;
+	private boolean useLowerCaseFilter;
+	private boolean useStopWordsFilter;
+	private boolean useShingleFilter;
+	private boolean useCommonGramsFilter;
+	private boolean useNGramTokenFilter;
+	private boolean useEdgeNGramFilter;
+	private boolean useSnowballFilter;
 
 	/**
 	 * Builds an analyzer with the default stop words ({@link #STOP_WORDS_SET}).
 	 */
-	public CustomAnalyzer() {
+	public CustomAnalyzer(String config) {
 		super(stopSet);
+		convertConfig(config);
 	}
 
 	@Override
 	protected TokenStreamComponents createComponents(final String fieldName) {
-
-		
-		// THE FIELD IS IGNORED 
-		// ___BUT___ 
-		// you can provide different TokenStremComponents according to the fieldName
 		
 		final StandardTokenizer src = new StandardTokenizer();
 		
 		TokenStream tok = null;
-		tok = new StandardFilter(src);					// text into non punctuated text
-//		tok = new LowerCaseFilter(tok);					// changes all texto into lowercase
-//		tok = new StopFilter(tok, stopwords);			// removes stop words
-
-//		tok = new ShingleFilter(tok, 2, 3);				// creates word-grams with neighboring works
-//		tok = new CommonGramsFilter(tok, stopwords);	// creates word-grams with stopwords
-//		
-//		tok = new NGramTokenFilter(tok,2,5);			// creates unbounded n-grams 
-//		tok = new EdgeNGramTokenFilter(tok,2,3);		// creates word-bounded n-grams
-//		
-//		tok = new SnowballFilter(tok, "English");	// stems workds according to the specified language
 		
+		if (useStandardFilter) {
+			// text into non punctuated text
+			tok = new StandardFilter(src);					
+		}
+		
+		if(useLowerCaseFilter) {
+			// changes all texto into lowercase
+			tok = new LowerCaseFilter(tok);					
+		}
+		
+		if(useStopWordsFilter) {
+			// removes stop words
+			tok = new StopFilter(tok, stopwords);			
+		}
+
+		if(useShingleFilter) {
+			// creates word-grams with neighboring works
+			tok = new ShingleFilter(tok, 2, 3);				
+		}
+		
+		if(useCommonGramsFilter) {
+			// creates word-grams with stopwords
+			tok = new CommonGramsFilter(tok, stopwords);	
+		}
+		
+		if(useNGramTokenFilter) {
+			// creates unbounded n-grams
+			tok = new NGramTokenFilter(tok,2,5);			
+		}
+		
+		if(useEdgeNGramFilter) {
+			// creates word-bounded n-grams
+			tok = new EdgeNGramTokenFilter(tok,2,3);		
+		}
+		
+		if(useSnowballFilter) {
+			// stems workds according to the specified language
+			tok = new SnowballFilter(tok, "English");	
+		}
 		
 		return new TokenStreamComponents(src, tok) {
 			@Override
@@ -97,29 +130,39 @@ public class CustomAnalyzer extends StopwordAnalyzerBase {
 		return result;
 	}
 	
-	// ===============================================
-	// Test the different filters
-	public static void main(String[] args) throws IOException {
-
-		final String text = "The Two Cultures: statistics vs. machine learning?";
-
-		CustomAnalyzer analyzer = new CustomAnalyzer();
-		TokenStream stream = analyzer.tokenStream("field", new StringReader(text));
-
-		// get the CharTermAttribute from the TokenStream
-		CharTermAttribute termAtt = stream.addAttribute(CharTermAttribute.class);
-
-		try {
-			stream.reset();
-
-			// print all tokens until stream is exhausted
-			while (stream.incrementToken()) {
-				System.out.println(termAtt.toString());
+	private void convertConfig(String config){
+		String[] configSplitted = config.split("_");
+		
+		for(String conf: configSplitted){
+			
+			switch (conf) {
+			case "STANDARD":
+				useStandardFilter = true;
+				break;
+			case "LOWER":
+				useLowerCaseFilter = true;
+				break;
+			case "STOP":
+				useStopWordsFilter = true;
+				break;
+			case "SHINGLE":
+				useShingleFilter = true;
+				break;
+			case "COMMON":
+				useCommonGramsFilter = true;
+				break;
+			case "NGRAM":
+				useNGramTokenFilter = true;
+				break;
+			case "EDGE":
+				useEdgeNGramFilter = true;
+				break;
+			case "SNOWBALL":
+				useSnowballFilter = true;
+				break;
+			default:
+				break;
 			}
-
-			stream.end();
-		} finally {
-			stream.close();
 		}
 	}
 }

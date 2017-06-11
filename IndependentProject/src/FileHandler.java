@@ -32,8 +32,6 @@ public class FileHandler {
 			// no need to close it.
 			//bw.close();
 
-			System.out.println("Done TREC");
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

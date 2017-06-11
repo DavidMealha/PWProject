@@ -31,6 +31,26 @@ public class Utils {
 				new GregorianCalendar(2016,7,11,23,59,59)
 			};
 	
+	public static final String[] TEST_CASES = new String[] {
+			"STANDARD",
+			"STANDARD_LOWER",
+			"STANDARD_STOP",
+			"STANDARD_SHINGLE",
+			"STANDARD_COMMON",
+			"STANDARD_NGRAM",
+			"STANDARD_EDGE",
+			"STANDARD_SNOWBALL",
+			"STANDARD_LOWER_STOP",
+			"STANDARD_LOWER_STOP_SNOWBALL",
+			"STANDARD_STOP_SNOWBALL",
+			"STANDARD_STOP_SNOWBALL_NGRAM",
+			"STANDARD_LOWER_STOP_SHINGLE",
+			"STANDARD_LOWER_STOP_SHINGLE_COMMON",
+			"STANDARD_LOWER_STOP_SHINGLE_COMMON_NGRAM",
+			"STANDARD_LOWER_STOP_SHINGLE_COMMON_NGRAM_EDGE",
+			"STANDARD_LOWER_STOP_SHINGLE_COMMON_NGRAM_EDGE_SNOWBALL"
+	 };
+	
 	public static boolean areDatesEqual(Calendar date1, Calendar date2){
 		if(date1.get(Calendar.YEAR) == date2.get(Calendar.YEAR) &&
 		   date1.get(Calendar.MONTH) == date2.get(Calendar.MONTH) && 
