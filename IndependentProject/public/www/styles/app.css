@@ -23,3 +23,48 @@ body{
 .thumbnail{
 	height: 220px;
 }
+
+.newsDiv {
+	padding: 10px;
+	background-color: white;
+	border-radius: 5px;
+	margin: 15px;
+
+}
+
+.ml-15 {
+	margin-left: 15px;
+}
+
+.small-image {
+	height: 15px;
+}
+
+.click-for-more-button {
+	margin-top: 10px;
+	display: block;
+	font-size: 14px;
+	color: #337ab7;
+	background-color: white;
+	transition: linear 200ms;
+	text-decoration: none;
+	padding: 10px;
+	border: 1px solid #337ab7;
+	border-radius: 8px;
+}
+
+.click-for-more-button:hover {
+	background-color: #337ab7;
+	text-decoration: none;
+	color: white;
+}
+
+/*#results {
+	background-color: white;
+	margin-left: 15px;
+}
+
+#otherResults {
+	background-color: white;
+	margin-left: 15px;
+}*/

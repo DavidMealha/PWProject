@@ -64,7 +64,13 @@
 			</form>
 		</div>
 	</div>
-	<div id="results" class="row">
+	<div class="row">
+		<div id="results" class="col-md-6">
+			<h4 class="text-center">Twitter Results</h4>
+		</div>
+		<div id="otherResults" class="col-md-6">
+			<h4 class="text-center">Other News Sources</h4>
+		</div>
 	</div>
 </div>
 
@@ -73,139 +79,9 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="scripts/bootstrap.min.js"></script>
 <script async src="http://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script src="scripts/main.js"></script>
 <script type="text/javascript">
-	function getProfiles(){
-		var profiles;
-		$.ajax({
-			method: "GET",
-			url: "http://demo1518708.mockable.io/profiles",
-			dataType: "json",
-			async: false,
-			success: function(data){
-				profiles = data;
-			}
-		});
-		return profiles;
-	}
 
-	function getResults(){
-		var results;
-		$.ajax({
-			method: "GET",
-			url: "http://demo1518708.mockable.io/results",
-			dataType: "json",
-			async: false,
-			success: function(data){
-				results = data;
-			}
-		});
-		return results;
-	}
-
-	function addProfilesToSelect(profiles){
-		var select = document.getElementById("profilesList");
-
-		profiles.forEach(function(profile){
-			var option = document.createElement("option");
-			option.id = profile.topid;
-			option.text = profile.title;
-			select.add(option);
-		});
-	}
-
-	function handleForm(){
-		var select = document.getElementById("profilesList");
-		var selectedOption = select.options[select.selectedIndex].id;
-
-		var selectedDate = document.getElementById("date").value;
-		return [selectedOption, changeDateFormat(selectedDate)];
-	}
-
-	function changeDateFormat(date){
-		return date.replace("-", "").replace("-", "");
-	}
-
-	function matchResults(results, formParameters){
-		var matchedResults = [];
-		results.forEach(function(element, index, results){
-			if (element.date == formParameters[1] && element.profileId == formParameters[0]) {
-				matchedResults.push(element);
-			}
-		});
-		return matchedResults;
-	}
-
-	function showResults(matchedResults){
-		var resultsDiv = document.getElementById("results");
-		$(resultsDiv).empty();
-
-		var result;
-		matchedResults.forEach(function(element){
-			
-			result = document.createElement("div");
-			result.className = "col-md-4";
-			result.id = element.tweetId;
-			resultsDiv.append(result);
-
-			twttr.widgets.createTweet(
-				element.tweetId,
-				document.getElementById(element.tweetId)
-			);
-
-			/*var thumbnail = document.createElement("div");
-			thumbnail.className = "thumbnail";
-
-			var avatarDiv = document.createElement("div");
-			avatarDiv.className = "col-md-4";
-
-			var avatar = document.createElement("img");
-			avatar.src = element.userAvatar;
-
-			var userDiv = document.createElement("div");
-			userDiv.className = "col-md-8";
-
-			var userName = document.createElement("p");
-			userName.innerText = element.userName;
-
-			var userFollowers = document.createElement("p");
-			userFollowers.innerText = element.userFollowers;
-
-			var caption = document.createElement("div");
-			caption.className = "caption col-md-12";
-
-			var tweetText = document.createElement("h4");
-			tweetText.innerText = element.tweetText;
-
-			avatarDiv.append(avatar);
-
-			userDiv.append(userName);
-			userDiv.append(userFollowers);
-
-			caption.append(tweetText);
-
-			thumbnail.append(avatarDiv);
-			thumbnail.append(userDiv);
-			thumbnail.append(caption);
-
-			result.append(thumbnail);*/
-			
-		});
-		
-	}
-
-	$(document).ready(function() {
-		var profiles = getProfiles();
-		addProfilesToSelect(profiles);
-		var results = getResults();
-
-		$('#myform').on("submit", function(evt){
-			evt.preventDefault();
-			var formParameters = handleForm();			
-			var matchedResults = matchResults(results, formParameters);	
-
-			showResults(matchedResults);
-		});
-	});	
 
 </script>
 </body>
