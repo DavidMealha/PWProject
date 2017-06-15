@@ -91,7 +91,8 @@ function showResults(matchedResults){
 function getGuardianNews(date, query){
 	var API_URL = "https://content.guardianapis.com/search?";
 	var API_KEY = "93003d8b-1d93-43dd-98c6-1978823de3e5";
-	var PARAMETERIZED_URL = API_URL + "q=" + query + "&api-key=" + API_KEY;
+	var pageSize = 2;
+	var PARAMETERIZED_URL = API_URL + "q=" + query + "&api-key=" + API_KEY + "&page-size=" + pageSize;
 
 	var results = "";
 	$.ajax({
@@ -151,6 +152,154 @@ function showGuardianNews(results, query){
 	});	
 }
 
+
+
+//=============================================
+//          START OF NYT FETCH
+//=============================================
+function getNYTNews(date, query){
+	var API_URL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?";
+	var API_KEY = "73f50ced28d64b14b5f82bac01d1a899";
+	var PARAMETERIZED_URL = API_URL + "q=" + query + "&api-key=" + API_KEY + "&sort=" + "newest";
+
+	var results = "";
+	$.ajax({
+		method: "GET",
+		url: PARAMETERIZED_URL,
+		dataType: "json",
+		async: false,
+		success: function(data){
+			results = data;
+		}
+	});
+	return results.response.docs;
+}
+
+function showNYTNews(results, query){
+	var resultsDiv = document.getElementById("otherResults");
+
+	var result;
+	results.splice(0,2).forEach(function(element){
+		
+		result = document.createElement("div");
+		result.className = "newsDiv";
+
+		var title = document.createElement("h4");
+		title.innerText = element.lead_paragraph;
+
+		var date = document.createElement("p");
+		var aux = new Date(element.pub_date);
+		var month = aux.getMonth() + 1;
+
+		date.innerText = "Created at " + aux.getDate() + "/" + month + "/" + aux.getFullYear();
+
+		var more = document.createElement("a");
+		more.href = element.web_url;
+		more.innerText = "Click for more";
+		more.className = "click-for-more-button text-center";
+		more.setAttribute('target','_blank');
+
+		var divImg = document.createElement("div");
+		
+		var span = document.createElement("span");
+		span.innerText = "Source: ";
+		
+		var img = document.createElement("img");
+		img.src = "images/nyt.png";
+		img.className = "small-image";
+
+		divImg.append(span);
+		divImg.append(img);
+
+		result.append(title);
+		result.append(date);
+		result.append(divImg);
+		result.append(more);
+
+		resultsDiv.append(result);
+	});	
+}
+
+
+//=============================================
+//          START OF REDDIT FETCH
+//=============================================
+function getRedditNews(date, query){
+	var API_URL = "https://www.reddit.com/r/news/search.json?";
+	var PARAMETERIZED_URL = API_URL + "q=" + query + "&sort=" + "relevance" + "&limit=" + 10;
+
+	var results = "";
+	$.ajax({
+		method: "GET",
+		url: PARAMETERIZED_URL,
+		dataType: "json",
+		async: false,
+		success: function(data){
+			results = data;
+		}
+	});
+	return results.data.children;
+}
+
+function showRedditNews(results, query){
+	var resultsDiv = document.getElementById("otherResults");
+
+	var result;
+	results.splice(0,2).forEach(function(el){
+		var element = el.data;
+		
+		result = document.createElement("div");
+		result.className = "newsDiv";
+
+		var title = document.createElement("h4");
+		title.innerText = element.title;
+
+		var date = document.createElement("p");
+		var aux = new Date(element.created);
+		var month = aux.getMonth() + 1;
+
+		date.innerText = "Created at " + aux.getDate() + "/" + month + "/" + aux.getFullYear();
+
+		var more = document.createElement("a");
+		more.href = element.url;
+		more.innerText = "Click for more";
+		more.className = "click-for-more-button text-center";
+		more.setAttribute('target','_blank');
+
+		var moreReddit = document.createElement("a");
+		moreReddit.href = "https://www.reddit.com/" + element.permalink;
+		moreReddit.innerText = "See on Reddit";
+		moreReddit.className = "click-for-more-reddit-button text-center";
+		moreReddit.setAttribute('target','_blank');
+
+		var divImg = document.createElement("div");
+		
+		var span = document.createElement("span");
+		span.innerText = "Source: ";
+		
+		var img = document.createElement("img");
+		img.src = "images/reddit.png";
+		img.className = "small-image";
+
+		divImg.append(span);
+		divImg.append(img);
+
+		result.append(title);
+		result.append(date);
+		result.append(divImg);
+		result.append(more);
+		result.append(moreReddit);
+
+		resultsDiv.append(result);
+	});	
+}
+
+
+
+//=============================================
+//          START OF GUARDIAN FETCH
+//=============================================
+
 function cleanOtherSources(query){
 	var resultsDiv = document.getElementById("otherResults");
 	$(resultsDiv).empty();
@@ -161,18 +310,6 @@ function cleanOtherSources(query){
 
 	resultsDiv.append(header);
 }
-
-//=============================================
-//          START OF GUARDIAN FETCH
-//=============================================
-
-//=============================================
-//          START OF GUARDIAN FETCH
-//=============================================
-
-//=============================================
-//          START OF GUARDIAN FETCH
-//=============================================
 
 $(document).ready(function() {
 	var profiles = getProfiles();
@@ -187,11 +324,21 @@ $(document).ready(function() {
 		var matchedResults = matchResults(results, formParameters);	
 		showResults(matchedResults);
 
-		//get guardian results
-		var guardianResults = getGuardianNews(formParameters[1], formParameters[2]);
-		cleanOtherSources(formParameters[2]);
-		showGuardianNews(guardianResults, formParameters[2]);
+		var query = formParameters[2];
+		cleanOtherSources(query);
 
-		console.log(guardianResults);
+		//get guardian results
+		var guardianResults = getGuardianNews(formParameters[1], query);
+		showGuardianNews(guardianResults, query);
+
+		//get nyt results
+		var nytResults = getNYTNews(date, query);
+		showNYTNews(nytResults);
+
+		//get reddit results
+		var redditResults = getRedditNews(date, query);
+		showRedditNews(redditResults);
+
+		console.log(redditResults);
 	});
 });	
