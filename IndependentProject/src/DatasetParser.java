@@ -20,11 +20,13 @@ public class DatasetParser {
 	
 	private ArrayList<Tweet> tweetsParsed;
 	private ArrayList<InterestProfile> profilesParsed;
+	private int numMaxFollowers;
 	
 	
 	public DatasetParser() {
 		tweetsParsed = new ArrayList<Tweet>();
 		profilesParsed = new ArrayList<InterestProfile>();
+		numMaxFollowers = 0;
 	}
 	
 	/**
@@ -53,9 +55,8 @@ public class DatasetParser {
 				String userName = userInfo.getString("name");
 				String userAvatar = userInfo.getString("profile_image_url");
 				
-				//PARSE USERNAME AND IMAGE
-				//profile_image_url
-				//name
+				if(userFollowers > numMaxFollowers)
+					numMaxFollowers = userFollowers;
 				
 				//creationDate, id, text, userId, userFollowers
 				Tweet t = new Tweet(convertStringToDate(creationDate), Long.parseLong(id), text, Long.parseLong(userId), userFollowers, userName, userAvatar);
@@ -86,8 +87,6 @@ public class DatasetParser {
         
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date(solvedDate));
-        
-        //System.out.println(calendar.getTime().toString());
         
         return calendar;
 	}
