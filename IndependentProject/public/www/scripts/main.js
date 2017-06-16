@@ -227,11 +227,10 @@ function showNYTNews(results, query){
 //          START OF REDDIT FETCH
 //=============================================
 function getRedditNews(beginDate, endDate, query){
-	var a = new Date();
-	var b = a.getTime() - endDate;
-	var c = new Date(b);
+	var q_with_timestamp = "(and '" + query + "' (and+timestamp%3A" + beginDate + ".." + endDate + "))";
+
 	var API_URL = "https://www.reddit.com/r/news/search.json?";
-	var PARAMETERIZED_URL = API_URL + "q=" + query + "&sort=" + "relevance" + "&limit=" + 10;
+	var PARAMETERIZED_URL = API_URL + "q=" + q_with_timestamp + "&sort=" + "relevance" + "&syntax=cloudsearch";
 
 	var results = "";
 	$.ajax({
@@ -260,8 +259,8 @@ function showRedditNews(results, query){
 		title.innerText = element.title;
 
 		var date = document.createElement("p");
-		var aux = new Date(element.created);
-		var month = aux.getMonth() + 1;
+		var aux = new Date(element.created * 1000);
+		var month = aux.getMonth();
 
 		date.innerText = "Created at " + aux.getDate() + "/" + month + "/" + aux.getFullYear();
 
@@ -302,7 +301,7 @@ function showRedditNews(results, query){
 
 
 //=============================================
-//          START OF GUARDIAN FETCH
+//              END OF ALL FETCH
 //=============================================
 function cleanOtherSources(query){
 	var resultsDiv = document.getElementById("otherResults");
@@ -321,6 +320,8 @@ $(document).ready(function() {
 	var results = getResults();
 
 	var beginDate = "2016-08-02";
+	var beginDateObj = new Date(2016, 08, 02, 0, 0, 0, 0);
+	var beginDateTimestamp = beginDateObj.getTime() / 1000;
 
 	$('#myform').on("submit", function(evt){
 		evt.preventDefault();
@@ -331,7 +332,12 @@ $(document).ready(function() {
 		showResults(matchedResults);
 
 		var query = formParameters[2];
+
 		var endDate = formParameters[1];
+		var endDateSplitted = endDate.split("-");
+		var endDateObj = new Date(endDateSplitted[0], endDateSplitted[1], endDateSplitted[2], 23, 59, 59, 0);
+		var endDateTimestamp = endDateObj.getTime() / 1000;
+
 		cleanOtherSources(query);
 
 		//get guardian results
@@ -343,7 +349,7 @@ $(document).ready(function() {
 		showNYTNews(nytResults);
 
 		//get reddit results
-		var redditResults = getRedditNews(beginDate, endDate, query);
+		var redditResults = getRedditNews(beginDateTimestamp, endDateTimestamp, query);
 		showRedditNews(redditResults);
 
 		console.log(redditResults);
