@@ -56,7 +56,7 @@ public class SocialMediaSummarization {
 
 				// write to file the results
 				FileHandler fh = new FileHandler();
-				fh.writeFile(searchResults, "docs/results/" + config + "_" + similarity.getClass().getSimpleName() + ".txt");
+				fh.writeFile(searchResults, "docs/results/" + config + "_" + similarity.getClass().getSimpleName() + "_WITH_NUM_FOLLOWERS_90PERCENT");
 
 				i++;
 			}

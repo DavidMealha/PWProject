@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
+import org.apache.lucene.document.DoublePoint;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.LongPoint;
 import org.apache.lucene.document.StoredField;
@@ -115,7 +116,7 @@ public class IndexHandler {
 					doc.add(new StoredField("userId", t.getUserId()));
 					
 					// Extract field userFollowers
-					doc.add(new LongPoint("userFollowers", t.getUserFollowers()));
+					doc.add(new DoublePoint("userFollowers", t.getUserFollowers()));
 					doc.add(new StoredField("userFollowers", t.getUserFollowers()));
 					
 					// Extract username text

@@ -6,11 +6,21 @@ public class Tweet {
 	private long id;
 	private String text;
 	private long userId;
-	private long userFollowers;
+	private double userFollowers;
 	private String userName;
 	private String userAvatar;
 	
 	public Tweet(Calendar creationDate, long id, String text, long userId, long userFollowers, String userName, String userAvatar) {
+		this.creationDate = creationDate;
+		this.id = id;
+		this.text = text;
+		this.userId = userId;
+		this.userFollowers = userFollowers;
+		this.userAvatar = userAvatar;
+		this.userName = userName;
+	}
+	
+	public Tweet(Calendar creationDate, long id, String text, long userId, double userFollowers, String userName, String userAvatar) {
 		this.creationDate = creationDate;
 		this.id = id;
 		this.text = text;
@@ -52,11 +62,11 @@ public class Tweet {
 		this.userId = userId;
 	}
 
-	public long getUserFollowers() {
+	public double getUserFollowers() {
 		return userFollowers;
 	}
 
-	public void setUserFollowers(int userFollowers) {
+	public void setUserFollowers(double userFollowers) {
 		this.userFollowers = userFollowers;
 	}
 

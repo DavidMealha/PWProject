@@ -20,7 +20,7 @@ public class DatasetParser {
 	
 	private ArrayList<Tweet> tweetsParsed;
 	private ArrayList<InterestProfile> profilesParsed;
-	private int numMaxFollowers;
+	public int numMaxFollowers;
 	
 	
 	public DatasetParser() {
@@ -67,8 +67,15 @@ public class DatasetParser {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		normalizeNumFollowers();
 
 		return tweetsParsed;
+	}
+	
+	private void normalizeNumFollowers(){
+		for(Tweet t: tweetsParsed){
+			t.setUserFollowers(t.getUserFollowers()/numMaxFollowers);
+		}
 	}
 	
 	/**
