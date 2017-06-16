@@ -42,7 +42,7 @@ function handleForm(){
 	var selectedOption = select.options[select.selectedIndex];
 
 	var selectedDate = document.getElementById("date").value;
-	return [selectedOption.id, changeDateFormat(selectedDate), selectedOption.text];
+	return [selectedOption.id, selectedDate, selectedOption.text];
 }
 
 function changeDateFormat(date){
@@ -51,8 +51,10 @@ function changeDateFormat(date){
 
 function matchResults(results, formParameters){
 	var matchedResults = [];
+	var inputDate = changeDateFormat(formParameters[1]);
+
 	results.forEach(function(element, index, results){
-		if (element.date == formParameters[1] && element.profileId == formParameters[0]) {
+		if (element.date == inputDate && element.profileId == formParameters[0]) {
 			matchedResults.push(element);
 		}
 	});
@@ -92,7 +94,8 @@ function getGuardianNews(date, query){
 	var API_URL = "https://content.guardianapis.com/search?";
 	var API_KEY = "93003d8b-1d93-43dd-98c6-1978823de3e5";
 	var pageSize = 2;
-	var PARAMETERIZED_URL = API_URL + "q=" + query + "&api-key=" + API_KEY + "&page-size=" + pageSize;
+	var begin_date = "2016-08-02";
+	var PARAMETERIZED_URL = API_URL + "q=" + query + "&api-key=" + API_KEY + "&page-size=" + pageSize + "&from-date=" + begin_date + "&to-date=" + date;
 
 	var results = "";
 	$.ajax({
