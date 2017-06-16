@@ -90,12 +90,11 @@ function showResults(matchedResults){
 //=============================================
 //          START OF GUARDIAN FETCH
 //=============================================
-function getGuardianNews(date, query){
+function getGuardianNews(beginDate, date, query){
 	var API_URL = "https://content.guardianapis.com/search?";
 	var API_KEY = "93003d8b-1d93-43dd-98c6-1978823de3e5";
 	var pageSize = 2;
-	var begin_date = "2016-08-02";
-	var PARAMETERIZED_URL = API_URL + "q=" + query + "&api-key=" + API_KEY + "&page-size=" + pageSize + "&from-date=" + begin_date + "&to-date=" + date;
+	var PARAMETERIZED_URL = API_URL + "q=" + query + "&api-key=" + API_KEY + "&page-size=" + pageSize + "&from-date=" + beginDate + "&to-date=" + date;
 
 	var results = "";
 	$.ajax({
@@ -160,10 +159,10 @@ function showGuardianNews(results, query){
 //=============================================
 //          START OF NYT FETCH
 //=============================================
-function getNYTNews(date, query){
+function getNYTNews(beginDate, date, query){
 	var API_URL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?";
 	var API_KEY = "73f50ced28d64b14b5f82bac01d1a899";
-	var PARAMETERIZED_URL = API_URL + "q=" + query + "&api-key=" + API_KEY + "&sort=" + "newest";
+	var PARAMETERIZED_URL = API_URL + "q=" + query + "&api-key=" + API_KEY + "&sort=newest&begin_date=" + changeDateFormat(beginDate) + "&end_date=" + changeDateFormat(date);
 
 	var results = "";
 	$.ajax({
@@ -227,7 +226,10 @@ function showNYTNews(results, query){
 //=============================================
 //          START OF REDDIT FETCH
 //=============================================
-function getRedditNews(date, query){
+function getRedditNews(beginDate, endDate, query){
+	var a = new Date();
+	var b = a.getTime() - endDate;
+	var c = new Date(b);
 	var API_URL = "https://www.reddit.com/r/news/search.json?";
 	var PARAMETERIZED_URL = API_URL + "q=" + query + "&sort=" + "relevance" + "&limit=" + 10;
 
@@ -302,7 +304,6 @@ function showRedditNews(results, query){
 //=============================================
 //          START OF GUARDIAN FETCH
 //=============================================
-
 function cleanOtherSources(query){
 	var resultsDiv = document.getElementById("otherResults");
 	$(resultsDiv).empty();
@@ -319,6 +320,8 @@ $(document).ready(function() {
 	addProfilesToSelect(profiles);
 	var results = getResults();
 
+	var beginDate = "2016-08-02";
+
 	$('#myform').on("submit", function(evt){
 		evt.preventDefault();
 		var formParameters = handleForm();			
@@ -328,18 +331,19 @@ $(document).ready(function() {
 		showResults(matchedResults);
 
 		var query = formParameters[2];
+		var endDate = formParameters[1];
 		cleanOtherSources(query);
 
 		//get guardian results
-		var guardianResults = getGuardianNews(formParameters[1], query);
+		var guardianResults = getGuardianNews(beginDate, endDate, query);
 		showGuardianNews(guardianResults, query);
 
 		//get nyt results
-		var nytResults = getNYTNews(date, query);
+		var nytResults = getNYTNews(beginDate, endDate, query);
 		showNYTNews(nytResults);
 
 		//get reddit results
-		var redditResults = getRedditNews(date, query);
+		var redditResults = getRedditNews(beginDate, endDate, query);
 		showRedditNews(redditResults);
 
 		console.log(redditResults);
