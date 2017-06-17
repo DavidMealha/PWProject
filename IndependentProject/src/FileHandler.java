@@ -66,7 +66,7 @@ public class FileHandler {
 //		jsonWriter.writeArray(arrayJson);
 //		jsonWriter.close();
 //		
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter("docs/results.json"))) {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(path + ".json"))) {
 			bw.write(arrayJson.toString());
 
 			System.out.println("Done JSON");

@@ -9,8 +9,9 @@ public class Tweet {
 	private double userFollowers;
 	private String userName;
 	private String userAvatar;
+	private String userVerified;
 	
-	public Tweet(Calendar creationDate, long id, String text, long userId, long userFollowers, String userName, String userAvatar) {
+	public Tweet(Calendar creationDate, long id, String text, long userId, long userFollowers, String userName, String userAvatar, String verified) {
 		this.creationDate = creationDate;
 		this.id = id;
 		this.text = text;
@@ -18,9 +19,10 @@ public class Tweet {
 		this.userFollowers = userFollowers;
 		this.userAvatar = userAvatar;
 		this.userName = userName;
+		this.userVerified = verified;
 	}
 	
-	public Tweet(Calendar creationDate, long id, String text, long userId, double userFollowers, String userName, String userAvatar) {
+	public Tweet(Calendar creationDate, long id, String text, long userId, double userFollowers, String userName, String userAvatar, String verified) {
 		this.creationDate = creationDate;
 		this.id = id;
 		this.text = text;
@@ -28,6 +30,7 @@ public class Tweet {
 		this.userFollowers = userFollowers;
 		this.userAvatar = userAvatar;
 		this.userName = userName;
+		this.userVerified = verified;
 	}
 
 	public Calendar getCreationDate() {
@@ -88,6 +91,14 @@ public class Tweet {
 
 	public void setUserFollowers(long userFollowers) {
 		this.userFollowers = userFollowers;
+	}
+
+	public String getUserVerified() {
+		return userVerified;
+	}
+
+	public void setUserVerified(String userVerified) {
+		this.userVerified = userVerified;
 	}
 
 	@Override

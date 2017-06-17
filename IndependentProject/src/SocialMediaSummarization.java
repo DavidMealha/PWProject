@@ -39,7 +39,6 @@ public class SocialMediaSummarization {
 
 		// ======= FOR TEST PURPOSE =========
 
-		int i = 0;
 		for (String config: Utils.TEST_CASES) {
 			for (Similarity similarity : similarities) {
 
@@ -56,9 +55,8 @@ public class SocialMediaSummarization {
 
 				// write to file the results
 				FileHandler fh = new FileHandler();
-				fh.writeFile(searchResults, "docs/results/" + config + "_" + similarity.getClass().getSimpleName() + "_WITH_NUM_FOLLOWERS_90PERCENT");
+				fh.writeFile(searchResults, "docs/results/" + config + "_" + similarity.getClass().getSimpleName() + "_WITH_NUM_FOLLOWERS_90PERCENT_AND_VERIFIED");
 
-				i++;
 			}
 		}
 		long finalTime = System.currentTimeMillis() - initTime;

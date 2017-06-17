@@ -23,8 +23,6 @@ import org.apache.lucene.search.similarities.Similarity;
 import org.apache.lucene.store.FSDirectory;
 
 public class SearchHandler {
-
-	private int numMaxFollowers;
 	
 	public SearchHandler() {}
 	
@@ -87,13 +85,17 @@ public class SearchHandler {
 				String creationDate = doc.get("creationDate");
 				String userName = doc.get("userName");
 				String userAvatar = doc.get("userAvatar");
+				boolean userVerified = Boolean.parseBoolean(doc.get("userVerified"));
 				
 				long creationDateTimestamp = Long.parseLong(creationDate);
 				Calendar tweetCreationDate = Calendar.getInstance();
 				tweetCreationDate.setTimeInMillis(creationDateTimestamp);
 				
 				//calculation of the new score, accounting the nr of followers can go here!
-				float newScore = (float) ((0.1 * hits[j].score) + (0.9 * Double.parseDouble(userFollowers))); 
+				int extraScore = 0;
+				if(userVerified)
+					extraScore = 1;
+				float newScore = (float) ((0.1 * hits[j].score) + (0.9 * Double.parseDouble(userFollowers))) + extraScore; 
 				
 				if (Utils.areDatesEqual(tweetCreationDate, tweetDate)) {
 					queryResults.add(new Result(tweetCreationDate.getTime(), profile.getTopId(), tweetId, j+1, newScore, "Lab-0", tweetBody, userId, userName, userAvatar, userFollowers));

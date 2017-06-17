@@ -54,12 +54,13 @@ public class DatasetParser {
 				int userFollowers = userInfo.getInt("followers_count");
 				String userName = userInfo.getString("name");
 				String userAvatar = userInfo.getString("profile_image_url");
+				String verified = userInfo.getBoolean("verified") + "";
 				
 				if(userFollowers > numMaxFollowers)
 					numMaxFollowers = userFollowers;
 				
 				//creationDate, id, text, userId, userFollowers
-				Tweet t = new Tweet(convertStringToDate(creationDate), Long.parseLong(id), text, Long.parseLong(userId), userFollowers, userName, userAvatar);
+				Tweet t = new Tweet(convertStringToDate(creationDate), Long.parseLong(id), text, Long.parseLong(userId), userFollowers, userName, userAvatar, verified);
 				tweetsParsed.add(t);
 				
 				line = br.readLine();

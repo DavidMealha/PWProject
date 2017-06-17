@@ -125,6 +125,9 @@ public class IndexHandler {
 					// Extract userAvatar text
 					doc.add(new TextField("userAvatar", t.getUserAvatar(), Field.Store.YES));
 					
+					//Add account verified to the index
+					doc.add(new TextField("userVerified", t.getUserVerified(), Field.Store.YES));
+					
 					// Add the document to the index
 					if (idx.getConfig().getOpenMode() == OpenMode.CREATE) {						
 						idx.addDocument(doc);
