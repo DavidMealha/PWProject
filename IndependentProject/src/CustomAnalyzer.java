@@ -26,21 +26,8 @@ import org.apache.lucene.analysis.ngram.EdgeNGramTokenFilter;
 import org.apache.lucene.analysis.ngram.NGramTokenFilter;
 import org.apache.lucene.analysis.shingle.ShingleFilter;
 
-/**
- * @author jmag
- *
- */
 public class CustomAnalyzer extends StopwordAnalyzerBase {
 
-	/**
-	 * An unmodifiable set containing some common English words that are not
-	 * usually useful for searching.
-	 */
-//	static List<String> stopWords = Arrays.asList("a", "an", "and", "are", "as", "at", "be", "but", "by", "for", "if",
-//			"in", "into", "is", "it", "no", "not", "of", "on", "or", "such", "that", "the", "their", "then", "there",
-//			"these", "they", "this", "to", "was", "will", "with", "you", "use", "can", "i", "have", "your", "from", 
-//			"more", "some", "other", "than", "also", "about");
-	
 	static List<String> stopWords = Arrays.asList("to", "the", "in", "and", "a", "of", "for", "is", "on",
 			"the", "at", "it", "from", "the", "i", "be", "from", "be", "are", "my", "this", "by", "that");
 	

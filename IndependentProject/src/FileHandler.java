@@ -1,16 +1,12 @@
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
 
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
-import javax.json.JsonWriter;
 
 public class FileHandler {
 	
@@ -55,17 +51,6 @@ public class FileHandler {
 		}
 		JsonArray arrayJson = array.build();
 		
-//		OutputStream os = null;
-//		try {
-//			os = new FileOutputStream("docs/results.json");
-//		} catch (FileNotFoundException e1) {
-//			e1.printStackTrace();
-//		}
-//		JsonWriter jsonWriter = Json.createWriter(os);
-//		
-//		jsonWriter.writeArray(arrayJson);
-//		jsonWriter.close();
-//		
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(path + ".json"))) {
 			bw.write(arrayJson.toString());
 

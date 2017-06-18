@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.lucene.analysis.Analyzer;
@@ -120,6 +119,11 @@ public class SearchHandler {
 		return null;
 	}
 	
+	/**
+	 * Reorder results taking account the number of followers and returns only 10 results
+	 * @param queryResults
+	 * @return
+	 */
 	public List<Result> getBestScores(List<Result> queryResults) {
 		Collections.sort(queryResults, new Comparator<Result>() {
 		    @Override
@@ -144,10 +148,4 @@ public class SearchHandler {
 		return newResults;
 	}
 	
-	/**
-	 * Reorder results taking account the number of followers
-	 */
-	private void reorderResults(){
-		
-	}
 }

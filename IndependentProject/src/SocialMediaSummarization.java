@@ -29,15 +29,11 @@ public class SocialMediaSummarization {
 		// Queries
 		ArrayList<InterestProfile> profiles = dp.readProfiles();
 
-		// ======= FOR TEST PURPOSE =========
-
 		ArrayList<Similarity> similarities = new ArrayList<Similarity>();
 		//similarities.add(new ClassicSimilarity());
 		similarities.add(new BM25Similarity());
 		//similarities.add(new LMDirichletSimilarity());
 		//similarities.add(new LMJelinekMercerSimilarity(0.5f));
-
-		// ======= FOR TEST PURPOSE =========
 
 		for (String config: Utils.TEST_CASES) {
 			for (Similarity similarity : similarities) {
