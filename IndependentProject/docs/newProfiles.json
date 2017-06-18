@@ -98,17 +98,5 @@
     "title" : "Donald Trump and Mike Pence policy differences",
     "description" : "Find information about policy differences between the Republican presidential candidate Donald Trump and his running mate Mike Pence.",
     "narrative" : "The user is interested in policy differences between Donald Trump and Mike Pence: attempts at reconciling their differences, reactions from the public, other politicians, donors, etc."
-  },
-  {
-    "topid" : "NEW1",
-    "title" : "Europe Cup Portugal",
-    "description" : "Portugal Soccer team won the european cup 2016 against France in Paris.",
-    "narrative" : ""
-  },
-  {
-    "topid" : "NEW2",
-    "title" : "MEO Sudoeste",
-    "description" : "This music festival occurs in Zambujeira do Mar, Portugal. Between the days 3 and 7 of August, with such artis like Steve Aoki, Kura, Martin Garrix",
-    "narrative" : ""
   }
 ]
