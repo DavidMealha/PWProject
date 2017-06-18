@@ -61,7 +61,8 @@ public class SearchHandler {
 			
 			Query query = null;
 			try {
-				query = parser.parse(QueryParser.escape(profile.getDescription()));
+				//here we can use as query the title, the description, or both..
+				query = parser.parse(QueryParser.escape(profile.getTitle()));
 			
 				} catch (org.apache.lucene.queryparser.classic.ParseException e) {
 				System.out.println("Error parsing query string.");
@@ -92,13 +93,13 @@ public class SearchHandler {
 				tweetCreationDate.setTimeInMillis(creationDateTimestamp);
 				
 				//calculation of the new score, accounting the nr of followers can go here!
-				int extraScore = 0;
-				if(userVerified)
-					extraScore = 1;
-				float newScore = (float) ((0.1 * hits[j].score) + (0.9 * Double.parseDouble(userFollowers))) + extraScore; 
+//				int extraScore = 0;
+//				if(userVerified)
+//					extraScore = 1;
+//				float newScore = (float) ((0.1 * hits[j].score) + (0.9 * Double.parseDouble(userFollowers))) + extraScore; 
 				
 				if (Utils.areDatesEqual(tweetCreationDate, tweetDate)) {
-					queryResults.add(new Result(tweetCreationDate.getTime(), profile.getTopId(), tweetId, j+1, newScore, "Lab-0", tweetBody, userId, userName, userAvatar, userFollowers));
+					queryResults.add(new Result(tweetCreationDate.getTime(), profile.getTopId(), tweetId, j+1, hits[j].score, "Lab-0", tweetBody, userId, userName, userAvatar, userFollowers));
 				}
 			}
 			reader.close();

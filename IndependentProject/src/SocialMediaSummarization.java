@@ -32,10 +32,10 @@ public class SocialMediaSummarization {
 		// ======= FOR TEST PURPOSE =========
 
 		ArrayList<Similarity> similarities = new ArrayList<Similarity>();
-		//similarities.add(new ClassicSimilarity());
+		similarities.add(new ClassicSimilarity());
 		similarities.add(new BM25Similarity());
-		//similarities.add(new LMDirichletSimilarity());
-		//similarities.add(new LMJelinekMercerSimilarity(0.5f));
+		similarities.add(new LMDirichletSimilarity());
+		similarities.add(new LMJelinekMercerSimilarity(0.5f));
 
 		// ======= FOR TEST PURPOSE =========
 
@@ -55,7 +55,7 @@ public class SocialMediaSummarization {
 
 				// write to file the results
 				FileHandler fh = new FileHandler();
-				fh.writeFile(searchResults, "docs/results/" + config + "_" + similarity.getClass().getSimpleName() + "_WITH_NUM_FOLLOWERS_90PERCENT_AND_VERIFIED");
+				fh.writeFile(searchResults, "docs/results/" + "QUERY_TITLE_"  +  config + "_" + similarity.getClass().getSimpleName());
 
 			}
 		}
