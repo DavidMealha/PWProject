@@ -16,7 +16,7 @@ public class FileHandler {
 	
 	public void writeFile(List<Result> results, String path){
 		writeTrecFormat(results, path);
-		//writeJSONFormat(results, path);	
+		writeJSONFormat(results, path);	
 	}
 	
 	private void writeTrecFormat(List<Result> results, String path){

@@ -62,7 +62,8 @@ public class SearchHandler {
 			Query query = null;
 			try {
 				//here we can use as query the title, the description, or both..
-				query = parser.parse(QueryParser.escape(profile.getTitle() + profile.getDescription()));
+				//query = parser.parse(QueryParser.escape(profile.getTitle() + profile.getDescription()));
+				query = parser.parse(QueryParser.escape(profile.getTitle()));
 			
 				} catch (org.apache.lucene.queryparser.classic.ParseException e) {
 				System.out.println("Error parsing query string.");
@@ -92,7 +93,8 @@ public class SearchHandler {
 				Calendar tweetCreationDate = Calendar.getInstance();
 				tweetCreationDate.setTimeInMillis(creationDateTimestamp);
 				
-				//calculation of the new score, accounting the nr of followers can go here!
+				//calculation of the new score
+				//gives an extra point if the account is verified
 				int extraScore = 0;
 				if(userVerified)
 					extraScore = 1;
