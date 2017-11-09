@@ -92,7 +92,7 @@ function showResults(matchedResults){
 //=============================================
 function getGuardianNews(beginDate, date, query){
 	var API_URL = "https://content.guardianapis.com/search?";
-	var API_KEY = "93003d8b-1d93-43dd-98c6-1978823de3e5";
+	var API_KEY = "API_KEY";
 	var pageSize = 2;
 	var PARAMETERIZED_URL = API_URL + "q=" + query + "&api-key=" + API_KEY + "&page-size=" + pageSize + "&from-date=" + beginDate + "&to-date=" + date;
 
@@ -161,7 +161,7 @@ function showGuardianNews(results, query){
 //=============================================
 function getNYTNews(beginDate, date, query){
 	var API_URL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?";
-	var API_KEY = "73f50ced28d64b14b5f82bac01d1a899";
+	var API_KEY = "API_KEY";
 	var PARAMETERIZED_URL = API_URL + "q=" + query + "&api-key=" + API_KEY + "&sort=newest&begin_date=" + changeDateFormat(beginDate) + "&end_date=" + changeDateFormat(date);
 
 	var results = "";
